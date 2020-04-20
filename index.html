@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	    <meta name="description" content="Al-Aflaz Kiddies School, islamic school, abuja islamic school, lugbe airport road">
+		<meta name="author" content="Al Aflaz Kiddies School">
+		<link rel="shortcut icon" href="../images/logo.jpg">
+		<!-- Fontawesome CSS -->
+	    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+	    <!-- Bootstrap CSS -->
+		<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+		<!-- Material Design Bootstrap -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+		<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+		<!-- Add animations -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+		<!-- end add animations -->
+	    <!-- Main css -->
+	    <style type="text/css">
+	    	/*Main page style by message*/
+			@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+			:root{
+				--primary-color: #091429;
+				--secondary-color: #0ABAB5;
+				--dark-color: #262626;
+				--light-color: #B1B1B1;
+			}
+			   /****************************/
+			  /*------- main styles ------*/
+			 /****************************/
+			html{
+				scroll-behavior: smooth;
+			}
+			body{
+				font-family: 'Open Sans', sans-serif !important;
+				font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)))  !important;
+			}
+			h1,
+			.h1{
+			  	font-weight: 600 !important;
+				font-size: 3.5rem;
+			  	font-size: calc(38px + 4 * (100vw - 767px) / 700);
+			  	line-height: 120% !important;
+				vertical-align: top !important;
+			}
+			h2,
+			.h2 {
+			  	font-size: 3.2rem;
+			  	font-size: calc(28px + 4 * (100vw - 767px) / 700);
+			  	font-weight: 700;
+			}
+			h3,
+			.h3 {
+			  	font-size: 2rem !important;
+			  	font-size: calc(24px + 4 * (100vw - 767px) / 700) !important;
+			  	font-weight: 600 !important;
+				line-height: 150% !important;
+
+			}
+			h4,
+			.h4 {
+			  font-size: 1.6rem;
+			}
+			h5,
+			.h5 {
+			  	font-size: 1.2rem;
+				font-weight: 700 !important;
+				line-height: 150% !important;
+			}
+			h6,
+			.h6 {
+			  font-size: 1.4rem;
+			}
+			p{
+				font-size: 16px !important;
+				font-weight: normal;
+				line-height: 32px;
+			}
+			p.bold{
+				font-size: 18px !important;
+				font-weight: 700;
+				line-height: 32px;
+			}
+			.text-primary{
+				color: var(--primary-color) !important;
+			}
+			.text-secondary{
+				color: var(--secondary-color) !important;
+			}
+			.text-dark{
+				color: var(--dark-color) !important;
+			}
+			.text-light{
+				color: var(--light-color) !important;
+			}
+			.bg-primary{
+				background-color: var(--primary-color) !important;
+			}
+			.bg-secondary{
+				background-color: var(--secondary-color) !important;
+			}
+			.bg-light{
+				background-color: var(--light-color) !important;
+			}
+			.bg-dark{
+				background-color: var(--dark-color) !important;
+			}
+			.btn{
+				border: none !important;
+				display: inline-block;
+				position: relative;
+				overflow: hidden;
+				transition: all ease-in-out .5s;
+			}
+			
+			.btn::after {
+				content: "";
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 25%;
+				height: 100%;
+				width: 40%;
+				background-color: #000;
+				border-radius: 50%;
+				opacity: 0;
+				pointer-events: none;
+				transition: all ease-in-out 1s;
+				transform: scale(5, 5);
+			}
+			.btn:active::after {
+				padding: 0;
+				margin: 0;
+				opacity: .2;
+				transition: 0s;
+				transform: scale(0, 0);
+			}
+			.btn-primary{
+				background-color: var(--primary-color) !important;
+			}
+			.btn-secondary{
+				background-color: var(--secondary-color) !important;
+			}
+			.btn-primary-outline{
+				background-color: transparent !important;
+				color: var(--primary-color)  !important;
+				border: 1px solid var(--primary-color)  !important;
+			}
+			.btn-secondary-outline{
+				background-color: transparent !important;
+				color: white  !important;
+				border: 2px solid white  !important;
+			}
+			.btn-primary:hover, .btn-secondary:hover, .btn-primary-outline:hover, .btn-secondary-secondary:hover{
+				border-color: inherit !important;
+				opacity: 0.8 !important;
+			}
+
+			.fas{
+				font-size: xx-large;
+    			color: #10b541 !important;
+
+			}
+
+			/* .breath{
+				animation-name: breath;
+    animation-duration: 2s;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+			}
+			@keyframes breath {
+	0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);}	
+	40% {-webkit-transform: translateY(-15px);}
+	
+} */
+
+
+			   /****************************/
+			  /*-----Landing Page---------*/
+			 /****************************/
+			/*------Navbar------------*/
+			.navbar-main {
+			    background-color: var(--primary-color);
+			}
+			.navbar-main .navbar-brand,
+			.navbar-main .navbar-text {
+			    color: rgba(255, 255, 255, 0.9);
+			}
+			.navbar-main .navbar-nav .nav-link {
+				font-size: 1rem;
+			    color: #4ddb70;
+			    font: 15px sans-serif;
+			}
+			.navbar-main .nav-item.active .nav-link,
+			.navbar-main .nav-item:hover .nav-link {
+			    color: #30a14c;
+			}
+			/* for navbar toggler design */
+			.icon-bar {
+				width: 22px; 
+				height: 2px;
+				background-color: #B6B6B6;
+				display: block;
+				transition: all 0.2s;
+				margin-top: 4px
+			}
+			.navbar-toggler {
+			  border: none;
+			  background: transparent !important;
+			}
+			.navbar-toggler:focus{
+				outline: none !important;
+			}
+			/* navbar toggler animation*/
+			.navbar-toggler .top-bar {
+			  transform: rotate(45deg);
+			  transform-origin: 10% 10%;
+			} 
+			.navbar-toggler .middle-bar {
+			  opacity: 0;
+			} 
+			.navbar-toggler .bottom-bar {
+			  transform: rotate(-45deg);
+			  transform-origin: 10% 90%;
+			}
+			.navbar-toggler.collapsed .top-bar {
+			  transform: rotate(0);
+			} 
+			.navbar-toggler.collapsed .middle-bar {
+			  opacity: 1;
+			}
+			.navbar-toggler.collapsed .bottom-bar {
+			  transform: rotate(0);
+			}
+			/*-----------footer list--------*/
+			.list-unstyled li a{
+				font-size: 17px !important;
+				transition: 0.25s !important;
+				font-style: normal;
+				font-weight: normal;
+			}
+			.list-unstyled li a:hover{
+				color: gray !important;
+				text-decoration: none;
+			}
+			.text-head{
+        color: #7aff33;
+        text-shadow: 1px 1px 3px black;
+        font-weight: bold; 
+        margin-top: 10px;
+        font-size: 
+      }
+			/*-----------Other styles--------*/
+			.index-sec{
+        margin-top: 5.4em;
+      }
+			.carousalhead{
+				color: #fff;
+        		text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+        		font: 40px sans-serif;
+			}
+			.carouselcolor{
+				color: red;
+			}
+			p.double {border-style: none none double none;
+						color: #3892f2;
+						padding-bottom: 10px;
+			}
+			.card-color{
+				background-color: #dffac5;
+			}
+			.card-title-color{
+				color: #278024;
+			}
+			.card-text-color{
+				color: #10b541;
+				font: sans-serif;
+			}
+			.bg-cardinal{
+				background-color: #047525;
+			}
+			.btn-card{
+				background-color: #10b541;
+				color: white;
+			}
+			.arrow{
+				color: #10b541;
+			}
+			/*dropdown features*/
+			
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  width: 160px;
+  height: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  font-size: 14px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 3px 18px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+/*dropdown features ends*/
+			@media only screen and (min-width: 900px) {
+  .img-carousel {
+   height: 500px;
+  }
+  .gif-img{
+  	height: 400px;
+  	width: 540px;
+  }
+}
+	    </style>
+		<title>Al Aflaz Kiddies</title>
+	</head>
+	<body>
+		<header>
+			<nav class="navbar fixed-top navbar-expand-lg navbar-main bg-white">
+				<div class="container">
+					<a class="navbar-brand" href="index.html">
+						<img src="../images/logo1.svg" alt="logo" class="img img-responsive" height="100" width="100">
+					</a>
+					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="icon-bar top-bar"></span>
+						<span class="icon-bar middle-bar"></span>
+						<span class="icon-bar bottom-bar"></span>
+						<!-- <span class="navbar-toggler-icon"><i class="fa fa-bars fa-lg py-1 text-white"></i></span> -->
+					</button>
+					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+						<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+							<li class="nav-item active">
+								<a class="nav-link" href="index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="about.html" data-toggle="tooltip" data-placement="bottom"  title="About Us">About Us</a>
+							</li>
+							
+						<li class="nav-item dropdown">
+                <!-- <a class="nav-link" href="academics.html" data-toggle="tooltip" data-placement="bottom"  title="Academics">Academics</a> -->
+
+    					<a class="nav-link dropdown-toggle" href="academics.html" role="button" 
+   						 aria-haspopup="true" aria-expanded="true" data-toggle="tooltip" data-placement="right"  title="Academics">Academics</a>
+    					<div class="dropdown-content">
+     					<a class="" href="#">Admission</a>
+     					<a class="" href="#">Islamiyyah Section</a>
+      					<a class="" href="#">Results</a>
+      					<!-- <a class="" href="#">Something else here</a>
+      					<div class="dropdown-divider"></div>
+      					<a class="" href="#">Separated link</a> -->
+    					</div>
+  						</li>
+							<!-- </li> -->
+							<li class="nav-item">
+								<a class="nav-link" href="events.html" data-toggle="tooltip" data-placement="bottom"  title="Events">Events</a>
+							</li> 
+							<li class="nav-item">
+								<a class="nav-link" href="contacts.html" data-toggle="tooltip" data-placement="bottom"  title="Contacts">Contacts</a>
+							</li>                              
+						</ul>
+
+					</div>
+					
+				</div>
+				
+			</nav>
+
+						<!--<marquee>NURTURING FOR EXCELLENCE IN BOTH WORLDS</marquee>-->
+				<!--Carousel begins-->
+			<div id="carouselExampleCaptions" class="carousel slide index-sec" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+   
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../images/img7.jpg"  alt="lerning path"  class="d-block w-100 img img-responsive img-carousel" >
+      <div class="carousel-caption d-none d-md-block ">
+        <h3 class="carousalhead">LEARNING PATHS</h3>
+        <p>A conducive environment built to improve the learning experience of our future leaders. </p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="../images/img8.jpg"  alt="effective tools" class="d-block w-100 img img-responsive img-carousel" >
+      <div class="carousel-caption d-none d-md-block ">
+        <h3 class="carousalhead">EFFECTIVE TOOLS</h5>
+        <p>Learning with right tools helps with positive results. Our teaching aids are detailed, conceptualized, effective and result oriented.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="../images/img3.jpg"  alt="paying attention"  class="d-block w-100 img img-responsive img-carousel" >
+      <div class="carousel-caption d-none d-md-block ">
+        <h3 class="carousalhead">PAYING ATTENTION</h5>
+        <p>Having a focused mind and paying attention to simple details goes a long way.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="../images/img9.jpg" alt="islamiyyah"  class="d-block w-100 img img-responsive img-carousel" >
+      <div class="carousel-caption d-none d-md-block carouselcolor ">
+        <h3 class="carousalhead">ISLAMIYYAH</h5>
+        <p>Learning Islam from those with indept knowledge.</p>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div><!-- carousel ends -->
+		</header>
+		<section id="section-id-1579638807800" class="sppb-section  double_border_bottom"  ><div class="sppb-row-container"><div class="sppb-row"><div class="sppb-col-md-6"><div id="column-id-1579638807801" class="sppb-addon-container" ><div id="sppb-addon-1579638807804" class="clearfix" ><div class="sppb-addon sppb-addon-alert ">
+		<main>
+			
+		  	<section class="mt-5 mb-5 pt-5">
+		  		<div class="container">
+		  			<div class="row">
+		  				<div class="col-md-6">
+		  					<div class="text-left animated bounce">
+		  						<h3 class="text-head">Nurturing for Excellence</h3>
+			  					<p class="text-dark small">
+			  						Al Aflaz kiddies school nurtures future leaders with both spiritual and mundane knowledge. Which is signified in our motto:  <b>Nurturing for excellence in both worlds.</b>  We build kids that are morally, intellectually, spiritually and educationally sound. This goal is achieved in a serene environment and delivered by our well trained and qualified teachers. 
+			  					</p>
+			  					<p class="text-dark small">
+			  						Our curriculum is Nigerian-British-Islamic based built by professionals with the intent of providing our pupils with a well-rounded background and thus making them excel as they forge ahead in life. Our targets are set with a high focus on achieving them.
+			  					</p>
+			  					<p class="text-dark my-4">
+						        	<a href="about.html" target="" class="btn btn-card btn-lg py-2" data-aos="fade-right">Read more...</a>	
+						      	</p>
+		  					</div>
+		  				</div>
+		  				<div class="col-md-6">
+		  					<div class="text-center">
+		  						<h3 class="text-head">Kids Play</h3>
+		  						<img src="../images/img4.jpg" alt="kids Play" class="img img-responsive" data-aos="fade-left" height="auto" width="100%">
+		  						
+		  					</div>
+		  				</div>
+		  			</div>
+		  		</div>
+		  		<div class="container"> 
+		  			<p class="double"></p>
+		  		</div>
+		  		<div class="container"> 
+		  			<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body card-color">
+        <h5 class="card-title card-title-color">Current Events</h5>
+        <p class="card-text card-text-color">-Due to the novel coronavirus, the school is hereby closed until further notice</p>
+        <p class="card-text card-text-color">-Our termly Qur'an competition holds on 12th March 2020</p>
+        <p class="card-text card-text-color">-Grade 5 Common Entrance Examination has been postponed indefinitely</p>
+
+
+        
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      
+      </div>
+      <img class="img img-responsive gif-img" src="../images/ramadan.gif" alt="ramadan" height="auto" width="100%" >
+    </div>
+  </div>
+</div>
+
+		  		</div>
+		  		<div class="container"> 
+		  			<p class="double"></p>
+		  		</div>
+		  	</section>
+		  	<section>
+		  		<div class="container">
+		  	<!--Carousel Wrapper-->
+<div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+  <!--Controls-->
+  <!-- <div class="controls-top">
+    <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fas fa-chevron-left"></i></a>
+    <a class="btn-floating" href="#multi-item-example" data-slide="next"><i
+        class="fas fa-chevron-right"></i></a> -->
+  </div>
+  <!--/.Controls-->
+
+  <!--Indicators-->
+  <!-- <ol class="carousel-indicators">
+    <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
+    <li data-target="#multi-item-example" data-slide-to="1"></li>
+    <li data-target="#multi-item-example" data-slide-to="2"></li>
+  </ol> -->
+  <!--/.Indicators-->
+
+  <!--Slides-->
+  <div class="carousel-inner" role="listbox">
+
+    <!--First slide-->
+    <div class="row active">
+
+      <div class="col-md-4" data-aos="fade-right"  data-aos-duration="3000">
+        <div class="card mb-2">
+          <img class="card-img-top"
+            src="../images/national-park.jpg"
+            alt="Kids at national park">
+          <div class="card-body">
+            <h4 class="card-title">At the National Park</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+              card's content.</p>
+            <a href="events.html" class="btn btn-card">Read More...</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" data-aos="zoom-in"  data-aos-duration="3000">
+        <div class="card mb-2">
+          <img class="card-img-top"
+            src="../images/kapital-fm.jpg"
+            alt="Kids at kapital-fm">
+          <div class="card-body">
+            <h4 class="card-title">A visit to Kapital FM</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+              card's content.</p>
+            <a href="events.html" class="btn btn-card">Read More...</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4"  data-aos="fade-left"  data-aos-duration="3000" >
+        <div class="card mb-2">
+          <img class="card-img-top"
+            src="../images/national-mosque.jpg"
+            alt="kids at national-mosque">
+          <div class="card-body">
+            <h4 class="card-title">After Solat</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+              card's content.</p>
+            <a href="events.html" class="btn btn-card">Read More...</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!--/.First slide-->
+
+    <!-- Second slide
+    <div class="carousel-item">
+
+      <div class="col-md-4">
+        <div class="card mb-2">
+          <img class="card-img-top"
+            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+              card's content.</p>
+            <a class="btn btn-primary">Button</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card mb-2">
+          <img class="card-img-top"
+            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(47).jpg" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+              card's content.</p>
+            <a class="btn btn-primary">Button</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card mb-2">
+          <img class="card-img-top"
+            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(48).jpg" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+              card's content.</p>
+            <a class="btn btn-primary">Button</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!--/.Second slide-->
+
+    <!--Third slide-->
+    <!-- <div class="carousel-item">
+
+      <div class="col-md-4">
+        <div class="card mb-2">
+          <img class="card-img-top"
+            src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(53).jpg" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+              card's content.</p>
+            <a class="btn btn-primary">Button</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card mb-2">
+          <img class="card-img-top"
+            src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(45).jpg" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+              card's content.</p>
+            <a class="btn btn-primary">Button</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card mb-2">
+          <img class="card-img-top"
+            src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(51).jpg" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+              card's content.</p>
+            <a class="btn btn-primary">Button</a>
+          </div>
+        </div>
+      </div>
+
+    </div> --> 
+    <!--/.Third slide-->
+
+  </div>
+  <!--/.Slides-->
+
+</div>
+<!--/.Carousel Wrapper-->
+</div>
+</section>
+		  	<section class="bg-cardinal">
+		  		<div class="container mt-4 py-4">
+		  			<div class="row">
+		  				<div class="col-md-12">
+		  					<h3 class="text-white py-4 mb-4 text-center" data-aos="zoom-in">Our three cardinal <br> points</h3>
+		  				</div>
+		  			</div>
+		  			<div class="row">
+		  				<div class="col-md-4">
+		  					<div class="text-center text-white">
+		  						<img class="rounded" src="../images/nigerian.jpg" class="img img-responsive" height="auto" width="100%">
+		  						<p class="text-white text-bold mt-4">Nigerian</p>
+		  					</div>
+		  				</div>
+		  				<div class="col-md-4">
+		  					<div class="text-center text-white">
+		  						<img class="rounded" src="../images/british.jpg" class="img img-responsive" height="230.30px" width="100%">
+		  						<p class="text-white text-bold mt-4">British</p>
+		  					</div>
+		  				</div>
+		  				<div class="col-md-4">
+		  					<div class="text-center text-white">
+		  						<img class="rounded" src="../images/islamic.jpg" class="img img-responsive" height="auto" width="100%">
+		  						<p class="text-white text-bold mt-4">Islamic</p>
+		  					</div>
+		  				</div>
+		  			</div>
+		  			<div class="row">
+		  				<div class="col-md-12">
+		  					<p class="text-center">
+			  					<a href="academics.html" target="_blank" class="btn btn-secondary-outline btn-lg breath ">Learn More</a>
+			  				</p>
+		  				</div>
+		  			</div> 
+		  		</div>
+		  	</section>
+		</main>
+
+		
+		<footer class="bg-white pt-4 " data-aos="fade-down">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-2">
+						<img src="../images/logo1.svg" alt="" class="img img-responsive mb-2" height="70" width="auto">
+						<ul class="list-unstyled">
+							<li><a class="text-dark" href="academics.html">Academics</a></li>
+							<li><a class="text-dark" href="about.html">About Us</a></li>
+							<li><a class="text-dark" href="events.html">Events</a></li>
+							<!-- <li><a class="text-dark" href="faq.html">FAQ</a></li> -->
+						</ul>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<h5>Opening Hours</h5>
+						
+							<p>Monday to Friday 7:30am to 6:00pm</p>
+							<p>Saturday and Sunday 10:00am to 4:00pm</p>
+							<p>Islamiyyah for Adults also available</p>
+							
+						
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<h5>Reach us</h5>
+						<p class="text-dark small">
+								Al Aflaz Kiddies School
+								Lugbe, Airport Road,
+								Abuja,
+								Nigeria.
+								08063702081
+						</p>
+						<h5 class="">
+							<a href="https://facebook.com" class="text-dark mr-2"><i class="fab fa-facebook-square"></i></a> 
+							<a href="https://twitter.com" class="text-dark"><i class="fab fa-twitter-square"></i></a>
+						</h5>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-2">
+						<h5>Stay up to date</h5>
+						<p class="text-dark small">
+							Get emails about our newest events you can visit. 
+						</p>
+						<form class="form-inline">
+							<div class="form-group mb-2 mr-2">
+								<label for="staticEmail2" class="sr-only">Email</label>
+								<input type="email" class="form-control" id="staticEmail2" value="" placeholder="Email Address" required>
+							</div>
+							<button type="submit" class="btn btn-card mb-2">Subscribe</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="bg-white text-left py-2 mt-0">
+				<div class="container">
+					<p class="float-right">
+			    	<a href="#" ><i class="fas fa-arrow-up "></i></a>
+				    </p>
+				    <p>&copy; AL AFLAZ 2020.</p>
+				</div>
+			</div>
+		</footer>
+		<!-- Optional JavaScript -->
+	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<!-- <script type="text/javascript" src="js/main.js"></script> -->
+		<script>
+			AOS.init();
+
+			$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+		  </script>
+	</body>
+</html>
