@@ -6,7 +6,7 @@
 	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	    <meta name="description" content="Al-Aflaz Kiddies School, islamic school, abuja islamic school, lugbe airport road">
 		<meta name="author" content="Al Aflaz Kiddies School">
-		<link rel="shortcut icon" href="../images/logo.jpg">
+		<link rel="shortcut icon" href="https://res.cloudinary.com/dwszstiol/image/upload/v1587652905/al-aflaz/logo_mggujt.jpg">
 		<!-- Fontawesome CSS -->
 	    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 	    <!-- Bootstrap CSS -->
@@ -339,13 +339,13 @@
 /*dropdown features ends*/
 .bg{
 	background-image:  linear-gradient(to bottom, rgba(213, 240, 209, 0.52), rgba(117, 19, 93, 0.73)),
-url('../images/bg1.jpg');
+url('https://res.cloudinary.com/dwszstiol/image/upload/v1587653378/al-aflaz/bg1_hxc4ag.jpg');
 	 
 	height: 200px;
 	
 }
 .bg1{
-	background-image:  url('../images/bg2.jpg');
+	background-image:  url('https://res.cloudinary.com/dwszstiol/image/upload/v1587658347/al-aflaz/bg2_kkfatc.jpg');
 	 
 	height: 205px;
 	width: auto;
@@ -371,16 +371,64 @@ url('../images/bg1.jpg');
 				text-decoration: none;
 				font-weight: bold;
 			}
+
+			/*<loader> */
+.loader-img{
+	height: 100px;
+	display: block;
+	position: absolute;
+	
+
+}
+
+.loader {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #f1f2f3;
+}
+
+.loader.hidden{
+	animation: fadeOut 1s;
+	animation-fill-mode: forwards;
+}
+@keyframes fadeOut {
+	100%{
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+#loader{
+	margin-top: 12em;
+}
+/*</loader>*/
+
       
 	    </style>
 		<title>Al Aflaz Kiddies</title>
 	</head>
 	<body>
+		<!-- preloader starts -->
+		<div class="loader">
+
+  		<img class="loader-img" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="Loading..." />
+  		
+  		<img id="loader" class="loader-img" src="https://res.cloudinary.com/dwszstiol/image/upload/v1588514791/al-aflaz/loader1_qwivsd.gif" alt="Loading..." />
+
+		</div>
+		<!-- preloader ends -->
 		<header>
 			<nav class="navbar fixed-top navbar-expand-lg navbar-main bg-white">
 				<div class="container">
 					<a class="navbar-brand" href="index.html">
-						<img src="../images/logo1.svg" class="img img-responsive" height="100" width="100">
+						<img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100">
 					</a>
 					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar top-bar"></span>
@@ -404,8 +452,8 @@ url('../images/bg1.jpg');
               <a class="nav-link dropdown-toggle" href="academics.html" role="button" 
    						 aria-haspopup="true" aria-expanded="true" data-toggle="tooltip" data-placement="right"  title="Academics">Academics</a>
     					<div class="dropdown-content">
-     					<a class="" href="#">Admission</a>
-      					<a class="" href="#">Islamiyyah Section</a>
+     					<a class="" href="admission.html">Admission</a>
+      					<a class="" href="islamiyyah.html">Islamiyyah Section</a>
       					<a class="" href="#">Results</a>
       					<!-- <div class="dropdown-divider"></div>
       					<a class="" href="#">Separated link</a> -->
@@ -416,7 +464,7 @@ url('../images/bg1.jpg');
                 <a class="nav-link" href="events.html" data-toggle="tooltip" data-placement="bottom"  title="Events">Events</a>
               </li> 
               <li class="nav-item">
-                <a class="nav-link" href="contacts.html" data-toggle="tooltip" data-placement="bottom"  title="Contacts">Contacts</a>
+                <a class="nav-link" href="contacts.php" data-toggle="tooltip" data-placement="bottom"  title="Contacts">Contacts</a>
               </li>                              
             </ul>
 
@@ -445,7 +493,7 @@ url('../images/bg1.jpg');
 		  				<div class="col-md-6">
                   <div class="text-center">
                     
-                    <img class="rounded" src="../images/academics.jpg" class="img img-responsive" data-aos="zoom-in" height="auto" width="100%">
+                    <img class="rounded" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587653097/al-aflaz/academics_n43kvp.jpg" class="img img-responsive" data-aos="zoom-in" height="auto" width="100%">
                     
                   </div>
                 </div>
@@ -488,7 +536,7 @@ Ample time is invested in their sporting activities, art and crafts. We build th
                    <div class="col-md-6">
                   <div class="text-center">
                     
-                    <img class="rounded" src="../images/academics1.jpg" class="img img-responsive" data-aos="fade-left" height="auto" width="100%">
+                    <img class="rounded" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587653175/al-aflaz/academics1_jjbocr.jpg" class="img img-responsive" data-aos="fade-left" height="auto" width="100%">
                     
                   </div>
                 </div>
@@ -530,11 +578,11 @@ Ample time is invested in their sporting activities, art and crafts. We build th
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-2">
-						<img src="../images/logo1.svg" alt="" class="img img-responsive mb-2" height="70" width="auto">
+						<img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="" class="img img-responsive mb-2" height="70" width="auto">
 						<ul class="list-unstyled">
-							<li><a class="text-dark" href="pricing.html">Academics</a></li>
-							<li><a class="text-dark" href="signin.html">About Us</a></li>
-							<li><a class="text-dark" href="signup.html">Events</a></li>
+							<li><a class="text-dark" href="academics.html">Academics</a></li>
+							<li><a class="text-dark" href="about.html">About Us</a></li>
+							<li><a class="text-dark" href="events.html">Events</a></li>
 							<!-- <li><a class="text-dark" href="faq.html">FAQ</a></li> -->
 						</ul>
 					</div>
@@ -594,5 +642,11 @@ Ample time is invested in their sporting activities, art and crafts. We build th
 		<script>
 			AOS.init();
 		  </script>
+		  <script type="text/javascript">
+  window.addEventListener("load", function(){
+  	const loader = document.querySelector(".loader");
+  	loader.className += " hidden";
+  });
+</script>
 	</body>
 </html>

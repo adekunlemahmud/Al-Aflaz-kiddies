@@ -1,3 +1,98 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+// if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+//     header("location: form.php");
+//     exit;
+// }
+ 
+// Include config file
+require_once "config.php";
+ 
+// Define variables and initialize with empty values
+$username = $password = "";
+$username_err = $password_err = "";
+ 
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    // Check if username is empty
+    if(empty(trim($_POST["username"]))){
+        $username_err = "Please enter username.";
+    } else{
+        $username = trim($_POST["username"]);
+    }
+    
+    // Check if password is empty
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter your password.";
+    } else{
+        $password = trim($_POST["password"]);
+
+     }
+    
+    // Validate credentials
+    if(empty($username_err) && empty($password_err)){
+        // Prepare a select statement
+        
+        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        
+        if($stmt = mysqli_prepare($link, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            
+            // Set parameters
+            $param_username = $username;
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Store result
+                mysqli_stmt_store_result($stmt);
+                
+                // Check if username exists, if yes then verify password
+                if(mysqli_stmt_num_rows($stmt) == 1){                    
+                    // Bind result variables
+
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                    if(mysqli_stmt_fetch($stmt)){
+        			// $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                        if(password_verify($password, $hashed_password)){
+                            // Password is correct, so start a new session
+                            session_start();
+                            
+                            // Store data in session variables
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["username"] = $username; 
+                                                       
+                            
+                            // Redirect user to welcome page
+                            header("location: form.php");
+                        } else{
+                            // Display an error message if password is not valid
+                            $password_err = "The password you entered is not valid.";
+                        }
+                    }
+                } else{
+                    // Display an error message if username doesn't exist
+                    $username_err = "No account found with that username.";
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+    
+    // Close connection
+    mysqli_close($link);
+}
+?>
+ 
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -6,8 +101,7 @@
 	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	    <meta name="description" content="Al-Aflaz Kiddies School, islamic school, abuja islamic school, lugbe airport road">
 		<meta name="author" content="Al Aflaz Kiddies School">
-		<link rel="shortcut icon" href="https://res.cloudinary.com/dwszstiol/image/upload/v1587652905/al-aflaz/logo_mggujt.jpg">
-		
+		<link rel="shortcut icon" href="../images/logo.jpg">
 		<!-- Fontawesome CSS -->
 	    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 	    <!-- Bootstrap CSS -->
@@ -67,11 +161,12 @@
 			  	font-size: calc(24px + 4 * (100vw - 767px) / 700) !important;
 			  	font-weight: 600 !important;
 				line-height: 150% !important;
+
 			}
-			/*h4,
+			h4,
 			.h4 {
 			  font-size: 1.6rem;
-			}*/
+			}
 			h5,
 			.h5 {
 			  	font-size: 1.2rem;
@@ -159,8 +254,8 @@
 			}
 			.btn-secondary-outline{
 				background-color: transparent !important;
-				color: var(--secondary-color)  !important;
-				border: 2px solid var(--secondary-color)  !important;
+				color: white  !important;
+				border: 2px solid white  !important;
 			}
 			.btn-primary:hover, .btn-secondary:hover, .btn-primary-outline:hover, .btn-secondary-secondary:hover{
 				border-color: inherit !important;
@@ -169,22 +264,11 @@
 
 			.fas{
 				font-size: xx-large;
-    color: #10b541 !important;
+    			color: #10b541 !important;
 
 			}
 
-			/* .breath{
-				animation-name: breath;
-    animation-duration: 2s;
-    animation-direction: alternate;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-			}
-			@keyframes breath {
-	0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);}	
-	40% {-webkit-transform: translateY(-15px);}
-	
-} */
+			
 
 
 			   /****************************/
@@ -255,8 +339,15 @@
 				color: gray !important;
 				text-decoration: none;
 			}
+			.text-head{
+        color: #7aff33;
+        text-shadow: 1px 1px 3px black;
+        font-weight: bold; 
+        margin-top: 10px;
+        font-size: 
+      }
 			/*-----------Other styles--------*/
-      .about-sec{
+			.index-sec{
         margin-top: 5.4em;
       }
 			.carousalhead{
@@ -291,27 +382,8 @@
 			.arrow{
 				color: #10b541;
 			}
-      .breadcrumb{
-        align-content: center;
-        background-color:  #7ae835;
-        border-radius: 0px;
-      }
-      .breadcrumb-item{
-        color: white;
-        margin-left: 50px;
-        font-weight: bolder;
-        font: serif;
-        font-family: monospace;
-        text-shadow: 2px 2px 3px black; 
-      }
-      .text-head{
-        color: #7aff33;
-        text-shadow: 2px 2px 4px black;
-        font-weight: bold; 
-        margin-top: 10px;
-      }
-      /*dropdown features*/
-      
+			/*dropdown features*/
+			
 .dropdown {
   position: relative;
   display: inline-block;
@@ -341,7 +413,6 @@
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 /*dropdown features ends*/
-/*<loader> */
 .loader-img{
 	height: 100px;
 	display: block;
@@ -377,9 +448,20 @@
 #loader{
 	margin-top: 12em;
 }
-/*</loader>*/
 
-      
+
+			
+.login-card{
+	margin-top: 6em;
+	display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+}
+.info{
+	font-size: 14px;
+	color: #10b541; 
+}
 	    </style>
 		<title>Al Aflaz Kiddies</title>
 	</head>
@@ -387,9 +469,9 @@
 		<!-- preloader starts -->
 		<div class="loader">
 
-  		<img class="loader-img" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="Loading..." />
+  		<img class="loader-img" src="../images/logo1.svg" alt="Loading..." />
   		
-  		<img id="loader" class="loader-img" src="https://res.cloudinary.com/dwszstiol/image/upload/v1588514791/al-aflaz/loader1_qwivsd.gif" alt="Loading..." />
+  		<img id="loader" class="loader-img" src="../images/loader1.gif" alt="Loading..." />
 
 		</div>
 		<!-- preloader ends -->
@@ -397,7 +479,7 @@
 			<nav class="navbar fixed-top navbar-expand-lg navbar-main bg-white">
 				<div class="container">
 					<a class="navbar-brand" href="index.html">
-						<img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100">
+						<img src="../images/logo1.svg" alt="logo" class="img img-responsive" height="100" width="100">
 					</a>
 					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar top-bar"></span>
@@ -406,144 +488,134 @@
 						<!-- <span class="navbar-toggler-icon"><i class="fa fa-bars fa-lg py-1 text-white"></i></span> -->
 					</button>
 					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-              <li class="nav-item ">
-                <a class="nav-link" href="index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="about.html" data-toggle="tooltip" data-placement="bottom"  title="About Us">About Us</a>
-              </li>
-              
-            <li class="nav-item dropdown">
+						<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+							<li class="nav-item active">
+								<a class="nav-link" href="index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="about.html" data-toggle="tooltip" data-placement="bottom"  title="About Us">About Us</a>
+							</li>
+							
+						<li class="nav-item dropdown">
                 <!-- <a class="nav-link" href="academics.html" data-toggle="tooltip" data-placement="bottom"  title="Academics">Academics</a> -->
 
-              <a class="nav-link dropdown-toggle" href="academics.html" role="button" 
-               aria-haspopup="true" aria-expanded="true" data-toggle="tooltip" data-placement="right"  title="Academics">Academics</a>
-              <div class="dropdown-content">
-              <a class="" href="admission.html">Admission</a>
-              <a class="" href="islamiyyah.html">Islamiyyah Section</a>
-                <a class="" href="#">Results</a>
-                <!-- <a class="" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="" href="#">Separated link</a> -->
-              </div>
-              </li>
-            
-              <li class="nav-item">
-                <a class="nav-link" href="events.html" data-toggle="tooltip" data-placement="bottom"  title="Events">Events</a>
-              </li> 
-              <li class="nav-item">
-                <a class="nav-link" href="contacts.php" data-toggle="tooltip" data-placement="bottom"  title="Contacts">Contacts</a>
-              </li>                              
-            </ul>
+    					<a class="nav-link dropdown-toggle" href="academics.html" role="button" 
+   						 aria-haspopup="true" aria-expanded="true" data-toggle="tooltip" data-placement="right"  title="Academics">Academics</a>
+    					<div class="dropdown-content">
+     					<a class="" href="admission.html">Admission</a>
+     					<a class="" href="islamiyyah.html">Islamiyyah Section</a>
+      					<a class="" href="#">Results</a>
+      					<!-- <a class="" href="#">Something else here</a>
+      					<div class="dropdown-divider"></div>
+      					<a class="" href="#">Separated link</a> -->
+    					</div>
+  						</li>
+							<!-- </li> -->
+							<li class="nav-item">
+								<a class="nav-link" href="events.html" data-toggle="tooltip" data-placement="bottom"  title="Events">Events</a>
+							</li> 
+							<li class="nav-item">
+								<a class="nav-link" href="contacts.php" data-toggle="tooltip" data-placement="bottom"  title="Contacts">Contacts</a>
+							</li>                              
+						</ul>
 
-          </div>
-          
-        </div>
+					</div>
+					
+				</div>
 				
 			</nav>
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+  Launch static backdrop modal
+</button> -->
 
-						<!--<marquee>NURTURING FOR EXCELLENCE IN BOTH WORLDS</marquee>-->
-				<!--Carousel begins-->
-		
-		</header>
-		<section id="section-id-1579638807800" class="sppb-section about-sec  double_border_bottom"  ><div class="sppb-row-container"><div class="sppb-row"><div class="sppb-col-md-6"><div id="column-id-1579638807801" class="sppb-addon-container" ><div id="sppb-addon-1579638807804" class="clearfix" ><div class="sppb-addon sppb-addon-alert ">
-		<main>
-			
-		  	<section class="mt-5 mb-5 pt-5">
-		  		<div class="container">
-		  			<div class="row">
-		  				<div class="col-md-6">
-		  					<div class="text-left animated bounce">
-                  <h4 class="text-head">WE GROOM FOR EXCELLENCE IN BOTH WORLDS</h4>
-			  					<p class="text-dark small">
-                    Al Aflaz kiddies school nurtures future leaders with both spiritual and mundane knowledge. 
-                    Which is signified in our motto:  <b>Nurturing for excellence in both worlds.
-                    </b>  We build kids that are morally, intellectually, spiritually and educationally sound.
-                     This goal is achieved in a serene environment and delivered by our well trained and qualified 
-                     teachers. 
-                   We are located at Lugbe Airport Road, FCT, Abuja.
-                  </p>
-                  <p class="text-dark small">
-                      Our curriculum is Nigerian-British-Islamic based built by professionals with the intent of
-                       providing our pupils with a well-rounded background and thus making them excel as they forge
-                        ahead in life. Our targets are set with a high focus on achieving them.
-                    </p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                  <div class="text-center">
-                    
-                    <img class="rounded" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652981/al-aflaz/about1_mbk1nb.jpg" class="img img-responsive" data-aos="fade-left" height="auto" width="100%">
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="container">
-                  <h5 class="text-dark">Our Learning approach</h5>
-			  					<p class="text-dark small">
-                    At Al Aflaz we introduce kids to learning through a conducive environment and make them 
-                    learn with their pace (Montessori approach). We also make learning to be fun through the 
-                    use of different children friendly educational materials. Considering the worldly trend 
-                    of creating a technologically driven society, we build our kids at a tender age to be 
-                    computer savvy and also engage them through different projects.
-                  </p>
-                </div>
-                <div aria-label="breadcrumb future">
-                    <ol class="breadcrumb">
-                      <marquee><li class="breadcrumb-item " aria-current="page">BUILDING A FUTURE WE CAN ALL BE PROUD OF!!! &nbsp
-                       <span id="span1"> THE PAIN OF TODAY IS THE GAIN OF TOMORROW </span> &nbsp &nbsp <span id="span2"> INVEST IN YOUR CHILDREN BY BUILDING FOR THEM A STRONG FUTURE </span></li>
-                      </marquee>
-                        </ol>
-                </div>
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-6">
-                  <h5 class="text-dark">Our Curriculum</h5>
-                  <p class="text-dark small">
-                    We apply the British approach thus making them read fluently at an early stage, this in
-                    combination with the Nigerian curriculum makes them conversant with happenings within their
-                    environment. 
-                    Our pupils are built on a solid foundation of early introduction to Qur'an, hadith and adhkar
-                     memorization, including a thorough development of their Akhlaq (Morality) and Adab (Manners). 
-                     These improve their cerebral capabilities and make them prepared for the future of being an 
-                     ideal Muslim and Muslimah.  
-                    We believe setting these paces for them will enhance a better and brighter future.
-
-                  </p>
-                </div>
-                   <div class="col-md-6">
-                  <div class="text-center">
-                    
-                    <img class="rounded" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652888/al-aflaz/about_kdpdtt.jpg" class="img img-responsive" data-aos="fade-left" height="auto" width="100%">
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-              <div class="container">
-                  <h5 class="text-dark">Our Commitment</h5>
-                  <p class="text-dark small">
-                    At Al Aflaz we are poised to develop future leaders with a strong passion for public speaking
-                     and self-confidence, thus we have a well-designed weekly programme that builds oratory prowess
-                      in the kids. 
-                  </p>
-                  <h5 class="text-dark">Extras</h5>
-                  <p class="text-dark small">
-                    All works without play make Jack a dull boy. In preventing this we provide room for sporting
-                     activities thus building the psychomotor tendencies of our kids. Also, we have activities
-                      designed for our kids to display their artistic strengths.
-                  </p>
-			  					
-		  					</div>
-              </div>
-		  			
-		  		
-		  	
+<!-- Modal -->
+<div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Login Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    <p class="info">Enter the Login Details provided to you  by the school's admin</p>
+ 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-card" data-dismiss="modal">OK</button>
+        <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+      </div>
+    </div>
+  </div>
 </div>
+<section class="login-card">
+				<div class="card " style="width: 18rem;">
+  <img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" class="card-img-top" height="100" width="100" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Login Details</h5>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+
+    <label class="info" >UserName</label>
+    <input name="username" type="text"  class="form-control form-text" value="<?php echo $username; ?>" id="userName" placeholder="Enter UserName">
+                <span class="help-block info"><?php echo $username_err; ?></span>
+  </div>
+            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+
+    <label  class="info">Password</label>
+    <input name="password" type="password"  class="form-control form-text"  placeholder="Enter Password">
+    <span class="help-block info"><?php echo $password_err; ?></span>
+  </div>
+   <input type="submit" name="submit" class="btn btn-card" value="Login">
+
+  
+
+</form>
+</div>
+</div>
+
 </section>
-		  	
+
+						
+
+		  	<section class="bg-cardinal">
+		  		<div class="container mt-4 py-4">
+		  			<div class="row">
+		  				<div class="col-md-12">
+		  					<h3 class="text-white py-4 mb-4 text-center" data-aos="zoom-in">Our three cardinal <br> points</h3>
+		  				</div>
+		  			</div>
+		  			<div class="row">
+		  				<div class="col-md-4">
+		  					<div class="text-center text-white">
+		  						<img class="rounded" src="../images/nigerian.jpg" class="img img-responsive" height="auto" width="100%">
+		  						<p class="text-white text-bold mt-4">Nigerian</p>
+		  					</div>
+		  				</div>
+		  				<div class="col-md-4">
+		  					<div class="text-center text-white">
+		  						<img class="rounded" src="../images/british.jpg" class="img img-responsive" height="230.30px" width="100%">
+		  						<p class="text-white text-bold mt-4">British</p>
+		  					</div>
+		  				</div>
+		  				<div class="col-md-4">
+		  					<div class="text-center text-white">
+		  						<img class="rounded" src="../images/islamic.jpg" class="img img-responsive" height="auto" width="100%">
+		  						<p class="text-white text-bold mt-4">Islamic</p>
+		  					</div>
+		  				</div>
+		  			</div>
+		  			<div class="row">
+		  				<div class="col-md-12">
+		  					<p class="text-center">
+			  					<a href="academics.html" target="_blank" class="btn btn-secondary-outline btn-lg breath ">Learn More</a>
+			  				</p>
+		  				</div>
+		  			</div> 
+		  		</div>
+		  	</section>
 		</main>
 
 		
@@ -551,7 +623,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-2">
-						<img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="" class="img img-responsive mb-2" height="70" width="auto">
+						<img src="../images/logo1.svg" alt="" class="img img-responsive mb-2" height="70" width="auto">
 						<ul class="list-unstyled">
 							<li><a class="text-dark" href="academics.html">Academics</a></li>
 							<li><a class="text-dark" href="about.html">About Us</a></li>
@@ -612,14 +684,40 @@
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		<!-- <script type="text/javascript" src="js/main.js"></script> -->
-		<script>
-			AOS.init();
-		  </script>
-		  <script type="text/javascript">
+		<script type="text/javascript">
   window.addEventListener("load", function(){
   	const loader = document.querySelector(".loader");
   	loader.className += " hidden";
   });
 </script>
+		<script>
+			AOS.init();
+
+			$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+		  </script>
+		  <script type="text/javascript">
+		  	
+		  	function login(){
+		  		const userName = document.getElementById("userName").value;
+		  	const password = document.getElementById("password").value;
+		  		if (userName == "admin" && password == "admin"){
+		  			alert ("Login successfully");
+
+		  			window.location = "form.html";
+		  			return false;
+		  		} 
+		  		else{
+		  			alert("Incorrect Login details");
+		  		}
+		  	}
+		  	
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
+
+
+		  </script>
 	</body>
 </html>

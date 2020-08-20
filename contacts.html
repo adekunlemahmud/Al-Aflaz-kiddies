@@ -6,8 +6,7 @@
 	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	    <meta name="description" content="Al-Aflaz Kiddies School, islamic school, abuja islamic school, lugbe airport road">
 		<meta name="author" content="Al Aflaz Kiddies School">
-		<link rel="shortcut icon" href="https://res.cloudinary.com/dwszstiol/image/upload/v1587652905/al-aflaz/logo_mggujt.jpg">
-		
+		<link rel="shortcut icon" href="../images/logo.jpg">
 		<!-- Fontawesome CSS -->
 	    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 	    <!-- Bootstrap CSS -->
@@ -256,9 +255,6 @@
 				text-decoration: none;
 			}
 			/*-----------Other styles--------*/
-      .about-sec{
-        margin-top: 5.4em;
-      }
 			.carousalhead{
 				color: #fff;
         		text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
@@ -305,9 +301,9 @@
         text-shadow: 2px 2px 3px black; 
       }
       .text-head{
-        color: #7aff33;
-        text-shadow: 2px 2px 4px black;
-        font-weight: bold; 
+        color: #10b541;
+        text-shadow: 1px 1px 2px #10b541;
+        /*font-weight: bold; */
         margin-top: 10px;
       }
       /*dropdown features*/
@@ -341,63 +337,59 @@
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 /*dropdown features ends*/
-/*<loader> */
-.loader-img{
-	height: 100px;
-	display: block;
-	position: absolute;
+.bg{
+	background-image:  linear-gradient(to bottom, rgba(213, 240, 209, 0.52), rgba(117, 19, 93, 0.73)),
+url('../images/bg1.jpg');
+	 
+	height: 200px;
 	
+}
+.center{
+	 text-align: center;
+	
+}
+.p-dec{
+	color: #10b541;
+	font-size: 24px;
 
 }
-
-.loader {
-  position: fixed;
-  z-index: 99;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: #f1f2f3;
+.acad-sec{
+	margin-top: 5.4em;
 }
+.acad-head{
+	color: white;
+	padding-left: 60px;
+	padding-top: 2em  ; 
+}
+.st-anch{
+	color: white;
+	font-size: 14px;
+	margin-bottom: 1em;
 
-.loader.hidden{
-	animation: fadeOut 1s;
-	animation-fill-mode: forwards;
 }
-@keyframes fadeOut {
-	100%{
-		opacity: 0;
-		visibility: hidden;
-	}
-}
-#loader{
-	margin-top: 12em;
-}
-/*</loader>*/
-
+.st-anch a:hover{
+				color: white !important;
+				text-decoration: none;
+				font-weight: bold;
+			}
+			.form-head{
+				font-size: 18px;
+				color: #10b541;
+			}
+			.form-text{
+				font-size: 14px;
+				
+			}
       
 	    </style>
 		<title>Al Aflaz Kiddies</title>
 	</head>
 	<body>
-		<!-- preloader starts -->
-		<div class="loader">
-
-  		<img class="loader-img" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="Loading..." />
-  		
-  		<img id="loader" class="loader-img" src="https://res.cloudinary.com/dwszstiol/image/upload/v1588514791/al-aflaz/loader1_qwivsd.gif" alt="Loading..." />
-
-		</div>
-		<!-- preloader ends -->
 		<header>
 			<nav class="navbar fixed-top navbar-expand-lg navbar-main bg-white">
 				<div class="container">
 					<a class="navbar-brand" href="index.html">
-						<img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100">
+						<img src="../images/logo1.svg" class="img img-responsive" height="100" width="100">
 					</a>
 					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar top-bar"></span>
@@ -410,30 +402,30 @@
               <li class="nav-item ">
                 <a class="nav-link" href="index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item active">
+              <li class="nav-item ">
                 <a class="nav-link" href="about.html" data-toggle="tooltip" data-placement="bottom"  title="About Us">About Us</a>
               </li>
-              
-            <li class="nav-item dropdown">
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="academics.html">Academics</a> -->
+            <li class="nav-item dropdown ">
                 <!-- <a class="nav-link" href="academics.html" data-toggle="tooltip" data-placement="bottom"  title="Academics">Academics</a> -->
 
               <a class="nav-link dropdown-toggle" href="academics.html" role="button" 
-               aria-haspopup="true" aria-expanded="true" data-toggle="tooltip" data-placement="right"  title="Academics">Academics</a>
-              <div class="dropdown-content">
-              <a class="" href="admission.html">Admission</a>
-              <a class="" href="islamiyyah.html">Islamiyyah Section</a>
-                <a class="" href="#">Results</a>
-                <!-- <a class="" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="" href="#">Separated link</a> -->
-              </div>
+   						 aria-haspopup="true" aria-expanded="true" data-toggle="tooltip" data-placement="right"  title="Academics">Academics</a>
+    					<div class="dropdown-content">
+     					<a class="" href="admission.html">Admission</a>
+      					<a class="" href="islamiyyah.html">Islamiyyah Section</a>
+      					<a class="" href="#">Results</a>
+      					<!-- <div class="dropdown-divider"></div>
+      					<a class="" href="#">Separated link</a> -->
+    					</div>
               </li>
-            
+              <!-- </li> -->
               <li class="nav-item">
                 <a class="nav-link" href="events.html" data-toggle="tooltip" data-placement="bottom"  title="Events">Events</a>
               </li> 
-              <li class="nav-item">
-                <a class="nav-link" href="contacts.php" data-toggle="tooltip" data-placement="bottom"  title="Contacts">Contacts</a>
+              <li class="nav-item active">
+                <a class="nav-link" href="contacts.html" data-toggle="tooltip" data-placement="bottom"  title="Contacts">Contacts</a>
               </li>                              
             </ul>
 
@@ -447,99 +439,87 @@
 				<!--Carousel begins-->
 		
 		</header>
-		<section id="section-id-1579638807800" class="sppb-section about-sec  double_border_bottom"  ><div class="sppb-row-container"><div class="sppb-row"><div class="sppb-col-md-6"><div id="column-id-1579638807801" class="sppb-addon-container" ><div id="sppb-addon-1579638807804" class="clearfix" ><div class="sppb-addon sppb-addon-alert ">
+		<section class="acad-sec">
+			<div class="bg">
+				<h3 class="acad-head">Contact Us</h3>
+				<span class="acad-head st-anch"><i class="fa fa-home" aria-hidden="true"></i>/<a class="st-anch" href="index.html">Home</a>/<a class="st-anch" href="#">Contact Us</a></span>
+			</div>
+		</section>
+		<section id="section-id-1579638807800" class="sppb-section  double_border_bottom"  ><div class="sppb-row-container"><div class="sppb-row"><div class="sppb-col-md-6"><div id="column-id-1579638807801" class="sppb-addon-container" ><div id="sppb-addon-1579638807804" class="clearfix" ><div class="sppb-addon sppb-addon-alert ">
 		<main>
 			
-		  	<section class="mt-5 mb-5 pt-5">
-		  		<div class="container">
+		  	<section class="mt-3 mb-3 pt-5">
+		  		
+              
+
+          <div class="container">
 		  			<div class="row">
 		  				<div class="col-md-6">
-		  					<div class="text-left animated bounce">
-                  <h4 class="text-head">WE GROOM FOR EXCELLENCE IN BOTH WORLDS</h4>
-			  					<p class="text-dark small">
-                    Al Aflaz kiddies school nurtures future leaders with both spiritual and mundane knowledge. 
-                    Which is signified in our motto:  <b>Nurturing for excellence in both worlds.
-                    </b>  We build kids that are morally, intellectually, spiritually and educationally sound.
-                     This goal is achieved in a serene environment and delivered by our well trained and qualified 
-                     teachers. 
-                   We are located at Lugbe Airport Road, FCT, Abuja.
-                  </p>
-                  <p class="text-dark small">
-                      Our curriculum is Nigerian-British-Islamic based built by professionals with the intent of
-                       providing our pupils with a well-rounded background and thus making them excel as they forge
-                        ahead in life. Our targets are set with a high focus on achieving them.
-                    </p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                  <div class="text-center">
-                    
-                    <img class="rounded" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652981/al-aflaz/about1_mbk1nb.jpg" class="img img-responsive" data-aos="fade-left" height="auto" width="100%">
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="container">
-                  <h5 class="text-dark">Our Learning approach</h5>
-			  					<p class="text-dark small">
-                    At Al Aflaz we introduce kids to learning through a conducive environment and make them 
-                    learn with their pace (Montessori approach). We also make learning to be fun through the 
-                    use of different children friendly educational materials. Considering the worldly trend 
-                    of creating a technologically driven society, we build our kids at a tender age to be 
-                    computer savvy and also engage them through different projects.
-                  </p>
-                </div>
-                <div aria-label="breadcrumb future">
-                    <ol class="breadcrumb">
-                      <marquee><li class="breadcrumb-item " aria-current="page">BUILDING A FUTURE WE CAN ALL BE PROUD OF!!! &nbsp
-                       <span id="span1"> THE PAIN OF TODAY IS THE GAIN OF TOMORROW </span> &nbsp &nbsp <span id="span2"> INVEST IN YOUR CHILDREN BY BUILDING FOR THEM A STRONG FUTURE </span></li>
-                      </marquee>
-                        </ol>
-                </div>
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-6">
-                  <h5 class="text-dark">Our Curriculum</h5>
-                  <p class="text-dark small">
-                    We apply the British approach thus making them read fluently at an early stage, this in
-                    combination with the Nigerian curriculum makes them conversant with happenings within their
-                    environment. 
-                    Our pupils are built on a solid foundation of early introduction to Qur'an, hadith and adhkar
-                     memorization, including a thorough development of their Akhlaq (Morality) and Adab (Manners). 
-                     These improve their cerebral capabilities and make them prepared for the future of being an 
-                     ideal Muslim and Muslimah.  
-                    We believe setting these paces for them will enhance a better and brighter future.
-
-                  </p>
-                </div>
-                   <div class="col-md-6">
-                  <div class="text-center">
-                    
-                    <img class="rounded" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652888/al-aflaz/about_kdpdtt.jpg" class="img img-responsive" data-aos="fade-left" height="auto" width="100%">
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-              <div class="container">
-                  <h5 class="text-dark">Our Commitment</h5>
-                  <p class="text-dark small">
-                    At Al Aflaz we are poised to develop future leaders with a strong passion for public speaking
-                     and self-confidence, thus we have a well-designed weekly programme that builds oratory prowess
-                      in the kids. 
-                  </p>
-                  <h5 class="text-dark">Extras</h5>
-                  <p class="text-dark small">
-                    All works without play make Jack a dull boy. In preventing this we provide room for sporting
-                     activities thus building the psychomotor tendencies of our kids. Also, we have activities
-                      designed for our kids to display their artistic strengths.
-                  </p>
-			  					
-		  					</div>
-              </div>
+		  					
 		  			
+		  		<div class="text-left ">
+                  <h4 class="text-head">Get in touch with us here</h4>
+                 
+			  		<form method="post" action="mailto:mahmudabumahmud@gmail.com" >
+  <div class="form-group">
+    <label class="form-head" for="exampleFormControlInput1">Name</label>
+    <input type="text" class="form-control form-text" id="exampleFormControlInput1" placeholder="Full Name">
+  </div>
+  <div class="form-group">
+    <label class="form-head" for="exampleFormControlInput1">Email</label>
+    <input type="email" class="form-control form-text" id="exampleFormControlInput1" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <label class="form-head" for="exampleFormControlInput1">Phone</label>
+    <input type="text" class="form-control form-text" id="exampleFormControlInput1" placeholder="Phone">
+  </div>
+
+  
+  <div class="form-group">
+    <label class="form-head" for="exampleFormControlTextarea1">Message</label>
+    <textarea class="form-control form-text" id="exampleFormControlTextarea1" rows="5"></textarea>
+  </div>
+  <button type="submit" class="btn btn-card">Send</button>
+</form >
+		  				</div>
+		  			</div>
+		  				<div class="col-md-6">
+		  					<div class="text-center">
+		  						<div class="row">
+		  							<div class="col-md-6 p-dec">
+		  								<p><i class="far fa-address-card"></i></p>
+		  								<p>Behind LEA Primary School, Lugbe Zone 9, Abuja</p>
+		  							</div>
+		  							
+		  							<div class="col-md-6 p-dec">
+		  								<p><i class="fas fa-phone-square-alt"></i></p>
+		  								<p>08063702081 | 08154655990</p>
+		  								
+		  							</div>
+		  						</div>
+		  						
+		  						 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1970.5250788553813!2d7.3714176578979185!3d8.967525747816838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e736d174b15fb%3A0xe5191d19031806aa!2sAl%20Aflaz%20Kiddies%20School%2C%20Lugbe!5e0!3m2!1sen!2sng!4v1587500590467!5m2!1sen!2sng" width="500" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+		  					</div>
+		  				</div>
 		  		
+		  		
+		  	</div>
+		  </div>
+
+
+        
+       
+            
+          <!--   <div class="container">
+                  <div class="card">
+  					<div class="card-body center">
+    					<p class="p-center">For enquiries contact us on - 08063702081, 08154655990 </p>
+    					<p class="p-center">Email: alaflazkiddies@gmail.com</p>
+  					</div>
+				</div>
+			  					
+                </div> -->
+  		
 		  	
 </div>
 </section>
@@ -547,11 +527,11 @@
 		</main>
 
 		
-		<footer class="bg-white pt-4 " data-aos="fade-down">
+		<footer class="bg-white pt-4 " data-aos="">
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-2">
-						<img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="" class="img img-responsive mb-2" height="70" width="auto">
+						<img src="../images/logo1.svg" alt="" class="img img-responsive mb-2" height="70" width="auto">
 						<ul class="list-unstyled">
 							<li><a class="text-dark" href="academics.html">Academics</a></li>
 							<li><a class="text-dark" href="about.html">About Us</a></li>
@@ -615,11 +595,5 @@
 		<script>
 			AOS.init();
 		  </script>
-		  <script type="text/javascript">
-  window.addEventListener("load", function(){
-  	const loader = document.querySelector(".loader");
-  	loader.className += " hidden";
-  });
-</script>
 	</body>
 </html>

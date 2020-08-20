@@ -6,7 +6,7 @@
 	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	    <meta name="description" content="Al-Aflaz Kiddies School, islamic school, abuja islamic school, lugbe airport road">
 		<meta name="author" content="Al Aflaz Kiddies School">
-		<link rel="shortcut icon" href="../images/logo.jpg">
+		<link rel="shortcut icon" href="https://res.cloudinary.com/dwszstiol/image/upload/v1587652905/al-aflaz/logo_mggujt.jpg">
 		<!-- Fontawesome CSS -->
 	    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 	    <!-- Bootstrap CSS -->
@@ -329,6 +329,44 @@
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 /*dropdown features ends*/
+/*<loader> */
+.loader-img{
+	height: 100px;
+	display: block;
+	position: absolute;
+	
+
+}
+
+.loader {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #f1f2f3;
+}
+
+.loader.hidden{
+	animation: fadeOut 1s;
+	animation-fill-mode: forwards;
+}
+@keyframes fadeOut {
+	100%{
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+#loader{
+	margin-top: 12em;
+}
+/*</loader>*/
+
 			@media only screen and (min-width: 900px) {
   .img-carousel {
    height: 500px;
@@ -342,11 +380,20 @@
 		<title>Al Aflaz Kiddies</title>
 	</head>
 	<body>
+		<!-- preloader starts -->
+		<div class="loader">
+
+  		<img class="loader-img" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="Loading..." />
+  		
+  		<img id="loader" class="loader-img" src="https://res.cloudinary.com/dwszstiol/image/upload/v1588514791/al-aflaz/loader1_qwivsd.gif" alt="Loading..." />
+
+		</div>
+		<!-- preloader ends -->
 		<header>
 			<nav class="navbar fixed-top navbar-expand-lg navbar-main bg-white">
 				<div class="container">
 					<a class="navbar-brand" href="index.html">
-						<img src="../images/logo1.svg" alt="logo" class="img img-responsive" height="100" width="100">
+						<img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100">
 					</a>
 					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar top-bar"></span>
@@ -369,9 +416,9 @@
     					<a class="nav-link dropdown-toggle" href="academics.html" role="button" 
    						 aria-haspopup="true" aria-expanded="true" data-toggle="tooltip" data-placement="right"  title="Academics">Academics</a>
     					<div class="dropdown-content">
-     					<a class="" href="#">Admission</a>
-     					<a class="" href="#">Islamiyyah Section</a>
-      					<a class="" href="#">Results</a>
+     					<a class="" href="admission.html">Admission</a>
+     					<a class="" href="islamiyyah.html">Islamiyyah Section</a>
+      				<!-- 	<a href="login.php">Login</a> -->
       					<!-- <a class="" href="#">Something else here</a>
       					<div class="dropdown-divider"></div>
       					<a class="" href="#">Separated link</a> -->
@@ -382,8 +429,14 @@
 								<a class="nav-link" href="events.html" data-toggle="tooltip" data-placement="bottom"  title="Events">Events</a>
 							</li> 
 							<li class="nav-item">
-								<a class="nav-link" href="contacts.html" data-toggle="tooltip" data-placement="bottom"  title="Contacts">Contacts</a>
-							</li>                              
+								<a class="nav-link" href="contacts.php" data-toggle="tooltip" data-placement="bottom"  title="Contacts">Contacts</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="login.php" data-toggle="tooltip" data-placement="bottom"  title="login">Login</a>
+							</li>
+							<!-- <li class="nav-item">
+								<a class="nav-link" href="login1.php" data-toggle="tooltip" data-placement="bottom"  title="Contacts">Login1</a>
+							</li>  -->                              
 						</ul>
 
 					</div>
@@ -404,28 +457,28 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="../images/img7.jpg"  alt="lerning path"  class="d-block w-100 img img-responsive img-carousel" >
+      <img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587653046/al-aflaz/img7_xtdor1.jpg"  alt="lerning path"  class="d-block w-100 img img-responsive img-carousel" >
       <div class="carousel-caption d-none d-md-block ">
         <h3 class="carousalhead">LEARNING PATHS</h3>
         <p>A conducive environment built to improve the learning experience of our future leaders. </p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../images/img8.jpg"  alt="effective tools" class="d-block w-100 img img-responsive img-carousel" >
+      <img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587656388/al-aflaz/img8_ywj88d.jpg"  alt="effective tools" class="d-block w-100 img img-responsive img-carousel" >
       <div class="carousel-caption d-none d-md-block ">
         <h3 class="carousalhead">EFFECTIVE TOOLS</h5>
         <p>Learning with right tools helps with positive results. Our teaching aids are detailed, conceptualized, effective and result oriented.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../images/img3.jpg"  alt="paying attention"  class="d-block w-100 img img-responsive img-carousel" >
+      <img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587653467/al-aflaz/img3_tc3hmb.jpg"  alt="paying attention"  class="d-block w-100 img img-responsive img-carousel" >
       <div class="carousel-caption d-none d-md-block ">
         <h3 class="carousalhead">PAYING ATTENTION</h5>
         <p>Having a focused mind and paying attention to simple details goes a long way.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../images/img9.jpg" alt="islamiyyah"  class="d-block w-100 img img-responsive img-carousel" >
+      <img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587656721/al-aflaz/img9_k2bwja.jpg" alt="islamiyyah"  class="d-block w-100 img img-responsive img-carousel" >
       <div class="carousel-caption d-none d-md-block carouselcolor ">
         <h3 class="carousalhead">ISLAMIYYAH</h5>
         <p>Learning Islam from those with indept knowledge.</p>
@@ -465,7 +518,7 @@
 		  				<div class="col-md-6">
 		  					<div class="text-center">
 		  						<h3 class="text-head">Kids Play</h3>
-		  						<img src="../images/img4.jpg" alt="kids Play" class="img img-responsive" data-aos="fade-left" height="auto" width="100%">
+		  						<img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587653567/al-aflaz/img4_h1jfii.jpg" alt="kids Play" class="img img-responsive" data-aos="fade-left" height="auto" width="100%">
 		  						
 		  					</div>
 		  				</div>
@@ -493,7 +546,7 @@
     <div class="card">
       
       </div>
-      <img class="img img-responsive gif-img" src="../images/ramadan.gif" alt="ramadan" height="auto" width="100%" >
+      <img class="img img-responsive gif-img" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587654296/al-aflaz/ramadan_yxfg4t.gif" alt="ramadan" height="auto" width="100%" >
     </div>
   </div>
 </div>
@@ -533,12 +586,11 @@
       <div class="col-md-4" data-aos="fade-right"  data-aos-duration="3000">
         <div class="card mb-2">
           <img class="card-img-top"
-            src="../images/national-park.jpg"
+            src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652675/al-aflaz/national-park_svjagv.jpg"
             alt="Kids at national park">
           <div class="card-body">
             <h4 class="card-title">At the National Park</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's content.</p>
+            <p class="card-text">National Park is the headquarter for all the parks located in Nigeria and it also houses different animals... </p>
             <a href="events.html" class="btn btn-card">Read More...</a>
           </div>
         </div>
@@ -547,12 +599,11 @@
       <div class="col-md-4" data-aos="zoom-in"  data-aos-duration="3000">
         <div class="card mb-2">
           <img class="card-img-top"
-            src="../images/kapital-fm.jpg"
+            src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652616/al-aflaz/kapital-fm_nslmmw.jpg"
             alt="Kids at kapital-fm">
           <div class="card-body">
             <h4 class="card-title">A visit to Kapital FM</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's content.</p>
+            <p class="card-text">Radio House gave the kids a warm reception when they paid a visit to Kapital FM, Abuja...  </p>
             <a href="events.html" class="btn btn-card">Read More...</a>
           </div>
         </div>
@@ -561,109 +612,18 @@
       <div class="col-md-4"  data-aos="fade-left"  data-aos-duration="3000" >
         <div class="card mb-2">
           <img class="card-img-top"
-            src="../images/national-mosque.jpg"
+            src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652762/al-aflaz/national-mosque_k2kaso.jpg"
             alt="kids at national-mosque">
           <div class="card-body">
             <h4 class="card-title">After Solat</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's content.</p>
+            <p class="card-text">At the National mosque Abuja to offer the Jumat prayer after a fun filled outing...</p>
             <a href="events.html" class="btn btn-card">Read More...</a>
           </div>
         </div>
       </div>
 
     </div>
-    <!--/.First slide-->
-
-    <!-- Second slide
-    <div class="carousel-item">
-
-      <div class="col-md-4">
-        <div class="card mb-2">
-          <img class="card-img-top"
-            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's content.</p>
-            <a class="btn btn-primary">Button</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card mb-2">
-          <img class="card-img-top"
-            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(47).jpg" alt="Card image cap">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's content.</p>
-            <a class="btn btn-primary">Button</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card mb-2">
-          <img class="card-img-top"
-            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(48).jpg" alt="Card image cap">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's content.</p>
-            <a class="btn btn-primary">Button</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <!--/.Second slide-->
-
-    <!--Third slide-->
-    <!-- <div class="carousel-item">
-
-      <div class="col-md-4">
-        <div class="card mb-2">
-          <img class="card-img-top"
-            src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(53).jpg" alt="Card image cap">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's content.</p>
-            <a class="btn btn-primary">Button</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card mb-2">
-          <img class="card-img-top"
-            src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(45).jpg" alt="Card image cap">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's content.</p>
-            <a class="btn btn-primary">Button</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card mb-2">
-          <img class="card-img-top"
-            src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(51).jpg" alt="Card image cap">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's content.</p>
-            <a class="btn btn-primary">Button</a>
-          </div>
-        </div>
-      </div>
-
-    </div> --> 
-    <!--/.Third slide-->
+   
 
   </div>
   <!--/.Slides-->
@@ -682,19 +642,19 @@
 		  			<div class="row">
 		  				<div class="col-md-4">
 		  					<div class="text-center text-white">
-		  						<img class="rounded" src="../images/nigerian.jpg" class="img img-responsive" height="auto" width="100%">
+		  						<img class="rounded" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587653061/al-aflaz/nigerian_vuoybi.jpg" class="img img-responsive" height="auto" width="100%">
 		  						<p class="text-white text-bold mt-4">Nigerian</p>
 		  					</div>
 		  				</div>
 		  				<div class="col-md-4">
 		  					<div class="text-center text-white">
-		  						<img class="rounded" src="../images/british.jpg" class="img img-responsive" height="230.30px" width="100%">
+		  						<img class="rounded" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587653404/al-aflaz/british_zkfo9g.jpg" class="img img-responsive" height="230.30px" width="100%">
 		  						<p class="text-white text-bold mt-4">British</p>
 		  					</div>
 		  				</div>
 		  				<div class="col-md-4">
 		  					<div class="text-center text-white">
-		  						<img class="rounded" src="../images/islamic.jpg" class="img img-responsive" height="auto" width="100%">
+		  						<img class="rounded" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587657135/al-aflaz/islamic_fv8zeo.jpg" class="img img-responsive" height="auto" width="100%">
 		  						<p class="text-white text-bold mt-4">Islamic</p>
 		  					</div>
 		  				</div>
@@ -715,11 +675,13 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-2">
-						<img src="../images/logo1.svg" alt="" class="img img-responsive mb-2" height="70" width="auto">
+						<img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="" class="img img-responsive mb-2" height="70" width="auto">
 						<ul class="list-unstyled">
 							<li><a class="text-dark" href="academics.html">Academics</a></li>
 							<li><a class="text-dark" href="about.html">About Us</a></li>
 							<li><a class="text-dark" href="events.html">Events</a></li>
+							<li><a class="text-dark" href="signup.php">SignUp</a></li>
+
 							<!-- <li><a class="text-dark" href="faq.html">FAQ</a></li> -->
 						</ul>
 					</div>
@@ -783,5 +745,11 @@
   $('[data-toggle="tooltip"]').tooltip()
 });
 		  </script>
+		  <script type="text/javascript">
+  window.addEventListener("load", function(){
+  	const loader = document.querySelector(".loader");
+  	loader.className += " hidden";
+  });
+</script>
 	</body>
 </html>
