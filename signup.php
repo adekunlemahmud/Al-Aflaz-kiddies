@@ -11,6 +11,8 @@ session_start();
 // Include config file
 require_once "config.php";
  
+ $id = $_SESSION['id'];
+    // echo $id; 
 
 
 $error_message = "";$success_message = "";
@@ -27,14 +29,14 @@ if(isset($_POST['submit'])){
    $checkUsername = mysqli_query($link, "SELECT username from registration WHERE username = '$username'");
 
 if (!$checkUsername) {
-    die('Query failed to execute for some reason');
+    die('Query failed to execute for some reasons');
 }
 
 if (mysqli_num_rows($checkUsername) > 0) {
 
     echo "Username exists already.";
     $user = mysqli_fetch_array($checkUsername);
-    print_r($user); // the data returned from the query
+    // print_r($user); // the data returned from the query
     die;
 }
    // Check fields are empty or not
@@ -58,14 +60,40 @@ if (mysqli_num_rows($checkUsername) > 0) {
      $stmt->bind_param("sss",$username,$password,$unhashed_password);
      $stmt->execute();
      $stmt->close();
-     $insertSQL = "INSERT INTO users (username,password,unhashed_password ) values(?,?,?)";
-     $stmt = $link->prepare($insertSQL);
-     $stmt->bind_param("sss",$username,$hashed_password,$unhashed_password);
-     $stmt->execute();
-     $stmt->close();
+
+      $sql = "UPDATE users SET username=?, password=?, unhashed_password=? WHERE id=?";
+
+$stmt = $link->prepare($sql);
+
+// This assumes the date and account_id parameters are integers `d` and the rest are strings `s`
+// So that's 5 consecutive string params and then 4 integer params
+
+$stmt->bind_param('ssss', $username, $hashed_password, $unhashed_password, $id);
+$stmt->execute();
+
+if ($stmt->error) {
+  echo "FAILURE!!! " . $stmt->error;
+}
+else echo "Updated {$stmt->affected_rows} rows";
+header("location: form.php");
+$stmt->close();
+
+
+     // $sql = "UPDATE users SET `username`= `$username`,`password`=`$hashed_password`,`unhashed_password`=`$unhashed_password` WHERE id = `$id`";
+     // $insertSQL = "INSERT INTO users (username,password,unhashed_password ) values(?,?,?)";
+     // $stmt = $link->prepare($insertSQL);
+     // $stmt->bind_param("sss",$username,$hashed_password,$unhashed_password);
+     // $stmt->execute();
+     // $stmt->close();
+     // if(mysqli_query($link, $sql)){
+    
+// echo '<script>alert("Updated Successfully")</script>'; 
+//      	header("location: form.php");
+//    $success_message = "Account created successfully.";
+// } 
      // header("location: form.php");
-     $success_message = "Account created successfully.";
-     echo "$link->error";
+  
+     // echo "$link->error";
    }
 }
 ?>

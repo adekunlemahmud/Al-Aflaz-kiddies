@@ -225,6 +225,54 @@ session_start();
         .intro{
             size: 30px;
         }
+        .row{
+            margin-top: 2em;
+        }
+        .container{
+            margin-top: 4em;
+            overflow: hidden;
+        }
+        .t-head{
+            display: inline-block;
+            width: 12em;
+            background-color: #f7f9fc;
+            height: 3em;
+            padding: .8em 0 0 1.2em;
+            color: black;
+            font-family: cursive;
+            font-size: 1.1em;
+            filter: drop-shadow(1px 1px 2px black);
+            /*text-shadow: -1px -1px 0px rgba(255,255,255,0.3), 1px 1px 0px rgba(0,0,0,0.8);*/
+            border-left: solid;
+           border-bottom: solid;
+           border-bottom-color: #466afa;
+           border-left-color: #466afa;
+           border-left-width: 8px;
+        }
+
+        .p-body{
+            display: inline-block;
+            text-transform: capitalize;
+            width: 40em;
+            background-color: #f7f9fc;
+            height: 3em;
+            padding: .8em 0 0 1.8em;
+            color: black;
+            font-family: cursive;
+            font-size: 1.1em;
+            filter: drop-shadow(1px 2px 3px black);
+            border-right: solid;
+           border-bottom: solid;
+           border-bottom-color: #466afa;
+           border-right-color: #466afa;
+           border-right-width: 8px;
+        }
+        #thead{
+            
+            font-family: cursive;
+            font-size: 1em;
+        }
+
 
         /* ---------------------------------------------------
             SIDEBAR STYLE
@@ -605,6 +653,61 @@ session_start();
             }
         }
 
+        @media (max-width: 1090px) {
+            .t-head{
+            display: inline-block;
+            width: 12em;
+            height: 3em;
+            
+            
+        }
+
+        .p-body{
+            width: 25em;
+            height: 3em;
+            padding: .8em 0 0 1em;
+            margin-left: 2.5em;
+        }
+    }
+    @media (max-width: 767px) {
+            .t-head{
+            width: 12em;
+            height: 3em;
+            font-size: .8em
+            
+            
+        }
+
+        .p-body{
+            width: 25em;
+            height: 3em;
+            padding: .8em 0 0 1em;
+            margin-left: 2.5em;
+            font-size: .8em
+
+        }
+    }
+
+     @media (max-width: 575px) {
+            .t-head{
+            width: 12em;
+            height: 3em;
+            font-size: .8em
+            
+            
+        }
+
+        .p-body{
+            width: 25em;
+            height: 3em;
+            padding: .8em 0 0 1em;
+            margin-left: 0em;
+            font-size: .8em
+
+        }
+    }
+      
+
 
 
 
@@ -757,89 +860,48 @@ session_start();
 
             <section class="">
                 <div class="container">
-                    
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">Father's Fullname:</label>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table project-table table-borderless">
-                                <thead>
-                                    <tr>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-         
-                                    <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">Father's Fullname:</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $sfather_name; ?></td>
-                                        <td class="border-top border-bottom titles"><?php echo  $lfather_name;  ?></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                       
-                                    </tr>
-                                     <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0 ">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">Home Address:</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $father_home; ?></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                       
-                                       
-                                    </tr>
-         
-                  
-                                    <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0 ">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">Phone Number:</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $father_phone; ?></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                       
-                                       
-                                    </tr>
-                                    <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0 ">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">Occupation:</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $father_occupation; ?></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                       
-                                       
-                                    </tr>
-                                     <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0 ">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">Email :</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $father_email; ?></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                       
-                                       
-                                    </tr>
-                                     
-                                    
-                                </tbody>
-                            </table>
+                        <div class="col-sm-6">
+                            <label class="p-body"><?php  echo $sfather_name;echo " "; echo  $lfather_name;?></label>
                         </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">Home Address:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="p-body"><?php  echo $father_home; ?></label>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">Phone Number:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="p-body"><?php  echo $father_phone; ?></label>
+                        </div>
+                    </div>
+                      <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">Occupation:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="p-body"><?php  echo $father_occupation; ?></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">Email :</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="p-body" style="text-transform: none;"><?php  echo $father_email; ?></label>
+                        </div>
+                    </div>
+                        </div>
+                        
                     </div>
                 </div>
             </section>

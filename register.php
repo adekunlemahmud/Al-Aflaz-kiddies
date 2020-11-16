@@ -17,6 +17,13 @@ $username_err = $password_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+	$username = $_POST['username'];
+	$select = "SELECT * from registration WHERE username = '".$username."'";
+     $result = mysqli_query($con,$query);
+    if(mysqli_num_rows($result)>0)
+       {
+        echo"name already exists";
+       }
  
     // Check if username is empty
     if(empty(trim($_POST["username"]))){
@@ -32,6 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password = trim($_POST["password"]);
 
      }
+
     
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
@@ -60,6 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         			// $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
+
                             session_start();
                             
                             // Store data in session variables
@@ -69,7 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                                        
                             
                             // Redirect user to welcome page
-                            header("location: form.php");
+                            header("location: signup.php");
                         } else{
                             // Display an error message if password is not valid
                             $password_err = "The password you entered is not valid.";

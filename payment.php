@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
  require_once "config.php";
  if(isset($_SESSION['username'])){
     // echo ($_SESSION['username']);
@@ -22,15 +23,15 @@ session_start();
 
        while ($outputPlus = mysqli_fetch_assoc($selectPlus)){
         $firstAdmissionNo = $outputPlus['admission_no'];
-        $firstTotalPayment = $outputPlus['total_payment'];
-        $firstAmountPayable = $outputPlus['amount_payable'];
-        $firstAmountPaid = $outputPlus['amount_paid'];
+        $firstTotalPayment = number_format($outputPlus['total_payment']);
+        $firstAmountPayable = number_format($outputPlus['amount_payable']);
+        $firstAmountPaid = number_format($outputPlus['amount_paid']);
         $firstPaymentDate = $outputPlus['payment_date'];
-        $firstAmountPaid2 = $outputPlus['amount_paid2'];
+        $firstAmountPaid2 = number_format($outputPlus['amount_paid2']);
         $firstPaymentDate2 = $outputPlus['payment_date2'];
-        $firstAmountPaid3 = $outputPlus['amount_paid3'];
+        $firstAmountPaid3 = number_format($outputPlus['amount_paid3']);
         $firstPaymentDate3= $outputPlus['payment_date3'];
-        $firstBalance = $outputPlus['Balance'];
+        $firstBalance = number_format($outputPlus['Balance']);
         $firstPaymentStatus = $outputPlus['payment_status'];
     
     } 
@@ -40,15 +41,15 @@ session_start();
 
        while ($outputPlus = mysqli_fetch_assoc($selectPlus)){
         $secondAdmissionNo = $outputPlus['admission_no'];
-        $secondTotalPayment = $outputPlus['total_payment'];
-        $secondAmountPayable = $outputPlus['amount_payable'];
-        $secondAmountPaid = $outputPlus['amount_paid'];
+        $secondTotalPayment = number_format($outputPlus['total_payment']);
+        $secondAmountPayable = number_format($outputPlus['amount_payable']);
+        $secondAmountPaid = number_format($outputPlus['amount_paid']);
         $secondPaymentDate = $outputPlus['payment_date'];
-        $secondAmountPaid2 = $outputPlus['amount_paid2'];
+        $secondAmountPaid2 = number_format($outputPlus['amount_paid2']);
         $secondPaymentDate2 = $outputPlus['payment_date2'];
-        $secondAmountPaid3 = $outputPlus['amount_paid3'];
+        $secondAmountPaid3 = number_format($outputPlus['amount_paid3']);
         $secondPaymentDate3= $outputPlus['payment_date3'];
-        $secondBalance = $outputPlus['Balance'];
+        $secondBalance = number_format($outputPlus['Balance']);
         $secondPaymentStatus = $outputPlus['payment_status'];
     
     }
@@ -58,15 +59,15 @@ session_start();
 
        while ($outputPlus = mysqli_fetch_assoc($selectPlus)){
         $thirdAdmissionNo = $outputPlus['admission_no'];
-        $thirdTotalPayment = $outputPlus['total_payment'];
-        $thirdAmountPayable = $outputPlus['amount_payable'];
-        $thirdAmountPaid = $outputPlus['amount_paid'];
+        $thirdTotalPayment = number_format($outputPlus['total_payment']);
+        $thirdAmountPayable = number_format($outputPlus['amount_payable']);
+        $thirdAmountPaid = number_format($outputPlus['amount_paid']);
         $thirdPaymentDate = $outputPlus['payment_date'];
-        $thirdAmountPaid2 = $outputPlus['amount_paid2'];
+        $thirdAmountPaid2 = number_format($outputPlus['amount_paid2']);
         $thirdPaymentDate2 = $outputPlus['payment_date2'];
-        $thirdAmountPaid3 = $outputPlus['amount_paid3'];
+        $thirdAmountPaid3 = number_format($outputPlus['amount_paid3']);
         $thirdPaymentDate3= $outputPlus['payment_date3'];
-        $thirdBalance = $outputPlus['Balance'];
+        $thirdBalance = number_format($outputPlus['Balance']);
         $thirdPaymentStatus = $outputPlus['payment_status'];
     
     } 
@@ -101,8 +102,28 @@ session_start();
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <!-- <link rel="stylesheet" href="style/project.css"> -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+        <!-- Fontawesome CSS -->
+        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+        <!-- Bootstrap CSS -->
+        <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+        <!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+        <!-- Add animations -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- end add animations -->
     <style type="text/css">
         /*Main page style by message*/
         @import url(http://fonts.googleapis.com/css?family=Open+Sans);
@@ -156,6 +177,7 @@ session_start();
             overflow: hidden;
             transition: all ease-in-out .5s;
         }
+        
 
         .btn::after {
             content: "";
@@ -183,6 +205,9 @@ session_start();
 
         .btn-primary {
             background-color: var(--primary-color) !important;
+            width: 15em;
+            height: 4em;
+            font-family: cursive;
         }
 
         .btn-secondary {
@@ -277,6 +302,9 @@ session_start();
         }
         .titles{
             text-align: center;
+        }
+        .row{
+            margin-top: 2.5em;
         }
 
         /* ---------------------------------------------------
@@ -473,6 +501,20 @@ session_start();
             size: 50px;
             color: green;
         }
+        .t-head{
+            display: inline-block;
+            width: 12em;
+            background-color: #f7f9fc;
+            height: 3em;
+            padding: .8em 0 0 3.5em;
+            color: black;
+            font-family: cursive;
+            font-size: 1em;
+            filter: drop-shadow(1px 1px 2px black);
+            font-weight: bold;
+            margin-top: .6em;
+            
+        }
 
         /* ---------------------------------------------------
             MEDIAQUERIES
@@ -657,9 +699,19 @@ session_start();
                 width: 100%;
             }
         }
+         @media (max-width: 990px){
+        .row-ed{
+            /*margin:30px;*/
+            display:flex;
+            flex-direction:row;
+            width:3em;
+            /*height:80px;*/
+            /*border:1px red solid;*/
 
-
-
+            /*padding:5px; /* this */*/
+            
+        }
+        }
 
         /* ---------------------------------------------------
             Table
@@ -685,6 +737,11 @@ session_start();
 
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+        #thead{
+            
+            font-family: cursive;
+            font-size: 1em;
         }
 
         .dropleft .dropdown-toggle::before {
@@ -713,7 +770,7 @@ session_start();
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-               <img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100">
+               <a href="index.html"><img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100"></a>
                 
             </div>
             <ul class="list-unstyled components">
@@ -723,7 +780,7 @@ session_start();
                         <!-- <img src="https://lancer-app.000webhostapp.com/images/svg/home.svg" height="20" width="auto" style="color: #000"> -->
                         <span> Dashboard</span></a>
                 </li>
-                <li class="">
+                <!-- <li class="">
                     <a href="basicinfo.php">
                         <i class="fas fa-user"></i> <span> Basic Info</span>
                     </a>
@@ -742,7 +799,7 @@ session_start();
                         
 
                     </ul>
-                </li>
+                </li> -->
                 <li class="active">
                     <a href="#">
                        <i class="fas fa-money-check"></i> <span> Payments</span>
@@ -803,24 +860,39 @@ session_start();
     ?>
 </ul>
 </div>
-                    
 
                 </div>
             </nav>
 
             <section class="">
-
-                <table class="table table-borderless">
-                        <thead>
-                        <tr id="thead">
-                        <th scope="col">2020/21</th>
+                <div class="container">
+                    <div class="row row-ed">
+                        <div class="col-sm-3">
+                            <label class="t-head">2020/21 </label>
+                        </div>
+                         
+                        <div class="col-sm-3">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#firstterm" aria-expanded="false" aria-controls="collapseExample">First Term</button>
+                        </div>
                         
-                        <th scope="col"><button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#firstterm" aria-expanded="false" aria-controls="collapseExample">First Term</button></th>
-                       <th scope="col"><button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#secondterm" aria-expanded="false" aria-controls="collapseExample">Second Term</button></th>
-                       <th scope="col"><button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#thirdterm" aria-expanded="false" aria-controls="collapseExample">Third Term</button></th>
-                        </tr>
-                        </thead>
-                        </table>
+                   
+                    
+                        <div class="col-sm-3">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#secondterm" aria-expanded="false" aria-controls="collapseExample">Second Term</button>
+                        </div>
+                        
+                   
+                     
+                        <div class="col-sm-3">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#thirdterm" aria-expanded="false" aria-controls="collapseExample">Third Term</button>
+                        </div>
+                        
+                    
+                  
+                        
+                    </div>
+                    
+                </div>
 
 
 <div class="collapse" id="firstterm">
@@ -853,8 +925,8 @@ session_start();
                                         </td>
                                         <td class="border-top border-bottom titles"><?php  echo  $firstAmountPayable; ?></td>
 
-                                        <td class="border-top border-bottom titles"><?php  echo $firstAmountPaid ; ?></td>
-                                        <td class="border-top border-bottom titles"><?php  echo $firstTotalPayment; ?></td>
+                                        <td class="border-top border-bottom titles"><?php  echo $firstTotalPayment ?></td>
+                                        <td class="border-top border-bottom titles"><?php  echo $firstAmountPaid; ?></td>
                                         <td class="border-top border-bottom titles"><?php  echo $firstPaymentDate; ?></td>
                                         <td class="border-top border-bottom titles"><?php  echo $firstAmountPaid2; ?></td>
                                         <td class="border-top border-bottom titles"><?php  echo $firstPaymentDate2; ?></td>
@@ -903,8 +975,8 @@ session_start();
                                           <?php  echo $secondAmountPayable; ?>  
                                         </td>
                                         
+                                        <td class="border-top border-bottom titles"><?php  echo $secondTotalPayment ; ?></td>
                                         <td class="border-top border-bottom titles"><?php  echo $secondAmountPaid ; ?></td>
-                                        <td class="border-top border-bottom titles"><?php  echo $secondTotalPayment; ?></td>
                                         <td class="border-top border-bottom titles"><?php  echo $secondPaymentDate; ?></td>
                                         <td class="border-top border-bottom titles"><?php  echo $secondAmountPaid2; ?></td>
                                         <td class="border-top border-bottom titles"><?php  echo $secondPaymentDate2; ?></td>
@@ -953,8 +1025,8 @@ session_start();
                                           <?php  echo $thirdAmountPayable; ?>  
                                         </td>
                                         
-                                        <td class="border-top border-bottom titles"><?php  echo $thirdAmountPaid ; ?></td>
                                         <td class="border-top border-bottom titles"><?php  echo $thirdTotalPayment; ?></td>
+                                        <td class="border-top border-bottom titles"><?php  echo $thirdAmountPaid; ?></td>
                                         <td class="border-top border-bottom titles"><?php  echo $thirdPaymentDate; ?></td>
                                         <td class="border-top border-bottom titles"><?php  echo $thirdAmountPaid2; ?></td>
                                         <td class="border-top border-bottom titles"><?php  echo $thirdPaymentDate2; ?></td>

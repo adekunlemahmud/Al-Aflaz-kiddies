@@ -33,6 +33,9 @@ if (isset($_POST["submit"])){
     $amountpayable = mysqli_real_escape_string($link, $_REQUEST['amountpayable']);
     $paypurpose = mysqli_real_escape_string($link, $_REQUEST['paypurpose']);
     
+    //check if class and paypurpose already exists
+    //if yes, just update
+    //if no then, insert newly.
     $query = mysqli_query($link, "SELECT * FROM payment WHERE class = '$pupilclass' AND `purpose_of_payment` = '$paypurpose'");
     if(mysqli_num_rows($query) > 0){
 
@@ -500,6 +503,11 @@ echo '<script>alert("Created Successfully")</script>';
             font-family: sans-serif;
             color: #ca0bd4;
         }
+        .modal-sc{
+            height: 20em;
+            overflow: hidden;
+        }
+
 
         /* ---------------------------------------------------
             MEDIAQUERIES
@@ -824,7 +832,7 @@ echo '<script>alert("Created Successfully")</script>';
                       <div class="wel">
                         <table class="table table-borderless">
                         <thead>
-                        <th scope="col" id="thead" class="relp"> Create Payment</th>
+                        <th scope="col" id="thead" class="relp" data-aos = "zoom-in" data-aos-duration="3000"> Create Payment</th>
                         
                         </thead>
                         </table>
@@ -832,7 +840,7 @@ echo '<script>alert("Created Successfully")</script>';
                     </div>                       
                 </div>
             </nav>
-            <div class="container">
+            <div class="container" data-aos = "zoom-in" data-aos-duration="3000">
                 <div >
                         <h3 class="info-head1"></h3> <br>
                     </div>
@@ -856,7 +864,7 @@ echo '<script>alert("Created Successfully")</script>';
                 <div class="col-sm-6">
 
     <select name="pupilclass" required="" class="custom-select" id="pclass"  onblur="validateEmpty1(this)" onchange ="modalInfo1()">
-    <option selected>Choose...</option>
+    <option value="">Choose...</option>
     <option value="Play Class">Play Class</option>
     <option value="Preparatory Class">Preparatory Class</option>
     <option value="Nursery 1">Nursery 1</option>
@@ -912,7 +920,7 @@ echo '<script>alert("Created Successfully")</script>';
                 </div>
                 <div class="col-sm-6">
                 <select name="paypurpose" required="" class="custom-select" id="paypurpose"  onblur="validateEmpty1(this)" onchange ="modalInfo1()">
-    <option selected>Choose...</option>
+    <option value="">Choose...</option>
     <option value="First Term">First Term</option>
     <option value="Second Term">Second Term</option>
     <option value="Third Term">Third Term</option>
@@ -942,11 +950,10 @@ echo '<script>alert("Created Successfully")</script>';
 
 
 <!-- Full Height Modal Right -->
-<div class="modal fade right" data-backdrop="false" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+<div class="modal fade modal-sc" data-backdrop="false" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
   <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
-  <div class="modal-dialog modal-full-height modal-right" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
 
 
     <div class="modal-content">
@@ -1146,15 +1153,17 @@ echo '<script>alert("Created Successfully")</script>';
     }
 
     function validateEmpty1(inputTxt){
-        if(inputTxt.value == 'Choose...' ){
+        input = inputTxt.options[inputTxt.selectedIndex].text;
+        if(input == 'Choose...' ){
             $('#modalValidate').modal('show');
             inputTxt.style.borderColor = 'red';
+            return false;
         } else{
             inputTxt.style.borderColor = '#e6e6e6';
 
         }
-    }
 
+    }
     function sub(){
         alert('Created Successfully');
     }
@@ -1170,6 +1179,13 @@ echo '<script>alert("Created Successfully")</script>';
   
         } 
     </script>
+     <script>
+            AOS.init();
+
+            $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+          </script>
 </body>
 
 </html>

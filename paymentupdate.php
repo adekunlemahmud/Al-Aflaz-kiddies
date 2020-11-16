@@ -75,23 +75,26 @@ if (isset($_POST["submit"])){
     $paydate = mysqli_real_escape_string($link, $_REQUEST['paydate']);
     $paypurpose = mysqli_real_escape_string($link, $_REQUEST['paypurpose']);
     $paystatus  = mysqli_real_escape_string($link, $_REQUEST['paystatus']);
-    $totalPayment = $amtpaid + $amount_paid1;
+    $totalPayment = $amtpaid + $amount_paid1 + $amount_paid2 + $amount_paid3;
     $balance = $amountpayable -  $totalPayment;
-    $totalPayment1 = $amtpaid + $amount_paid1 + $amount_paid2;
-    $balance1 = $amountpayable - $totalPayment1;
+   
 
 
-     // $sql = "UPDATE payment SET `amount_paid2`='$amtpaid',`payment_date2`='$paydate', `payment_status`= '$paystatus', `total_payment`=' $totalPayment', `Balance`='$balance',`created_on`= NOW() WHERE admission_no ='$pupiladminno'"; 
+     
 
-    if($paypurpose == 'First Term') {
+   $query = mysqli_query($link, "SELECT `admission_no`,`purpose_of_payment` FROM payment WHERE `admission_no`= '$pupiladminno' AND purpose_of_payment =  '$paypurpose'");
+   if(mysqli_num_rows($query) > 0){
+
+
+          if($paypurpose == 'First Term') {
       if($amount_paid1 == 0){
-       $sql = "UPDATE payment SET `amount_paid`='$amtpaid',`payment_date`='$paydate', `payment_status`= '$paystatus', `total_payment`= `amount_paid` + `amount_paid2` + `amount_paid3`, `Balance`= `amount_payable` - `total_payment`,`created_on`= NOW() WHERE admission_no ='$pupiladminno' AND purpose_of_payment = 'First Term'"; 
+      $sql = "UPDATE payment SET `amount_paid`='$amtpaid',`payment_date`='$paydate', `payment_status`= '$paystatus', `total_payment`= `amount_paid` + `amount_paid2` + `amount_paid3`, `Balance`= `amount_payable` - `total_payment`,`created_on`= NOW() WHERE admission_no ='$pupiladminno' AND purpose_of_payment = 'First Term'"; 
    } elseif($amount_paid2 == 0) {
-    $sql = "UPDATE payment SET `amount_paid2`='$amtpaid',`payment_date2`='$paydate', `payment_status`= '$paystatus', `total_payment`= `amount_paid` + `amount_paid2` + `amount_paid3`, `Balance`=`amount_payable` - `total_payment`,`created_on`= NOW() WHERE admission_no ='$pupiladminno' AND purpose_of_payment = 'First Term'"; 
+    $sql = "UPDATE payment SET `amount_paid2`='$amtpaid',`payment_date2`='$paydate', `payment_status`= '$paystatus', `total_payment`= `amount_paid` + `amount_paid2` + `amount_paid3` , `Balance`=`amount_payable` - `total_payment`,`created_on`= NOW() WHERE admission_no ='$pupiladminno' AND purpose_of_payment = 'First Term'"; 
    }else {
     $sql = "UPDATE payment SET `amount_paid3`='$amtpaid',`payment_date3`='$paydate', `payment_status`= '$paystatus', `total_payment`= `amount_paid` + `amount_paid2` + `amount_paid3`, `Balance`=`amount_payable` - `total_payment`,`created_on`= NOW() WHERE admission_no ='$pupiladminno' AND purpose_of_payment = 'First Term'"; 
    }
-  
+
     } elseif ($paypurpose == 'Second Term') {
        if($amount_paid1 == 0){
       $sql = "UPDATE payment SET `amount_paid`='$amtpaid',`payment_date`='$paydate', `payment_status`= '$paystatus', `total_payment`= `amount_paid` + `amount_paid2` + `amount_paid3`, `Balance`= `amount_payable` - `total_payment`,`created_on`= NOW() WHERE admission_no ='$pupiladminno' AND purpose_of_payment = 'Second Term'"; 
@@ -112,9 +115,7 @@ if (isset($_POST["submit"])){
    }
 
     } 
-    else{
-        echo '<script>alert("Check the term entered")</script>';
-    }
+    
 
  
 if(mysqli_query($link, $sql)){
@@ -125,6 +126,13 @@ echo '<script>alert("Updated Successfully")</script>';
     echo "ERROR: Could not able to execute $link->error ";
     // print($link->error);
 }
+
+   }else{
+
+    echo '<script>alert("Pay Purpose Does Not Exist")</script>';
+   }
+
+  
 }
 ?>
 
@@ -900,7 +908,7 @@ echo '<script>alert("Updated Successfully")</script>';
                        <div class="wel">
                         <table class="table table-borderless">
                         <thead>
-                        <th scope="col" id="thead" class="relp">Update Payments</th>
+                        <th scope="col" id="thead" class="relp" data-aos = "zoom-in" data-aos-duration="3000" >Update Payments</th>
                         
                         </thead>
                         </table>
@@ -908,7 +916,7 @@ echo '<script>alert("Updated Successfully")</script>';
                     </div>                  
                 </div>
             </nav>
-            <div class="container">
+            <div class="container" data-aos = "zoom-in" data-aos-duration="3000">
                 <div class="cent">
                         <h3 class="info-head1"></h3> <br>
                     </div>
@@ -941,7 +949,7 @@ echo '<script>alert("Updated Successfully")</script>';
                     <label class="info" >Enter Payment's Date</label>
                 </div>
                 <div class="col-sm-6">
-                <input name="paydate" id="pdate" type="date" onchange ="modalInfo1()"  onblur="validateEmpty(this)" class="form-control">  
+                <input name="paydate" id="pdate" type="date" required="" onchange ="modalInfo1()"  onblur="validateEmpty(this)" class="form-control">  
                 </div>
             </div>  
              <div class="form-group row" >
@@ -950,7 +958,7 @@ echo '<script>alert("Updated Successfully")</script>';
                 </div>
                 <div class="col-sm-6">
                 <select name="paypurpose" required="" class="custom-select" id="pclass"  onblur="validateEmpty1(this)" onchange ="modalInfo1()">
-    <option selected>Choose...</option>
+    <option value="">Choose...</option>
     <option value="First Term">First Term</option>
     <option value="Second Term">Second Term</option>
     <option value="Third Term">Third Term</option>
@@ -1022,9 +1030,38 @@ echo '<script>alert("Updated Successfully")</script>';
 
         });
 
-        
-          
+        function validateEmpty(inputTxt){
+           
+        if(inputTxt.value == '' ){
+            $('#modalValidate').modal('show');
+            inputTxt.style.borderColor = 'red';
+        } else{
+            inputTxt.style.borderColor = '#e6e6e6';
+
+        }
+    }
+
+        function validateEmpty1(inputTxt){
+        input = inputTxt.options[inputTxt.selectedIndex].text;
+        if(input == 'Choose...' ){
+            $('#modalValidate').modal('show');
+            inputTxt.style.borderColor = 'red';
+            return false;
+        } else{
+            inputTxt.style.borderColor = '#e6e6e6';
+
+        }
+
+    }
+         
     </script>
+    <script>
+            AOS.init();
+
+            $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+          </script>
 </body>
 
 </html>

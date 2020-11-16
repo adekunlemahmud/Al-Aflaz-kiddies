@@ -820,7 +820,7 @@ if(isset($_SESSION['username'])){
                           <div class="wel">
                         <table class="table table-borderless">
                         <thead>
-                        <th scope="col" id="thead" class="relp"> Debtors</th>
+                        <th scope="col" id="thead" class="relp" data-aos = "zoom-in" data-aos-duration="3000"> Debtors</th>
                         
                         </thead>
                         </table>
@@ -828,7 +828,7 @@ if(isset($_SESSION['username'])){
                     </div>             
              
             </nav>
-<div class="btns">
+<div class="btns" data-aos = "zoom-in" data-aos-duration="3000">
                 
                     
 <div>
@@ -3134,10 +3134,14 @@ if(isset($_SESSION['username'])){
 
         });
 
-        
-
-    
     </script>
+    <script>
+            AOS.init();
+
+            $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+          </script>
 </body>
 
 </html>

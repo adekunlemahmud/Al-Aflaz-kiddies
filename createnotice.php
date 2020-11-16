@@ -1,38 +1,67 @@
 <?php
 session_start();
- require_once "config.php";
- if(isset($_SESSION['username'])){
+
+    // Include config file
+$localhost = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "alaflaz";
+
+$link = mysqli_connect($localhost,$dbusername,$dbpassword,$dbname);
+
+
+if(isset($_SESSION['username'])){
     // echo ($_SESSION['username']);
     $username = $_SESSION['username'];
-    // echo $username; 
-    $select = mysqli_query($link, "SELECT * from registration WHERE username = '{$username}'");
-    while ($output = mysqli_fetch_assoc($select)){
-         $firstname = $output['firstname'];
-         $surname = $output['surname'];
-         $othername = $output['othername'];
-         $passport = $output['passport'];
-         $dob = $output['dob'];
-         $gender = $output['gender'];
-         $state = $output['state'];
-         $class = $output['admitted_class'];
-         $presntClass = $output['present_class'];
-         $gender = $output['gender'];
-         $admissionNumber = $output['admission_no'];
-         $regDate = $output['created_on'];
-         $smother_name = $output['M_surname'];
-         $lmother_name = $output['M_othernames'];
-         $mother_email = $output['M_email'];
-         $mother_phone = $output['M_phone_number'];
-         $mother_home = $output['M_home_address'];
-         $mother_occupation = $output['M_occupation'];
-          
+
     }
+
+
+
+if (isset($_POST["submit"])){
+    $username = $_SESSION['username'];
+      
+    $noticetype = mysqli_real_escape_string($link, $_REQUEST['noticetype']);
+    $noticetitle = mysqli_real_escape_string($link, $_REQUEST['noticetitle']);
+    $noticebody = mysqli_real_escape_string($link, $_REQUEST['noticebody']);
     
+    //check if class and paypurpose already exists
+    //if yes, just update
+    //if no then, insert newly.
+     if($noticetype == 'General Notice'){
+    $query = mysqli_query($link, "SELECT * FROM postings WHERE `General-Notice-Heading` = '$noticetitle' ");
+    if(mysqli_num_rows($query) > 0){
+             $sqli = mysqli_query($link, "UPDATE postings SET `General-Notice` = '$noticebody', `General-Notice-Heading` = '$noticetitle', `Date` = NOW(), `Time` = Now() WHERE `General-Notice-Heading` = '$noticetitle'" );
+            
+        
+    }else{
+ $sql = mysqli_query($link, "INSERT INTO postings (`General-Notice`,`General-Notice-Heading`,`Date`,`Time`) VALUES ('$noticebody', '$noticetitle', NOW(), NOW())" );
+
+if(mysqli_query($link, $sql)){
+    
+echo '<script>alert("Created Successfully")</script>'; 
 
  }
- // echo ($_SESSION['name']);
+ } 
+}else{
+    $query = mysqli_query($link, "SELECT * FROM postings WHERE `Islamiyyah-Notice-Head` = '$noticetitle'");
+    if(mysqli_num_rows($query) > 0){
+             $sqli = mysqli_query($link, "UPDATE postings SET `Islamiyyah-Notice` = '$noticebody', `Islamiyyah-Notice-Head` = '$noticetitle', `Is-Date` = NOW(), `Is-Time` = Now() WHERE `Islamiyyah-Notice-Head` = '$noticetitle' ");
+            
+        
+    }else{
+ $sql = mysqli_query($link, "INSERT INTO postings (`Islamiyyah-Notice`,`Islamiyyah-Notice-Head`,`Is-Date`,`Is-Time`) VALUES ('$noticebody', '$noticetitle', NOW(), NOW())");
 
+if(mysqli_query($link, $sql)){
+    
+echo '<script>alert("Created Successfully")</script>'; 
 
+ }
+ } 
+
+}
+}
+ 
 ?>
 
 <!DOCTYPE html>
@@ -52,8 +81,27 @@ session_start();
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <!-- <link rel="stylesheet" href="style/project.css"> -->
+
+        <!-- Fontawesome CSS -->
+        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+        <!-- Bootstrap CSS -->
+        <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+        <!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+        <!-- Add animations -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- end add animations -->
+    <!-- Custom CSS -->
     <style type="text/css">
         /*Main page style by message*/
         @import url(http://fonts.googleapis.com/css?family=Open+Sans);
@@ -133,7 +181,7 @@ session_start();
         }
 
         .btn-primary {
-            background-color: var(--primary-color) !important;
+            background-color: #8e4efc !important;
         }
 
         .btn-secondary {
@@ -226,55 +274,12 @@ session_start();
         .intro{
             size: 30px;
         }
-        .row{
-            margin-top: 2em;
-        }
-        .container{
-            margin-top: 4em;
-            overflow: hidden;
-        }
-        .t-head{
-            display: inline-block;
-            width: 12em;
-            background-color: #f7f9fc;
-            height: 3em;
-            padding: .8em 0 0 1.2em;
-            color: black;
+        .info{
             font-family: cursive;
-            font-size: 1.1em;
-            filter: drop-shadow(1px 1px 2px black);
-            /*text-shadow: -1px -1px 0px rgba(255,255,255,0.3), 1px 1px 0px rgba(0,0,0,0.8);*/
-            border-left: solid;
-           border-bottom: solid;
-           border-bottom-color: #466afa;
-           border-left-color: #466afa;
-           border-left-width: 8px;
+            font-size: 18px;
+            color:#ca0bd4;
+            /*text-shadow: 2px 1px #005c9e;*/
         }
-
-        .p-body{
-            display: inline-block;
-            text-transform: capitalize;
-            width: 40em;
-            background-color: #f7f9fc;
-            height: 3em;
-            padding: .8em 0 0 1.8em;
-            color: black;
-            font-family: cursive;
-            font-size: 1.1em;
-            filter: drop-shadow(1px 2px 3px black);
-            border-right: solid;
-           border-bottom: solid;
-           border-bottom-color: #466afa;
-           border-right-color: #466afa;
-           border-right-width: 8px;
-        }
-        #thead{
-            
-            font-family: cursive;
-            font-size: 1em;
-        }
-
-
 
         /* ---------------------------------------------------
             SIDEBAR STYLE
@@ -362,7 +367,6 @@ session_start();
             font-size: 0.9em !important;
             padding-left: 30px !important;
             background: #e9eef7;
-            ;
         }
 
         ul.CTAs {
@@ -470,6 +474,26 @@ session_start();
             size: 50px;
             color: green;
         }
+        .form-text{
+            /*text-transform: capitalize;*/
+        }
+        .info-head1{
+            color: #000;
+            font-family: serif;
+            margin-bottom: 0.2em;
+            text-align: center;
+        }
+        .relp{
+            font-weight: bold;
+            font-size: 16px !important;
+            font-family: sans-serif;
+            color: #ca0bd4;
+        }
+        .modal-sc{
+            height: 20em;
+            overflow: hidden;
+        }
+
 
         /* ---------------------------------------------------
             MEDIAQUERIES
@@ -533,7 +557,6 @@ session_start();
             .container-fluid {
                 margin-left: 40px;
             }
-
         }
 
         @media (max-width: 533px) {
@@ -594,11 +617,7 @@ session_start();
             }
         }
 
-
-
         @media (max-width: 1024px) {
-           
-
             #sidebar {
                 margin-left: -220px;
                 transform: rotateY(90deg);
@@ -659,62 +678,6 @@ session_start();
                 width: 100%;
             }
         }
-            @media (max-width: 1090px) {
-            .t-head{
-            display: inline-block;
-            width: 12em;
-            height: 3em;
-            
-            
-        }
-
-        .p-body{
-            width: 25em;
-            height: 3em;
-            padding: .8em 0 0 1em;
-            margin-left: 2.5em;
-        }
-    }
-    @media (max-width: 767px) {
-            .t-head{
-            width: 12em;
-            height: 3em;
-            font-size: .8em
-            
-            
-        }
-
-        .p-body{
-            width: 25em;
-            height: 3em;
-            padding: .8em 0 0 1em;
-            margin-left: 2.5em;
-            font-size: .8em
-
-        }
-    }
-
-     @media (max-width: 575px) {
-            .t-head{
-            width: 12em;
-            height: 3em;
-            font-size: .8em
-            
-            
-        }
-
-        .p-body{
-            width: 25em;
-            height: 3em;
-            padding: .8em 0 0 1em;
-            margin-left: 0em;
-            font-size: .8em
-
-        }
-    }
-      
-            
-        }
 
 
 
@@ -751,7 +714,7 @@ session_start();
 
         /*------------floating button---------*/
         #add-something {
-            position: fixed;
+            /*position: fixed;*/
             bottom: 20px;
             left: 320px;
             z-index: 12;
@@ -771,51 +734,69 @@ session_start();
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-               <img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100">
+               <a href="index.html" data-toggle="tooltip" data-placement="bottom"  title="Homepage"><img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100"></a>
                 
             </div>
             <ul class="list-unstyled components">
-                <li class="">
-                    <a href="dashboard.php">
+                <li>
+                    <a href="admin.php">
                         <i class="fas fa-home"></i>
                         <!-- <img src="https://lancer-app.000webhostapp.com/images/svg/home.svg" height="20" width="auto" style="color: #000"> -->
                         <span> Dashboard</span></a>
                 </li>
-                <li class="">
-                    <a href="basicinfo.php">
-                        <i class="fas fa-user"></i> <span> Basic Info</span>
+                <li>
+                    <a href="pupilsinfo.php">
+                        <i class="fas fa-user"></i> <span> Pupils' Info</span>
                     </a>
                 </li>
-                <li class="active">
+                <li class="">
+                    <li class="">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 
-                            <i class="fas fa-user-friends"></i><span> Parent's Info</span></a>
+                            <i class="fas fa-money-check"></i><span> Payments</span></a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="fatherinfo.php" class="pl-4">Father's Details</a>
+                            <a href="paymentview.php" class="pl-4">View Payment</a>
                         </li>
                         <li>
-                            <a href="#" class="pl-4">Mother's Details</a>
+                            <a href="paymentupload.php" class="pl-4">Create Payment</a>
+                        </li>
+                        <li>
+                            <a href="paymentupdate.php" class="pl-4">Update Payment</a>
                         </li>
                         
+                        <li>
+                            <a href="paymentbreakdown.php" class="pl-4">Payment Breakdown</a>
+                        </li>
+                        <li>
+                            <a href="debtissues.php" class="pl-4">Debt Issues</a>
+                        </li>
+
 
                     </ul>
                 </li>
-                <li>
-                    <a href="payment.php">
-                       <i class="fas fa-money-check"></i> <span> Payments</span>
-                    </a>
-                </li>
+                <li class="">
+                    <a href="#class" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+
+                            <i class="fas fa-school"></i><span> Class Allocation</span></a>
+                    <ul class="collapse list-unstyled" id="class">
+                        
+                        <li>
+                            <a href="unitclassupdate.php" class="pl-4">Unit Class Update</a>
+                        </li>
+                        <li>
+                            <a href="bulkclassupdate.php" class="pl-4">Bulk Class Update</a>
+                        </li>
+                        
+                </ul>
+            </li>
+
                 <li>
                     <a href="#">
                        <i class="fas fa-calendar"></i><span> Calendar</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-chalkboard-teacher"></i> <span> Results</span>
-                    </a>
-                </li>
+                
                 <li>
                     <a href="logout.php">
                         <i  class="fas fa-sign-out-alt"></i> <span> Log Out</span>
@@ -825,7 +806,8 @@ session_start();
         </nav>
 
         <!-- Page Content Holder -->
-       <div id="content" style="overflow: auto; height: 400px;">
+       
+        <div id="content" style="overflow: auto; height: 400px;">
             <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
                 <div class="container-fluid">
                     <button type="button" id="sidebarCollapse" class="navbar-btn">
@@ -833,89 +815,106 @@ session_start();
                         <span></span>
                         <span></span>
                     </button>
-
-                   <div class="wel">
+                      <div class="wel">
                         <table class="table table-borderless">
                         <thead>
-                        <tr id="thead">
-                        <th scope="col" id="thead"> Admission Number:</th>
-                        <!-- <th scope="col"><?php echo $firstname;  ?></th> -->
-                        <th scope="col"><?php  echo $admissionNumber; ?></th>
-                        <!-- <th scope="col"> </span></th> -->
-                        </tr>
+                        <th scope="col" id="thead" class="relp" data-aos = "zoom-in" data-aos-duration="3000"> Create Message</th>
+                        
                         </thead>
                         </table>
                         
-                    </div>
-                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                           
-                            <?php
-                        $result = mysqli_query($link, "SELECT * from registration WHERE username = '{$username}'");
-    while ($row = mysqli_fetch_assoc($result)){
-           
-          echo "<img class=\"pass\" height='100px' width='100px'  src='uploads/".$row['passport']."' />";
-          // echo "$link->error";
-
-    }
-    ?>
-</ul>
-</div>
-                    
-
+                    </div>                       
                 </div>
             </nav>
+            <div class="container" data-aos = "zoom-in" data-aos-duration="3000">
+                <div >
+                        <h3 class="info-head1"></h3> <br>
+                    </div>
+                  
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data" method="post">
 
-            <section class="">
-                <div class="container">
-                   <div class="row">
-                        <div class="col-sm-3">
-                            <label class="t-head">Mother's Fullname:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="p-body"><?php  echo $smother_name;;echo " "; echo  $lmother_name;?></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label class="t-head">Home Address:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="p-body"><?php  echo $mother_home; ?></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label class="t-head">Phone Number:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="p-body"><?php  echo $mother_phone; ?></label>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-3">
-                            <label class="t-head">Occupation:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="p-body"><?php  echo $mother_occupation; ?></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label class="t-head">Email:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="p-body" style="text-transform: none;"><?php  echo $mother_email; ?></label>
-                        </div>
-                    </div>
-                        </div>
-                        
-                    </div>
+
+           
+            <div class="form-group row" >
+                <div class="col-sm-4">
+                    <label class="info">Select Notice Type</label>
+
                 </div>
-            </section>
+                <div class="col-sm-6">
+
+    <select name="noticetype" required="" class="custom-select" id="pclass"  onblur="validateEmpty1(this)" onchange ="modalInfo1()">
+    <option value="">Choose...</option>
+    <option value="General Notice">General Notice</option>
+    <option value="Islamiyyah Notice">Islamiyyah Notice</option>
+  </select> 
+                </div>
+            </div>
+          
+            <div class="form-group row" >
+                <div class="col-sm-4">
+                    <label class="info" >Notice Title</label>
+                  
+                </div>
+                <div class="col-sm-6">
+                <input name="noticetitle" id="amtpayable" onchange ="modalInfo1()"  required="" onblur="validateEmpty(this)"  class="form-control form-text" data-toggle="tooltip" data-placement="bottom" title="Provide a unique heading else previous post with the same heading will be edited">  
+                </div>
+            </div> 
+            
+           
+             <div class="form-group row" >
+                <div class="col-sm-4">
+                    <label class="info" >Notice Body</label>
+                  
+                </div>
+                <div class="col-sm-6">
+                <textarea name="noticebody" id="amtpayable" onchange ="modalInfo1()"  type="number" required="" onblur="validateEmpty(this)"  class="form-control form-text" > </textarea> 
+                </div>
+            </div> 
+            
+            <div class="row">
+               <div class="col-sm-4">
+                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fullHeightModalRight">
+                    Create  </button>
+               </div>
+                
+            </div>
+            <!-- Button trigger modal -->
+
+
+<!-- Full Height Modal Right -->
+<div class="modal fade modal-sc" data-backdrop="false" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Create Post</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <label class="info" >Are you sure?</label> 
+                
+        </div>
+        
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
+        <input type="submit" name="submit" onsubmit="sub()" class="btn btn-primary" value="OK">
+      </div>
+    </div>
+  </div>
+</div>
+
+</form>
+            
         </div>
 
     </div>
+            </div>
+            
     <!-- <button class="btn btn-secondary text-white rounded-circle" id="add-something">
         <i class="fas fa-plus"></i>
     </button> -->
@@ -970,7 +969,80 @@ session_start();
             status.addEventListener('change', filterStatus);
 
         });
+
+        
+         
+
+
+          function modalInfo1(){
+            // var pname = document.getElementById('pname').value;
+            // var pname1 = document.getElementById('pname1');
+            var pclass = document.getElementById('pclass');
+            var pclassVal = pclass.options[pclass.selectedIndex].text;
+            var pclass1 = document.getElementById('pclass1');
+            // var padminno = document.getElementById('padminno').value;
+            // var padminno1 = document.getElementById('padminno1');
+            var amtpayable = document.getElementById('amtpayable').value;
+            var amtpayable1 = document.getElementById('amtpayable1');
+            // var amtpaid = document.getElementById('amtpaid').value;
+            // var amtpaid1 = document.getElementById('amtpaid1');
+            // var pdate = document.getElementById('pdate').value;
+            // var pdate1 = document.getElementById('pdate1');
+            var paypurpose = document.getElementById('paypurpose');
+            var paypurposeVal = paypurpose.options[paypurpose.selectedIndex].text;
+            var paypurpose1 = document.getElementById('paypurpose1');
+            // var paystatus = document.getElementById('paystatus').value;
+            // var paystatus1 = document.getElementById('paystatus1');
+
+
+              
+                pclass1.innerHTML = pclassVal;
+                // padminno1.innerHTML = padminno;
+                amtpayable1.innerHTML = amtpayable;
+                // amtpaid1.innerHTML = amtpaid;
+                // pdate1.innerHTML = pdate;
+                // paystatus1.innerHTML = paystatus;
+                paypurpose1.innerHTML = paypurposeVal;
+
+
+                // console.log(pclassVal);
+          }
+
+
+         function validateEmpty(inputTxt){
+           
+        if(inputTxt.value == '' ){
+            $('#modalValidate').modal('show');
+            inputTxt.style.borderColor = 'red';
+        } else{
+            inputTxt.style.borderColor = '#e6e6e6';
+
+        }
+    }
+
+    function validateEmpty1(inputTxt){
+        input = inputTxt.options[inputTxt.selectedIndex].text;
+        if(input == 'Choose...' ){
+            $('#modalValidate').modal('show');
+            inputTxt.style.borderColor = 'red';
+            return false;
+        } else{
+            inputTxt.style.borderColor = '#e6e6e6';
+
+        }
+
+    }
+    
+
+    
     </script>
+     <script>
+            AOS.init();
+
+            $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+          </script>
 </body>
 
 </html>

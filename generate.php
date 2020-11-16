@@ -1,39 +1,58 @@
 <?php
 session_start();
  require_once "config.php";
- if(isset($_SESSION['username'])){
-    // echo ($_SESSION['username']);
-    $username = $_SESSION['username'];
-    // echo $username; 
-    $select = mysqli_query($link, "SELECT * from registration WHERE username = '{$username}'");
-    while ($output = mysqli_fetch_assoc($select)){
-         $firstname = $output['firstname'];
-         $surname = $output['surname'];
-         $othername = $output['othername'];
-         $passport = $output['passport'];
-         $dob = $output['dob'];
-         $gender = $output['gender'];
-         $state = $output['state'];
-         $class = $output['admitted_class'];
-         $presntClass = $output['present_class'];
-         $gender = $output['gender'];
-         $admissionNumber = $output['admission_no'];
-         $regDate = $output['created_on'];
-         $smother_name = $output['M_surname'];
-         $lmother_name = $output['M_othernames'];
-         $mother_email = $output['M_email'];
-         $mother_phone = $output['M_phone_number'];
-         $mother_home = $output['M_home_address'];
-         $mother_occupation = $output['M_occupation'];
-          
-    }
+ // if(isset($_SESSION['username'])){
+ //    $username = $_SESSION['username'];
+ // }
+
+
+  
+// This function will return a random 
+// string of specified length 
+function random_strings($length_of_string) 
+{ 
+  
+    // String of all alphanumeric character 
+    $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'; 
+  
+    // Shufle the $str_result and returns substring 
+    // of specified length 
+    return substr(str_shuffle($str_result),  
+                       0, $length_of_string); 
+} 
+  
+// This function will generate 
+// Random string of length 10 
+// echo random_strings(10); 
+$username = random_strings(10); 
+  
+echo "\n"; 
+  
+// This function will generate 
+// Random string of length 8 
+$password = random_strings(8); 
+
+echo $password ; echo "\n"; echo $username ;
+if (isset($_POST["submit"])){
+      
+    $username = mysqli_real_escape_string($link, $_REQUEST['username']);
+    $password = mysqli_real_escape_string($link, $_REQUEST['password']);
+   $hashed_password = password_hash($password, PASSWORD_BCRYPT);
     
+    
+            
+ 
+ $sql = mysqli_query($link, "INSERT INTO users (`username`,`unhashed_password`,`password`) VALUES ('$username', '$password', '$hashed_password'");
 
- }
- // echo ($_SESSION['name']);
+// if(mysqli_query($link, $sql)){
+    
+// echo '<script>alert("Created Successfully")</script>'; 
 
+//  }
+ } 
+  
+?> 
 
-?>
 
 <!DOCTYPE html>
 <html>
@@ -52,10 +71,29 @@ session_start();
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <!-- <link rel="stylesheet" href="style/project.css"> -->
+
+        <!-- Fontawesome CSS -->
+        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+        <!-- Bootstrap CSS -->
+        <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+        <!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+        <!-- Add animations -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- end add animations -->
+    <!-- Custom CSS -->
     <style type="text/css">
-        /*Main page style by message*/
         @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
         :root {
@@ -133,7 +171,7 @@ session_start();
         }
 
         .btn-primary {
-            background-color: var(--primary-color) !important;
+            background-color: #0ba2d4 !important;
         }
 
         .btn-secondary {
@@ -159,6 +197,25 @@ session_start();
             border-color: #e9eef7 !important;
             opacity: 0.8 !important;
         }
+
+         .btns{
+            margin-left: 10%;
+        }
+       
+
+        
+        table.table-fit {
+            width: auto !important;
+             table-layout: auto !important;
+            }
+        table.table-fit thead th, 
+        table.table-fit tfoot th {
+            width: auto !important;
+            }
+        table.table-fit tbody td, 
+        table.table-fit tfoot td {
+            width: auto !important;
+            }
 
         /*------Nav bar---------*/
         a,
@@ -226,55 +283,30 @@ session_start();
         .intro{
             size: 30px;
         }
-        .row{
-            margin-top: 2em;
-        }
-        .container{
-            margin-top: 4em;
-            overflow: hidden;
-        }
-        .t-head{
-            display: inline-block;
-            width: 12em;
-            background-color: #f7f9fc;
-            height: 3em;
-            padding: .8em 0 0 1.2em;
-            color: black;
+        .info-head{
+            color: #0ba2d4;
             font-family: cursive;
-            font-size: 1.1em;
-            filter: drop-shadow(1px 1px 2px black);
-            /*text-shadow: -1px -1px 0px rgba(255,255,255,0.3), 1px 1px 0px rgba(0,0,0,0.8);*/
-            border-left: solid;
-           border-bottom: solid;
-           border-bottom-color: #466afa;
-           border-left-color: #466afa;
-           border-left-width: 8px;
+            margin-bottom: 0;
+            margin-top: 0;
+            margin-left: 2em;
+            font-weight: bold;
+            font-style: all;
+            font-size: 18px;
         }
 
-        .p-body{
-            display: inline-block;
-            text-transform: capitalize;
-            width: 40em;
-            background-color: #f7f9fc;
-            height: 3em;
-            padding: .8em 0 0 1.8em;
-            color: black;
-            font-family: cursive;
-            font-size: 1.1em;
-            filter: drop-shadow(1px 2px 3px black);
-            border-right: solid;
-           border-bottom: solid;
-           border-bottom-color: #466afa;
-           border-right-color: #466afa;
-           border-right-width: 8px;
+        .info-head1{
+            /*color: red;*/
+            font-family: sans-serif;
+            margin-bottom: 0;
+            margin-top: 0;
+            margin-left: 5em;
+            font-weight: bold;
+            font-size: 16px;
+            color: #ca0bd4;
         }
-        #thead{
-            
-            font-family: cursive;
-            font-size: 1em;
+        .titles{
+            font-weight: bold;
         }
-
-
 
         /* ---------------------------------------------------
             SIDEBAR STYLE
@@ -533,7 +565,6 @@ session_start();
             .container-fluid {
                 margin-left: 40px;
             }
-
         }
 
         @media (max-width: 533px) {
@@ -594,11 +625,7 @@ session_start();
             }
         }
 
-
-
         @media (max-width: 1024px) {
-           
-
             #sidebar {
                 margin-left: -220px;
                 transform: rotateY(90deg);
@@ -659,62 +686,6 @@ session_start();
                 width: 100%;
             }
         }
-            @media (max-width: 1090px) {
-            .t-head{
-            display: inline-block;
-            width: 12em;
-            height: 3em;
-            
-            
-        }
-
-        .p-body{
-            width: 25em;
-            height: 3em;
-            padding: .8em 0 0 1em;
-            margin-left: 2.5em;
-        }
-    }
-    @media (max-width: 767px) {
-            .t-head{
-            width: 12em;
-            height: 3em;
-            font-size: .8em
-            
-            
-        }
-
-        .p-body{
-            width: 25em;
-            height: 3em;
-            padding: .8em 0 0 1em;
-            margin-left: 2.5em;
-            font-size: .8em
-
-        }
-    }
-
-     @media (max-width: 575px) {
-            .t-head{
-            width: 12em;
-            height: 3em;
-            font-size: .8em
-            
-            
-        }
-
-        .p-body{
-            width: 25em;
-            height: 3em;
-            padding: .8em 0 0 1em;
-            margin-left: 0em;
-            font-size: .8em
-
-        }
-    }
-      
-            
-        }
 
 
 
@@ -764,6 +735,11 @@ session_start();
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
     </script>
+    <!-- Add animations -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- end add animations -->
 </head>
 
 <body>
@@ -771,41 +747,62 @@ session_start();
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-               <img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100">
+               <a href="index.html" data-toggle="tooltip" data-placement="bottom"  title="Homepage"><img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100"></a>
                 
             </div>
             <ul class="list-unstyled components">
                 <li class="">
-                    <a href="dashboard.php">
+                    <a href="admin.php">
                         <i class="fas fa-home"></i>
                         <!-- <img src="https://lancer-app.000webhostapp.com/images/svg/home.svg" height="20" width="auto" style="color: #000"> -->
                         <span> Dashboard</span></a>
                 </li>
-                <li class="">
-                    <a href="basicinfo.php">
-                        <i class="fas fa-user"></i> <span> Basic Info</span>
+                <li class="active">
+                    <a href="#">
+                        <i class="fas fa-user"></i> <span> Pupils' Info</span>
                     </a>
                 </li>
-                <li class="active">
+                <li class="">
+                    <li class="">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 
-                            <i class="fas fa-user-friends"></i><span> Parent's Info</span></a>
+                            <i class="fas fa-money-check"></i><span> Payments</span></a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="fatherinfo.php" class="pl-4">Father's Details</a>
+                            <a href="paymentview.php" class="pl-4">View Payment</a>
                         </li>
                         <li>
-                            <a href="#" class="pl-4">Mother's Details</a>
+                            <a href="paymentupload.php" class="pl-4">Create Payment</a>
                         </li>
-                        
+                        <li>
+                            <a href="paymentupdate.php" class="pl-4">Update Payment</a>
+                        </li>
+                        <li>
+                            <a href="paymentbreakdown.php" class="pl-4">Payment Breakdown</a>
+                        </li>
+                        <li>
+                            <a href="debtissues.php" class="pl-4">Debt Issues</a>
+                        </li>
 
                     </ul>
                 </li>
-                <li>
-                    <a href="payment.php">
-                       <i class="fas fa-money-check"></i> <span> Payments</span>
-                    </a>
-                </li>
+                <li class="">
+                    <a href="#class" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+
+                            <i class="fas fa-school"></i><span> Class Allocation</span></a>
+                    <ul class="collapse list-unstyled" id="class">
+                        
+                        <li>
+                            <a href="unitclassupdate.php" class="pl-4">Unit Class Update</a>
+                        </li>
+                        <li>
+                            <a href="bulkclassupdate.php" class="pl-4">Bulk Class Update</a>
+                        </li>
+                        
+                </ul>
+            </li>
+
+
                 <li>
                     <a href="#">
                        <i class="fas fa-calendar"></i><span> Calendar</span>
@@ -825,7 +822,7 @@ session_start();
         </nav>
 
         <!-- Page Content Holder -->
-       <div id="content" style="overflow: auto; height: 400px;">
+        <div id="content" style="overflow: auto; height: 400px;">
             <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
                 <div class="container-fluid">
                     <button type="button" id="sidebarCollapse" class="navbar-btn">
@@ -838,84 +835,153 @@ session_start();
                         <table class="table table-borderless">
                         <thead>
                         <tr id="thead">
-                        <th scope="col" id="thead"> Admission Number:</th>
-                        <!-- <th scope="col"><?php echo $firstname;  ?></th> -->
-                        <th scope="col"><?php  echo $admissionNumber; ?></th>
-                        <!-- <th scope="col"> </span></th> -->
-                        </tr>
+                        <th scope="col" id="thead" class="info-head1" data-aos = "zoom-in" data-aos-duration="3000"> Generate Login Credentials</th>
+                        
                         </thead>
                         </table>
                         
                     </div>
-                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                           
-                            <?php
-                        $result = mysqli_query($link, "SELECT * from registration WHERE username = '{$username}'");
-    while ($row = mysqli_fetch_assoc($result)){
-           
-          echo "<img class=\"pass\" height='100px' width='100px'  src='uploads/".$row['passport']."' />";
-          // echo "$link->error";
-
-    }
-    ?>
-</ul>
-</div>
-                    
+                     
 
                 </div>
             </nav>
 
-            <section class="">
-                <div class="container">
-                   <div class="row">
-                        <div class="col-sm-3">
-                            <label class="t-head">Mother's Fullname:</label>
+            <section class="" data-aos="zoom-in" data-aos-duration="3000">
+
+                <div class="btns">
+                
+                    
+<div>
+<div class="btn-group" role= "group" >
+ 
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#view" aria-expanded="false" aria-controls="collapseExample">
+    View Details &nbsp
+  </button > 
+  
+</div>
+<div class="btn-group" role= "group" >
+ 
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#generate" aria-expanded="false" aria-controls="collapseExample">
+    Generate &nbsp
+  </button > 
+  
+</div>
+</div>
+
+<div>
+
+
+
+
+               
+
+                        <div class="collapse" id="view">
+  <div class="card card-body">
+    <div class="table-responsive text-nowrap">
+       
+                            <table class="table table-striped ">
+                                <h3 class="info-head">Login Details</h3>
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="border-top border-bottom titles">S/N</th>
+                                        <th scope="col" class="border-top border-bottom titles">Username</th>
+                                        <th scope="col" class="border-top border-bottom titles">Passwords</th>
+                                        
+                                        
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                           
+                                   <?php
+                                     $select = mysqli_query($link, "SELECT * from users");
+                                    while ($output = mysqli_fetch_assoc($select)){
+                                       
+             
+                                         
+                                    echo"
+                                    <tr class=\"py-2\">
+                                        <td scope=\"row\" class=\"border border-right-0\">
+
+                                            {$output['id']}
+                                        </td>
+                                        <td scope=\"row\" class=\"border border-right-0\">
+                                            {$output['username']}
+                                        </td>
+                                        <td scope=\"row\" class=\"border border-right-0\">
+                                            {$output['unhashed_password']}
+                                        </td>
+                                       
+                                    </tr>";
+                                    
+                                    }
+                             
+                           
+                                ?>
+                                    
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-sm-6">
-                            <label class="p-body"><?php  echo $smother_name;;echo " "; echo  $lmother_name;?></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label class="t-head">Home Address:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="p-body"><?php  echo $mother_home; ?></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label class="t-head">Phone Number:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="p-body"><?php  echo $mother_phone; ?></label>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-sm-3">
-                            <label class="t-head">Occupation:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="p-body"><?php  echo $mother_occupation; ?></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label class="t-head">Email:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="p-body" style="text-transform: none;"><?php  echo $mother_email; ?></label>
-                        </div>
-                    </div>
-                        </div>
-                        
                     </div>
                 </div>
-            </section>
-        </div>
 
-    </div>
+ 
+     <div class="collapse" id="generate">
+  <div class="card card-body">
+    <div class="table-responsive text-nowrap">
+       
+                            <table class="table table-striped ">
+                                <h3 class="info-head">Login Details</h3>
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="border-top border-bottom titles">Username</th>
+                                        <th scope="col" class="border-top border-bottom titles">Password</th>
+                                        <!-- <th scope="col" class="border-top border-bottom titles">Passwords</th> -->
+                                        
+                                       <?php echo "$username" ?>  
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                 <!--  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data" method="post">    -->      
+                                  <?php
+                                       
+                                    echo"
+                                    <tr class=\"py-2\">
+                                    <td  scope=\"row\" class=\"border border-right-0\">$username;
+                                      </td>
+                                     <td  scope=\"row\" class=\"border border-right-0\">
+                                     
+                                     $password</td>
+                                       
+                                    </tr>";
+                                    
+                                ?> 
+
+                               <!--  <tr class="py-2">
+                                    <td  scope="row" class="border border-right-0"> -->
+                                     <!-- <input name="username"  class="form-control form-text" value="<?php echo $username; ?>"> --><!-- <?php echo $username; ?> </td>
+                                     <td  scope="row" class="border border-right-0"> -->
+                                     <!-- <input name="password"  class="form-control form-text" value="<?php echo $password; ?>"> -->
+                                     <!-- <?php echo $username; ?> </td>
+                                       
+                                    </tr> -->
+                                <td scope="row" class="border border-right-0">
+                                    <button type="submit" name="submit" class="btn btn-primary" data-toggle="modal" data-target="#fullHeightModalRight"> Save </button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fullHeightModalRight"> Print </button>
+                                        </td>
+                                    </form>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+       
+        
+            </section>
+        
+
     <!-- <button class="btn btn-secondary text-white rounded-circle" id="add-something">
         <i class="fas fa-plus"></i>
     </button> -->
@@ -971,6 +1037,13 @@ session_start();
 
         });
     </script>
+     <script>
+            AOS.init();
+
+            $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+          </script>
 </body>
 
 </html>

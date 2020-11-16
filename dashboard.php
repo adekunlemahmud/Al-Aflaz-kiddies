@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
  require_once "config.php";
  if(isset($_SESSION['username'])){
     // echo ($_SESSION['username']);
@@ -10,9 +11,44 @@ session_start();
          $firstname = $output['firstname'];
          $surname = $output['surname'];
          $passport = $output['passport'];
-         
-          
+         $admissionNum = $output['admission_no'];
+         $dob = $output['dob'];
+         $gender = $output['gender'];
+         $state = $output['state'];
+         $class = $output['admitted_class'];
+         $presntClass = $output['present_class'];
+         $gender = $output['gender'];
+         $admissionNumber = $output['admission_no'];
+         $regDate = $output['created_on'];
+         $contact_address = $output['contact_address'];
+         $sfather_name = $output['F_surname'];
+         $lfather_name = $output['F_othernames'];
+         $father_email = $output['F_email'];
+         $father_phone = $output['F_phone_number'];
+         $mother_phone = $output['M_phone_number'];
+         $father_home = $output['F_home_address'];
+         $father_occupation = $output['F_occupation'];
+         $smother_name = $output['M_surname'];
+         $lmother_name = $output['M_othernames'];
+
+       
     }
+    $select = mysqli_query($link, "SELECT * from payment WHERE admission_no = '{$admissionNum}'");
+    while ($output = mysqli_fetch_assoc($select)){
+         $amountPayable = $output['amount_payable'];
+     }
+    $select = mysqli_query($link, "SELECT * from postings");
+    while ($output = mysqli_fetch_assoc($select)){
+         $generalHead = $output['General-Notice-Heading'];
+         $generalPostings = $output['General-Notice'];
+         $generalDate = $output['Date'];
+         $generalTime = $output['Time'];
+         $islamiyyahHead = $output['Islamiyyah-Notice-Head'];
+         $islamiyyahPostings = $output['Islamiyyah-Notice'];
+         $islamiyyahDate = $output['Is-Date'];
+         $islamiyyahTime = $output['Is-Time'];
+
+     }
     
 
  }
@@ -31,6 +67,33 @@ session_start();
 
     <title>Al Aflaz Kiddies</title>
         <link rel="shortcut icon" href="../images/logo.jpg">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="main.css">
+        <link rel="stylesheet" media="print" href="print.css" />
+        <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+        <!-- Fontawesome CSS -->
+        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+        <!-- Bootstrap CSS -->
+        <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+        <!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+        <!-- Add animations -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <!-- <link rel="shortcut icon"
         href="https://res.cloudinary.com/ddu0ww15f/image/upload/c_scale,h_16/v1571841777/icons8-home-office-24_veiqea.png"
@@ -38,6 +101,11 @@ session_start();
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <!-- Add animations -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- end add animations -->
     <!-- Our Custom CSS -->
     <!-- <link rel="stylesheet" href="style/project.css"> -->
     <style type="text/css">
@@ -144,6 +212,14 @@ session_start();
         .btn-secondary-secondary:hover {
             border-color: #e9eef7 !important;
             opacity: 0.8 !important;
+        }
+        .hl-nb{
+            border-bottom: 1px solid;
+            border-color:  #c9c9c7;
+            width: 420px;
+            margin-top: .5em;
+            margin-left: 0em !important;
+            overflow: 
         }
 
         /*------Nav bar---------*/
@@ -399,6 +475,9 @@ session_start();
             margin-left: 400px;
             width: 350px;
         }
+       /* .container-fluid{
+            padding-top: 4em;
+        }*/
 
         .container-fluid .mydrop-down {
             width: 300px;
@@ -406,6 +485,9 @@ session_start();
         i.fas{
             size: 50px;
             color: green;
+        }
+        .name{
+            text-transform: capitalize;
         }
 
         /* ---------------------------------------------------
@@ -516,7 +598,7 @@ session_start();
             }
 
             .container-fluid .input-group {
-                margin-left: -100px;
+                margin-left: -400px;
                 width: 100px;
                 padding-left: -200px;
             }
@@ -527,10 +609,30 @@ session_start();
 
             .container-fluid {
                 margin-left: -40px;
+
+            }
+            .nb{
+                /*margin-left: 30px;*/
+                border-style: solid;
+                width: 600px;
+                justify-content: center;
+                margin-right: 0em;
+                padding-left: 0em;
+                padding-right: 0em;
+                display: block;
+            }
+            .nb-side{
+                /*margin-bottom: 30rem;*/
+                margin-right: 30rem;
+                border-style: solid;
+
             }
         }
 
         @media (max-width: 1024px) {
+            .nb{
+                display: block;
+            }
             #sidebar {
                 margin-left: -220px;
                 transform: rotateY(90deg);
@@ -590,6 +692,10 @@ session_start();
             .container-fluid .mydrop-down {
                 width: 100%;
             }
+            .container-fluid{
+                display: flex;
+                flex-wrap: wrap;
+            }
         }
 
 
@@ -598,8 +704,16 @@ session_start();
         /* ---------------------------------------------------
             Table
         ----------------------------------------------------- */
+        table td tbody{
+            font-size: 10px;
+            
+            /*display: block;*/
+        }
+        .titles{
+            font-family: cursive;
+        }
 
-        table.project-table {
+        /*table.project-table {
             border-collapse: separate;
             border-spacing: 0 1em;
         }
@@ -620,11 +734,11 @@ session_start();
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-
+*/
         .dropleft .dropdown-toggle::before {
             display: none;
         }
-
+       
         /*------------floating button---------*/
         #add-something {
             position: fixed;
@@ -632,14 +746,221 @@ session_start();
             left: 320px;
             z-index: 12;
         }
+        /*+++++++++++++flip image+++++++++++++++*/
+        .card-container {
+            perspective: 600;
+            position: relative;
+            width: 70em;
+            height: 40em;
+            margin-left: 1em;
+            margin-top: 1em;
+        }
+        .card {
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: all 1s ease-in-out;
+            width: 38em;
+            /*border: 1px solid black;*/
+            padding-top: 1em;
+            padding-left: 1em;
+
+        }
+        .card:hover {
+            transform: rotateY(180deg);
+        }
+        .card .side {
+            backface-visibility: hidden;
+            height: 100%;
+            position: absolute;
+            width: 100%;
+    
+        }
+        .card .back {
+            transform: rotateY(180deg);
+        }
+        .back{
+            background-color: white;
+        }
+        .info{
+            font-family: cursive;
+            margin-left: .5em;
+            color: red;
+            font-weight: bold;
+            text-shadow: 2px 2px 2px #b3babd;
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 0;
+            padding-bottom: 0;
+
+        }
+        .info-back{
+           font-family: serif;
+           margin-left: .3em;
+           color: #08cf0f;
+           font-weight: bold;
+           text-shadow: 2px 2px 2px black;
+           font-size: 1.8em;
+           text-align: center;
+           margin-bottom: 0;
+        }
+        .info-begin{
+            display: flex;
+            min-width: 250px;
+            height: 6em;
+            transform-style: preserve-3d;
+            transition: all 1s ease-in-out;
+            margin: 2px 1rem 2px 3px;
+            padding-top: 2rem;
+            padding-left: 1rem;
+            position: relative;
+            color: white;
+            font-size: 1em;
+
+        }
+        .info-begin:hover{
+            transform: rotateZ(10deg);
+        }
+        .info-begin-x{
+            margin-left: .5rem;
+            margin-top: 2.5em;
+
+        }
+        .vl{
+            border-left: 1px solid white;
+            height: 35px;
+            margin-left: 1em;
+        }
+       
+        #up-down{
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            margin-right: 0.5em;
+            color: white;
+            font-size: 16px;
+            font-family: serif;
+
+        }
+        #up-down > span{
+            color: white;
+        }
+        .a-rel{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+             flex:1 1 auto;
+        }
+        .num{
+            margin-left: 2em;
+            font-size: 18px;
+            font-family: serif;
+        }
+        .top-1{
+            background-color: #19cf1c;
+        }
+        .top-2{
+            background-color: #ff1814;
+        }
+        .top-3{
+            background-color: #47a0ed;
+        }
+        .top-4{
+            background-color: #f2ef16;
+        }
+        body{
+            overflow: hidden;
+            background-color: #d9dedb;
+        }
+        .row-new{
+            display: flex;
+            flex-direction: row;
+            position: absolute;
+            margin-top: 3em;
+            
+        }
+        .col-new1{
+           margin-left: 5em;
+           width: 150px; 
+           font-family: sans-serif;
+        }
+        .col-new2{
+           margin-left: 3em; 
+           font-family: sans-serif;
+           font-weight: bold;
+
+        }
+        .head{
+            font-family: sans-serif;
+           font-weight: bold;
+           text-transform: capitalize;
+        }
+        .nb-side{
+            margin-left: 15em;
+            margin-top: 1em;
+            background-color: white;
+            width: 450px;
+            height: 310px;
+            overflow: auto;
+        }
+        .not-tab{
+            max-width: 50px;
+           
+        }
+         .hl{
+            border-bottom: 1px solid;
+            border-color:  #c9c9c7;
+            width: 38em;
+            margin-top: .5em;
+            margin-left: -1em !important;
+          }
+        .hl-nb{
+            border-bottom: 1px solid;
+            border-color:  #c9c9c7;
+            width: 450px;
+            margin-top: .5em;
+            margin-left: 0em !important;
+             /*overflow-y: scroll;*/
+        }
+        .head-nb{
+             font-family: sans-serif;
+           font-weight: bold;
+           text-transform: capitalize;
+           padding-top: 1em;
+           padding-left: 1em;
+        }
+       
+         #print-content img{
+         	margin-right: 50px;
+         }
+         @media print {
+         	.back,.info-begin-x,.nb {
+         		display: none;
+         	}
+         	.card-container {
+         		/*height: 60.7em;*/
+         		width: 60em;
+         		/*background-color: white;*/
+    			margin: 5em 5em 5em 5em;
+    			
+					}
+         	
+		}
+
     </style>
-    <!-- Font Awesome JS -->
+     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
         integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
     </script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
     </script>
+    <!-- Add animations -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- end add animations -->
+    
 </head>
 
 <body>
@@ -657,7 +978,7 @@ session_start();
                         <!-- <img src="https://lancer-app.000webhostapp.com/images/svg/home.svg" height="20" width="auto" style="color: #000"> -->
                         <span> Dashboard</span></a>
                 </li>
-                <li>
+               <!--  <li>
                     <a href="basicinfo.php">
                         <i class="fas fa-user"></i> <span> Basic Info</span>
                     </a>
@@ -675,8 +996,8 @@ session_start();
                         </li>
                         
 
-                    </ul>
-                </li>
+                    </ul>s
+                </li> -->
                 <li>
                     <a href="payment.php">
                        <i class="fas fa-money-check"></i> <span> Payments</span>
@@ -691,6 +1012,15 @@ session_start();
                     <a href="#">
                         <i class="fas fa-chalkboard-teacher"></i> <span> Results</span>
                     </a>
+                </li>
+                <li>
+                	<!-- <a href="" onclick="printDiv('print-content')" >
+                		<i class="fas fa-print"></i><span> Print Form</span> 
+                	</a> -->
+                	<a href="" onclick="window.print()" >
+                		<i class="fas fa-print"></i><span> Print Form</span> 
+                	</a>
+
                 </li>
                 <li>
                     <a href="logout.php">
@@ -714,9 +1044,9 @@ session_start();
                         <table class="table table-borderless">
                         <thead>
                         <tr id="thead">
-                        <th scope="col" id="thead"> Welcome...</th>
-                        <th scope="col"><?php echo $firstname;  ?></th>
-                        <th scope="col"><?php  echo $surname; ?></th>
+                        <!-- th scope="col" id="thead"> Welcome...</th>
+                        <th scope="col" class="name"><?php echo $firstname;  ?></th>
+                        <th scope="col" class="name"><?php  echo $surname; ?></th> -->
                         <!-- <th scope="col"> </span></th> -->
                         </tr>
                         </thead>
@@ -741,8 +1071,161 @@ session_start();
                 </div>
             </nav>
 
-            <section class="">
+            <section class="container-fluid">
+                <div class="row info-begin-x">
+                    <div class="col-sm-2 info-begin top-1">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-edit"></i> 
+                        <span> Upcoming Exam</span></div>
+                        <div class="vl"></div>
+                        <div class="num">04</div>
+                    </a>
+                </div>
+                    <div class="col-sm-2 info-begin top-2">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-money-bill-alt"></i> 
+                        <span> Due Fees</span></div>
+                        <div class="vl"></div>
+                        <div class="num">&#8358;<?php echo number_format($amountPayable);  ?></div>
+                    </a>
+                    </div>
+                    <div class="col-sm-2 info-begin top-3">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-calendar-alt"></i>
+                        <span>Events</span></div>
+                        <div class="vl"></div>
+                        <div class="num">04</div>
+                    </a>
+                    </div>
+                    <div class="col-sm-2 info-begin top-4">
+                        <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-folder-open"></i> 
+                        <span>Documents</span></div>
+                        <div class="vl"></div>
+                        <div class="num">02</div>
+                    </a>
+                    </div>
+                    
+                </div>
+
+                <div class="row">
+                    
+                <div class="col-sm-4 card-container">
+                    
+                    <div class="card">
+                    	
+                        <div class="head"> My Information</div>
+                        <div class="hl"></div>
+                        <div class="row-new">
+                        <div class="side col-new" data-aos = "zoom-out" data-aos-duration="3000">
+                            
+                            <?php
+                        $result = mysqli_query($link, "SELECT * from registration WHERE username = '{$username}'");
+                        while ($row = mysqli_fetch_assoc($result)){
+                        echo "<img class=\"pass1\" height='70px' width='70px'src='uploads/".$row['passport']."' />";
+
+                     }
+                    ?> 
+                           
+                        </div>
+                        <div class="col-new1">
+                            <p>Admission Number:</p>
+                            <p>Name:</p>
+                            <p>Gender:</p>
+                            <p>Father's Name:</p>
+                            <p>Mother's Name:</p>
+                            <p>Date of Birth:</p>
+                            <p>Father's Occupation:</p>
+                            <p>Email:</p>
+                            <p>Admission Date:</p>
+                            <p>Admitted Class:</p>
+                            <p>Present Class:</p>
+                            <p>Home Address:</p>
+                            <p>Phone:</p>
+                        </div>
+                        <div class="col-new2">
+                            
+                            <p><?php echo $admissionNum;?></p>
+                            <p><?php echo $firstname; echo" "; echo $surname;?></p>
+                            <p><?php echo $gender;?></p>
+                            <p><?php echo $lfather_name; echo" "; echo $sfather_name;?></p>
+                            <p><?php echo $lmother_name; echo" "; echo $smother_name;?></p>
+                            <p><?php echo $dob;?></p>
+                            <p><?php echo $father_occupation;?></p>
+                            <p><?php echo $father_email;?></p>
+                            <p><?php echo $regDate;?></p>
+                            <p><?php echo $class;?></p>
+                            <p><?php echo $presntClass;?></p>
+                            <p><?php echo $contact_address;?></p>
+                            <p><?php echo  $father_phone;?>, <?php echo  $mother_phone;?></p> 
+                        </div>
+                        
+                        </div>
+                        
+
+                        <!-- <img src="../images/dashboard.svg"> -->
+                    <div class="side back"><label class="info-back">You need help? Feel free to contact admin on<span class="info"> 08023455678</span></label></div>
+                    </div>
+                </div>
+                <div class="col-sm-4 nb">
+                  
+                       <div class="nb-side">
+                            <div class="head-nb">Notice Board</div>
+                           <div class="hl-nb" style="height:185px; overflow:auto;">
+                               <table class="table project-table table-borderless">
+                            
+                            <?php
+                                     $select = mysqli_query($link, "SELECT * FROM postings WHERE `Is-Time` = 0 ORDER BY `s/n`  DESC");
+                                    while ($output = mysqli_fetch_assoc($select)){
+                                                 
+                                    echo"
+                                    <tr class=\"py-2 not-tab\">
+                                    
+                                        <td scope=\"col\" class=\"titles border border-right-0\">
+                                            {$output['Date']}
+                                        </td>
+                                        <td class=\"border-top border-bottom titles\">{$output['General-Notice-Heading']}</td>
+                                        <td name =\"General-Notice\"  class=\"border-top border-bottom titles\">{$output['General-Notice']} </td>
+
+                                        <td class=\"border-top border-bottom titles\"><a  data-toggle=\"modal\" </td>
+                                        
+                                    </tr>";
+                                    
+                                    }
+                             
+                            
+                                ?>
+                            </table>
+                            </div>
+                        </div> 
+                      <div class="nb-side">
+                            <div class="head-nb">Islamiyyah Information</div>
+                            <div class="hl-nb" style="height:185px; overflow: auto;">
+                                 <table class="table project-table table-borderless">
+                            
+                            <?php
+                                     $select = mysqli_query($link, "SELECT * FROM postings WHERE `Time` = 0 ORDER BY `s/n`  DESC");
+                                    while ($output = mysqli_fetch_assoc($select)){
+                                   
+                                    echo"
+                                    <tr class=\"py-2 not-tab\">
+                                        <td scope=\"col\" class=\"titles border border-right-0\">
+                                            {$output['Is-Date']}
+                                        </td>
+                                        <td class=\"border-top border-bottom titles\">{$output['Islamiyyah-Notice-Head']}</td>
+                                        <td class=\"border-top border-bottom titles\">{$output['Islamiyyah-Notice']} </td>       
+                                    </tr>";
+                                    
+                                    }
+                                ?>
+                            </table>
+                            </div>
+                        </div> 
+                    
+                </div>
                 
+
+                </div>
             </section>
         </div>
 
@@ -801,7 +1284,23 @@ session_start();
             status.addEventListener('change', filterStatus);
 
         });
+
+
+        function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        w=window.open();
+        w.document.write(printContents);
+        w.print();
+        w.close();
+    }
     </script>
+     <script>
+            AOS.init();
+
+            $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+          </script>
 </body>
 
 </html>

@@ -820,7 +820,7 @@ if(isset($_SESSION['username'])){
                           <div class="wel">
                         <table class="table table-borderless">
                         <thead>
-                        <th scope="col" id="thead" class="relp"> Non Debtors</th>
+                        <th scope="col" id="thead" class="relp" data-aos = "zoom-in" data-aos-duration = "3000"> Non Debtors</th>
                         
                         </thead>
                         </table>
@@ -828,7 +828,7 @@ if(isset($_SESSION['username'])){
                     </div>             
              
             </nav>
-            <div class="btns">
+            <div class="btns" data-aos = "zoom-in" data-aos-duration = "3000">
                 
 <div>
 <div class="btn-group" role= "group" >
@@ -3133,11 +3133,15 @@ if(isset($_SESSION['username'])){
             status.addEventListener('change', filterStatus);
 
         });
-
-        
-
-    
+ 
     </script>
+    <script>
+            AOS.init();
+
+            $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+          </script>
 </body>
 
 </html>

@@ -13,6 +13,30 @@ session_start();
          
           
     }
+
+//     if (isset($_GET['General-Notice'])) {
+//     $id = mysql_real_escape_string($_GET['General-Notice']);
+//     $sql_delete = "DELETE FROM postings WHERE id = '{$id}'";
+//     mysql_query($sql_delete) or die(mysql_error());
+
+//     header("location: admin.php");
+//     exit();
+
+// }
+
+if(isset($_POST['deletedata'])){
+    $userID = $_POST['delete-id'];
+    if(!empty($_POST['delete-id'])){
+        $delete = mysqli_query($link,"DELETE FROM postings WHERE `s/n` ='$userID'");
+    }
+    // if($delete){
+    //     echo "Record deleted successfully";
+    // }else{
+    //     echo "Sorry, record could not be deleted";
+    // }
+}
+
+
     // query for total number of pupils
 $query = "SELECT COUNT(username) FROM registration"; 
      
@@ -69,6 +93,30 @@ while($row = mysqli_fetch_array($result)){
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+        <!-- Fontawesome CSS -->
+        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+        <!-- Bootstrap CSS -->
+        <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+        <!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+        <!-- Add animations -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- end add animations -->
     <!-- Our Custom CSS -->
     <!-- <link rel="stylesheet" href="style/project.css"> -->
     <style type="text/css">
@@ -564,7 +612,36 @@ while($row = mysqli_fetch_array($result)){
             .container-fluid {
                 margin-left: 40px;
             }
+
+             .nb{
+                
+                margin-left: 2em;
+                padding-left: 16em;
+                display: block;
+
+            }
+
+
         }
+
+
+             @media (max-width: 1130px){
+                
+             .nb{
+                
+                margin-left: 20em;
+                display: block;
+         
+
+            }
+            .bd{
+                margin-left: -20px;
+                width: 860px;
+           
+            }
+
+             }
+           
 
         @media (max-width: 533px) {
             #sidebar {
@@ -622,6 +699,16 @@ while($row = mysqli_fetch_array($result)){
             .container-fluid {
                 margin-left: -40px;
             }
+
+            .nb{
+                
+                margin-left: 2em;
+                padding-left: 16em;
+                display: block;
+
+            }
+
+         
         }
 
         @media (max-width: 1024px) {
@@ -684,6 +771,7 @@ while($row = mysqli_fetch_array($result)){
             .container-fluid .mydrop-down {
                 width: 100%;
             }
+
         }
 
 
@@ -692,8 +780,11 @@ while($row = mysqli_fetch_array($result)){
         /* ---------------------------------------------------
             Table
         ----------------------------------------------------- */
-
-        table.project-table {
+        table td tbody{
+            font-size: 10px;
+            /*display: block;*/
+        }
+        /*table.project-table {
             border-collapse: separate;
             border-spacing: 0 1em;
         }
@@ -705,18 +796,21 @@ while($row = mysqli_fetch_array($result)){
 
         table.project-table tbody tr td span.text-small {
             font-size: 8px;
-        }
+        }*/
 
-        table.project-table tbody tr td,
+        /*table.project-table tbody tr td,
         table.project-table thead tr th {
             max-width: 200px;
 
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-
+*/
         .dropleft .dropdown-toggle::before {
             display: none;
+        }
+        .not-tab{
+            max-width: 50px;
         }
 
         /*------------floating button---------*/
@@ -725,6 +819,174 @@ while($row = mysqli_fetch_array($result)){
             bottom: 20px;
             left: 320px;
             z-index: 12;
+        }
+
+        /*+++++++++++++++boxes++++++++++++++++++++++++++*/
+        .container{
+            margin-top: .5em;
+            margin-right: .5em;
+            padding-left: .5em;
+        }
+                .info{
+            font-family: cursive;
+            margin-left: .5em;
+            color: red;
+            font-weight: bold;
+            text-shadow: 2px 2px 2px #b3babd;
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 0;
+            padding-bottom: 0;
+
+        }
+        .info-back{
+           font-family: serif;
+           margin-left: .3em;
+           color: #08cf0f;
+           font-weight: bold;
+           text-shadow: 2px 2px 2px black;
+           font-size: 1.8em;
+           text-align: center;
+           margin-bottom: 0;
+        }
+        .info-begin{
+            display: flex;
+            min-width: 210px;
+            height: 6em;
+            transform-style: preserve-3d;
+            transition: all 1s ease-in-out;
+            margin: 2px 1rem 2px 3px;
+            padding-top: 2rem;
+            padding-left: 1rem;
+            position: relative;
+            color: white;
+            font-size: 1em;
+
+        }
+        .info-begin-xl{
+             margin-left: 0rem;
+            margin-top: 2.5em;
+
+        }
+        .info-begin:hover{
+            transform: rotateZ(10deg);
+        }
+        .info-begin-x{
+            margin-left: .5rem;
+            margin-top: 2.5em;
+
+        }
+        .vl{
+            border-left: 1px solid white;
+            height: 35px;
+            margin-left: 1em;
+        }
+       
+        #up-down{
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            margin-right: 0.5em;
+            color: white;
+            font-size: 16px;
+            font-family: serif;
+
+        }
+        #up-down > span{
+            color: white;
+        }
+        .a-rel{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+             flex:1 1 auto;
+        }
+        .num{
+            margin-left: 2em;
+            font-size: 18px;
+            font-family: serif;
+        }
+        .num1{
+            margin-left: 1em;
+            font-size: 18px;
+            font-family: serif;
+        }
+        .top-1{
+            background-color: #19cf1c;
+        }
+        .top-2{
+            background-color: #ff1814;
+        }
+        .top-3{
+            background-color: #47a0ed;
+        }
+        .top-4{
+            background-color: #ff1814;
+        }
+        .top-5{
+             background-color: #19cf1c;
+        }
+        .top-6{
+             background-color: #47a0ed;
+        }
+        
+        body{
+            overflow: hidden;
+            background-color: #d9dedb;
+        }
+        .modal-backdrop {
+            z-index: -1;
+        }
+        .nb-side{
+            margin-left: -16em;
+            margin-top: 2.5em;
+            background-color: white;
+            width: 420px;
+            height: 235px;
+        }
+        .nb-side1{
+            margin-left: -16em;
+            margin-top: 3em;
+            background-color: white;
+            width: 420px;
+            height: 235px;
+        }
+        .nb-side-2{
+            margin-left: 6em;
+            margin-top: 3em;
+
+        }
+
+
+         .hl{
+            border-bottom: 1px solid;
+            border-color:  #c9c9c7;
+            width: 420px;
+            margin-top: .5em;
+            margin-left: -1em !important;
+          }
+        .hl-nb{
+            border-bottom: 1px solid;
+            border-color:  #c9c9c7;
+            width: 420px;
+            margin-top: .5em;
+            margin-left: 0em !important;
+            overflow: 
+        }
+        .head-nb{
+             font-family: sans-serif;
+           font-weight: bold;
+           text-transform: capitalize;
+           padding-top: 1em;
+           padding-left: 1em;
+        }
+        .btn-d{
+            /*width: 5em;*/
+            /*height: 35px;*/
+            /*margin-top: 1em;*/
+        }
+        .btn-1{
+           margin-left: 2em;
         }
     </style>
     <!-- Font Awesome JS -->
@@ -801,8 +1063,8 @@ while($row = mysqli_fetch_array($result)){
                 </ul>
             </li>
                 <li>
-                    <a href="#">
-                       <i class="fas fa-calendar"></i><span> Calendar</span>
+                    <a href="generate.php">
+                       <i class="fas fa-calendar"></i><span> Generate Cred.</span>
                     </a>
                 </li>
                 <li>
@@ -837,117 +1099,262 @@ while($row = mysqli_fetch_array($result)){
                 </div>
             </nav>
             <div class="container" data-aos = "zoom-in" data-aos-duration="3000">
+                <div class="row bd">
+                    <div class="col-sm-10">
+                <div class="row info-begin-x begin-x-1">
+                    <div class="col-sm-2 info-begin top-1">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i> 
+                        <span>Total Population</span></div>
+                        <div class="vl"></div>
+                        <div class="num1"><?php echo ($totalPupils -1);  ?></div>
+                    </a>
+                </div>
+                    <div class="col-sm-2 info-begin top-2">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i> 
+                        <span>Total Male</span></div>
+                        <div class="vl"></div>
+                        <!-- <div class="num">&#8358;<?php echo number_format($amountPayable);  ?></div> -->
+                        <div class="num"><?php echo counting('gender','male');  ?> </div>
 
-            <section class="">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label class="reform p-pop">Total Population  of Pupils </label>
+                    </a>
                     </div>
-                    <div class="col-sm-6">
-                        <label class="reform-no p-pop"><?php echo ($totalPupils -1);  ?> </label>
+                    <div class="col-sm-2 info-begin top-3">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i>
+                        <span>Total Female</span></div>
+                        <div class="vl"></div>
+                        <div class="num"><?php echo counting('gender','female');  ?></div>
+                    </a>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label class="reform p-pop">Total Population  of Male </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="reform-no p-pop"><?php echo counting('gender','male');  ?> </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label class="reform p-pop">Total Population  of Female </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="reform-no p-pop"><?php echo counting('gender','female');  ?> </label>
-                    </div>
-                </div>
-                <h4 class="pop">Population by Class</h4>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label class="reform c-pop-sm">Play Class </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="reform-no c-pop-sm"><?php echo counting('present_class','Play Class');  ?> </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label class="reform c-pop-sm">Preparatory Class </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="reform-no c-pop-sm"><?php echo counting('present_class','Preparatory Class');  ?> </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label class="reform c-pop">Nursery 1 </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="reform-no c-pop"><?php echo counting('present_class','Nursery 1');  ?> </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label class="reform c-pop">Nursery 2 </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="reform-no c-pop"><?php echo counting('present_class','Nursery 2');  ?> </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label class="reform c-pop-md">Grade 1 </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="reform-no c-pop-md"><?php echo counting('present_class','Grade 1');  ?> </label>
-                    </div>
-                </div>
-                 <div class="row">
-                    <div class="col-sm-6">
-                        <label class="reform c-pop-md">Grade 2 </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="reform-no c-pop-md"><?php echo counting('present_class','Grade 2');  ?> </label>
-                    </div>
-                </div>
-                 <div class="row">
-                    <div class="col-sm-6">
-                        <label class="reform c-pop-md">Grade 3 </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="reform-no c-pop-md"><?php echo counting('present_class','Grade 3');  ?> </label>
-                    </div>
-                </div>
-                 <div class="row">
-                    <div class="col-sm-6">
-                        <label class="reform c-pop-bg">Grade 4 </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="reform-no c-pop-bg"><?php echo counting('present_class','Grade 4');  ?> </label>
-                    </div>
-                </div>
-                 <div class="row">
-                    <div class="col-sm-6">
-                        <label class="reform c-pop-bg">Grade 5 </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="reform-no c-pop-bg"><?php echo counting('present_class','Grade 5');  ?> </label>
-                    </div>
+                    
                 </div>
 
-                   
-            </section>
-        </div>
+                 <div class="row info-begin-x">
+                    <div class="col-sm-2 info-begin top-4">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i> 
+                        <span>Play Class</span></div>
+                        <div class="vl"></div>
+                        <div class="num"><?php echo counting('present_class','Play Class');  ?></div>
+                    </a>
+                </div>
+                    <div class="col-sm-2 info-begin top-4">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i> 
+                        <span>Preparatory</span></div>
+                        <div class="vl"></div>
+                        <!-- <div class="num">&#8358;<?php echo number_format($amountPayable);  ?></div> -->
+                        <div class="num"><?php echo counting('present_class','Preparatory Class');  ?>  </div>
 
-    </div>
+                    </a>
+                    </div>
+                    <div class="col-sm-2 info-begin top-4">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i> 
+                        <span>Nursery One</span></div>
+                        <div class="vl"></div>
+                        <div class="num"><?php echo counting('present_class','Nursery 1');  ?></div>
+                    </a>
+                    </div>
+                    
+                </div>
+
+                 <div class="row info-begin-x">
+                    <div class="col-sm-2 info-begin top-5">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i> 
+                        <span>Nursery Two</span></div>
+                        <div class="vl"></div>
+                        <div class="num"><?php echo counting('present_class','Nursery 2');  ?></div>
+                    </a>
+                </div>
+                    <div class="col-sm-2 info-begin top-5">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i> 
+                        <span>Grade One</span></div>
+                        <div class="vl"></div>
+                        <!-- <div class="num">&#8358;<?php echo number_format($amountPayable);  ?></div> -->
+                        <div class="num"><?php echo counting('present_class','Grade 1');  ?>  </div>
+
+                    </a>
+                    </div>
+                    <div class="col-sm-2 info-begin top-5">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i> 
+                        <span>Grade Two</span></div>
+                        <div class="vl"></div>
+                        <div class="num"><?php echo counting('present_class','Grade 2');  ?></div>
+                    </a>
+                    </div>
+
+                     <div class="row info-begin-xl">
+                    <div class="col-sm-2 info-begin top-6">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i>  
+                        <span>Grade Three</span></div>
+                        <div class="vl"></div>
+                        <div class="num"><?php echo counting('present_class','Grade 3');  ?></div>
+                    </a>
+                </div>
+                    <div class="col-sm-2 info-begin top-6">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i>  
+                        <span>Grade Four</span></div>
+                        <div class="vl"></div>
+                        <!-- <div class="num">&#8358;<?php echo number_format($amountPayable);  ?></div> -->
+                        <div class="num"><?php echo counting('present_class','Grade 4');  ?>  </div>
+
+                    </a>
+                    </div>
+                    <div class="col-sm-2 info-begin top-6">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i> 
+                        <span>Grade Five</span></div>
+                        <div class="vl"></div>
+                        <div class="num"><?php echo counting('present_class','Grade 5');  ?></div>
+                    </a>
+                    </div>
+                    
+                </div>
+                <div class="row info-begin-xl">
+                    <div class="col-sm-2 info-begin top-1">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i>  
+                        <span>Total Teachers</span></div>
+                        <div class="vl"></div>
+                        <div class="num">0</div>
+                    </a>
+                </div>
+                    <div class="col-sm-2 info-begin top-2">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i>  
+                        <span>Male Teachers</span></div>
+                        <div class="vl"></div>
+                        <div class="num">0</div>
+
+                    </a>
+                    </div>
+                    <div class="col-sm-2 info-begin top-3">
+                         <a href="#" class="a-rel">
+                        <div id="up-down"><i class="fas fa-users"></i> 
+                        <span>Female Teachers</span></div>
+                        <div class="vl"></div>
+                        <div class="num">0</div>
+                    </a>
+                    </div>
+                    
+                </div>
+
             </div>
-            
-    <!-- <button class="btn btn-secondary text-white rounded-circle" id="add-something">
-        <i class="fas fa-plus"></i>
-    </button> -->
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
+        </div>
+         <div class="col-sm-2 nb">
+                     <div class="nb-side">
+                            <div class="head-nb">Notice Board</div>
+                            <div class="hl-nb" style="height:185px; overflow:auto;">
+                                
+                                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data" method="post">
+                                         <table class="table project-table table-borderless">
+                            
+                            <?php
+                                     $select = mysqli_query($link, "SELECT * FROM postings WHERE `Is-Time` = 0 ORDER BY `s/n`  DESC");
+                                    while ($output = mysqli_fetch_assoc($select)){
+                                                 
+                                    echo"
+                                    <tr class=\"py-2 not-tab\">
+                                    
+                                        <td scope=\"col\" class=\"border border-right-0\">
+                                            {$output['Date']}
+                                        </td>
+                                        <td class=\"border-top border-bottom titles\">{$output['General-Notice-Heading']}</td>
+                                        <td name =\"General-Notice\"  class=\"border-top border-bottom titles\">{$output['General-Notice']} </td>
+
+                                        <td class=\"border-top border-bottom titles\"><a  data-toggle=\"modal\" data-target=\"#modalConfirmDelete\"><i class=\"fas fa-trash\"></i></a></td>
+                                        
+                                    </tr>";
+                                    
+                                    }
+                             
+                            
+                                ?>
+                            
+                            <!-- Button trigger modal-->
+
+<!--Modal: modalConfirmDelete-->
+<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">DELETE</p>
+      </div>
+     
+      <!--Body-->
+      <div class="modal-body">
+        <i class="fas fa-times fa-4x animated rotateIn"></i>
+        <label>Are you sure you want to delete this post </label>
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer flex-center">
+        <input  type="submit" name="deletedata" class="btn  btn-outline-danger" value="Yes">
+        <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+      </div>
+      
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: modalConfirmDelete-->
+</table>
+</form>
+
+</div>
+</div> 
+                      <div class="nb-side1">
+                            <div class="head-nb">Islamiyyah Information</div>
+                             <div class="hl-nb" style="height:185px; overflow:auto; ">
+                                 <table class="table project-table table-borderless">
+                            
+                            <?php
+                                     $select = mysqli_query($link, "SELECT * FROM postings WHERE `Time` = 0 ORDER BY `s/n`  DESC");
+                                    while ($output = mysqli_fetch_assoc($select)){
+                                   
+                                    echo"
+                                    <tr class=\"py-2 not-tab\">
+                                        <td scope=\"col\" class=\"border border-right-0\">
+                                            {$output['Is-Date']}
+                                        </td>
+                                        <td class=\"border-top border-bottom titles\">{$output['Islamiyyah-Notice-Head']}</td>
+                                        <td class=\"border-top border-bottom titles\">{$output['Islamiyyah-Notice']} <i class=\"fas fa-trash delete-btn\"></i></td>
+
+                                        
+                                    </tr>";
+                                    
+                                    }
+                             
+                            
+                                ?>
+                            </table>
+                            </div>
+                            
+     <div class="nb-side-2">
+                        <div class="btn-d"><a href="createnotice.php"><button class="btn btn-secondary">Create Message</button></a></div>
+                        <!-- <div class="btn-d"><a href=""><button class="btn btn-secondary btn-1">Create Islamiyyah</button></a></div>  -->
+                        </div>                        
+
+
+                            
+                       
+
+                    </div>
+                </div>
+        </div>
+          
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
@@ -998,7 +1405,26 @@ while($row = mysqli_fetch_array($result)){
             status.addEventListener('change', filterStatus);
 
         });
-    </script>
+        
+ 
+
+        // $(document).ready(function(){
+        //     $('.delete-btn').on('click', function(){
+
+        //         $('#modalConfirmDelete').modal('show');
+
+        //         $tr = $(this).closest('tr');
+
+        //         var data = $tr.children("td").map(function(){
+        //             return $(this).text();
+        //         }).get();
+        //         console.log(data);
+        //          console.log(5);
+        //          $('#delete-id').val(data[0]);
+        //      });
+           
+        // });
+   </script>
     <script>
             AOS.init();
 

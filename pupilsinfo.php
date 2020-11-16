@@ -788,7 +788,7 @@ session_start();
                         <table class="table table-borderless">
                         <thead>
                         <tr id="thead">
-                        <th scope="col" id="thead" class="info-head1"> Detailed Information of Al Aflaz Kiddies School's Pupils</th>
+                        <th scope="col" id="thead" class="info-head1" data-aos = "zoom-in" data-aos-duration="3000"> Detailed Information of Al Aflaz Kiddies School's Pupils</th>
                         
                         </thead>
                         </table>

@@ -501,6 +501,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 							<li class="nav-item">
 								<a class="nav-link" href="about.html" data-toggle="tooltip" data-placement="bottom"  title="About Us">About Us</a>
 							</li>
+							<!-- <li class="nav-item">
+								<a class="nav-link" href="signup.php" data-toggle="tooltip" data-placement="bottom"  title="About Us">Sign Up</a>
+							</li> -->
 							
 						<li class="nav-item dropdown">
                 <!-- <a class="nav-link" href="academics.html" data-toggle="tooltip" data-placement="bottom"  title="Academics">Academics</a> -->

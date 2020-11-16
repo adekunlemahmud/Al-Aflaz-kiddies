@@ -19,7 +19,6 @@ if(isset($_SESSION['username'])){
          $amount_paid3 = $output['amount_paid3'];
          $balance = $output['Balance'];
 
-
              
     }
     // echo "$amount_paid2";
@@ -830,7 +829,7 @@ if(isset($_SESSION['username'])){
                           <div class="wel">
                         <table class="table table-borderless">
                         <thead>
-                        <th scope="col" id="thead" class="relp"> View Payments</th>
+                        <th scope="col" id="thead" class="relp" data-aos = "zoom-in" data-aos-duration="3000"> View Payments</th>
                         
                         </thead>
                         </table>

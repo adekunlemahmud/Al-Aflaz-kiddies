@@ -223,6 +223,52 @@ session_start();
             size: 30px;
         }
 
+        .row{
+            margin-top: 2em;
+        }
+        .container{
+            margin-top: 4em;
+            overflow: hidden;
+        }
+        .t-head{
+            display: inline-block;
+            width: 12em;
+            background-color: #f7f9fc;
+            height: 3em;
+            padding: .8em 0 0 1.2em;
+            color: black;
+            font-family: cursive;
+            font-size: 1.1em;
+            filter: drop-shadow(1px 1px 2px black);
+            /*text-shadow: -1px -1px 0px rgba(255,255,255,0.3), 1px 1px 0px rgba(0,0,0,0.8);*/
+            border-left: solid;
+           border-bottom: solid;
+           border-bottom-color: #466afa;
+           border-left-color: #466afa;
+           border-left-width: 8px;
+        }
+        body{
+            overflow: hidden;
+        }
+
+        .p-body{
+            display: inline-block;
+            text-transform: capitalize;
+            width: 40em;
+            background-color: #f7f9fc;
+            height: 3em;
+            padding: .8em 0 0 1.8em;
+            color: black;
+            font-family: cursive;
+            font-size: 1.1em;
+            filter: drop-shadow(1px 2px 3px black);
+            border-right: solid;
+           border-bottom: solid;
+           border-bottom-color: #466afa;
+           border-right-color: #466afa;
+           border-right-width: 8px;
+        }
+
         /* ---------------------------------------------------
             SIDEBAR STYLE
         ----------------------------------------------------- */
@@ -601,6 +647,60 @@ session_start();
                 width: 100%;
             }
         }
+        @media (max-width: 1090px) {
+            .t-head{
+            display: inline-block;
+            width: 12em;
+            height: 3em;
+            
+            
+        }
+
+        .p-body{
+            width: 25em;
+            height: 3em;
+            padding: .8em 0 0 1em;
+            margin-left: 2.5em;
+        }
+    }
+    @media (max-width: 767px) {
+            .t-head{
+            width: 12em;
+            height: 3em;
+            font-size: .8em
+            
+            
+        }
+
+        .p-body{
+            width: 25em;
+            height: 3em;
+            padding: .8em 0 0 1em;
+            margin-left: 2.5em;
+            font-size: .8em
+
+        }
+    }
+
+     @media (max-width: 575px) {
+            .t-head{
+            width: 12em;
+            height: 3em;
+            font-size: .8em
+            
+            
+        }
+
+        .p-body{
+            width: 25em;
+            height: 3em;
+            padding: .8em 0 0 1em;
+            margin-left: 0em;
+            font-size: .8em
+
+        }
+    }
+      
 
 
 
@@ -626,9 +726,14 @@ session_start();
         table.project-table tbody tr td,
         table.project-table thead tr th {
             max-width: 200px;
-
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        #thead{
+            
+            font-family: cursive;
+            font-size: 1em;
         }
 
         .dropleft .dropdown-toggle::before {
@@ -657,7 +762,7 @@ session_start();
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-               <img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100">
+               <a href="index.html"><img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100"></a>
                 
             </div>
             <ul class="list-unstyled components">
@@ -754,124 +859,81 @@ session_start();
 
             <section class="">
                 <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">Pupil's Fullname:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="p-body"><?php  echo $surname; echo" ";echo$firstname; echo" "; echo $othername; ?></label>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">Admitted Class:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="p-body"><?php  echo $class; ?></label>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">Present Class:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="p-body"><?php  echo $presntClass; ?></label>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">Gender:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="p-body"><?php  echo $gender; ?></label>
+                        </div>
+                        
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">Date of Birth:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="p-body"><?php  echo $dob; ?></label>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">State of Origin:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="p-body"><?php  echo $state; ?></label>
+                        </div>
+                        
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">Contact Address:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <label class="p-body"><?php  echo $contact_address; ?></label>
+                        </div>
+                        
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-3">
+                            <label class="t-head">Registration Date:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <label class="p-body"><?php  echo $regDate; ?></label>
+                        </div>
+                        
+                    </div>
                     
                         </div>
-                        <div class="table-responsive">
-                            <table class="table project-table table-borderless">
-                                <thead>
-                                    <tr>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">Pupil's Fullname:</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $surname; ?></td>
-                                        <td class="border-top border-bottom titles"><?php echo $firstname;  ?></td>
-                                        <td class="border-top border-bottom titles"><?php echo $othername;  ?></td>
-                                       
-                                    </tr>
-                                     <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0 ">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">Admitted Class:</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $class; ?></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                       
-                                       
-                                    </tr>
-
-                                    <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0 ">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">Present Class:</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $presntClass; ?></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                       
-                                       
-                                    </tr>
-                                    <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0 ">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">Gender:</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $gender; ?></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                       
-                                       
-                                    </tr>
-                                     <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0 ">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">Date of Birth:</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $dob; ?></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                       
-                                       
-                                    </tr>
-                                     <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0 ">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">State of Origin:</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $state; ?></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                       
-                                       
-                                    </tr>
-                                 
-                                    <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0 ">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">Contact Address:</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $contact_address; ?></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                       
-                                       
-                                    </tr>
-                                    <tr class="py-2">
-                                        <td scope="row" class=" border border-right-0 ">
-                                            <span class="text-small text-muted mr-2">
-                                                <i class="fas fa-circle"></i>
-                                            </span>
-                                            <span class="">Registration Date:</span>
-                                        </td>
-                                        <td class="border-top border-bottom"><?php  echo $regDate; ?></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                        <td class="border-top border-bottom titles"></td>
-                                       
-                                       
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
+                        
                         </div>
                     </div>
                 </div>
@@ -879,9 +941,9 @@ session_start();
         </div>
 
     </div>
-    <button class="btn btn-secondary text-white rounded-circle" id="add-something">
+    <!-- <button class="btn btn-secondary text-white rounded-circle" id="add-something">
         <i class="fas fa-plus"></i>
-    </button>
+    </button> -->
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">

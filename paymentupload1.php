@@ -288,6 +288,16 @@ echo '<script>alert("Updated Successfully")</script>';
             color:#ca0bd4;
             /*text-shadow: 2px 1px #005c9e;*/
         }
+        .info-pre{
+             font-family: cursive;
+            font-size: 18px;
+            color:#ca0bd4;
+            margin-left: 1em;
+        }
+        .modal-sc{
+            height: 20em;
+            overflow: hidden;
+        }
 
         /* ---------------------------------------------------
             SIDEBAR STYLE
@@ -821,7 +831,7 @@ echo '<script>alert("Updated Successfully")</script>';
                       <div class="wel">
                         <table class="table table-borderless">
                         <thead>
-                        <th scope="col" id="thead" class="relp"> Create Payment</th>
+                        <th scope="col" id="thead" class="relp" data-aos = "zoom-in" data-aos-duration="3000"> Create Payment</th>
                         
                         </thead>
                         </table>
@@ -829,7 +839,7 @@ echo '<script>alert("Updated Successfully")</script>';
                     </div>                       
                 </div>
             </nav>
-            <div class="container">
+            <div class="container" data-aos = "zoom-in" data-aos-duration="3000">
                 <div >
                         <h3 class="info-head1"></h3> <br>
                     </div>
@@ -907,8 +917,8 @@ echo '<script>alert("Updated Successfully")</script>';
                     <label class="info" >Purpose of Payment</label>
                 </div>
                 <div class="col-sm-6">
-                <select name="paypurpose" required="" class="custom-select" id="paypurpose"  onblur="validateEmpty1(this)" onchange ="modalInfo1()">
-    <option selected>Choose...</option>
+                <select name="paypurpose" required="required"  class="custom-select" id="paypurpose"  onblur="validateEmpty1(this)" onchange ="modalInfo1()">
+    <option value="">Choose...</option>
     <option value="First Term">First Term</option>
     <option value="Second Term">Second Term</option>
     <option value="Third Term">Third Term</option>
@@ -934,11 +944,11 @@ echo '<script>alert("Updated Successfully")</script>';
 
 
 <!-- Full Height Modal Right -->
-<div class="modal fade right" data-backdrop="false" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal modal-sc fade right" data-backdrop="false" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
 
   <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
-  <div class="modal-dialog modal-full-height modal-right" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
 
 
     <div class="modal-content">
@@ -967,18 +977,18 @@ echo '<script>alert("Updated Successfully")</script>';
         </div> -->
         <div class="row">
             <div class="col-sm-6">
-                    <label class="info" >Admission Number:</label>
+                    <label class="info-pre" >Admission Number:</label>
                 </div>
                 <div class="col-sm-6" >
-                    <label class="info form-text" id="padminno1" onchange ="modalInfo1()"></label> 
+                    <label class="info-pre form-text" id="padminno1" onchange ="modalInfo1()"></label> 
                 </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
-                    <label class="info" >Amount Payable:</label>
+                    <label class="info-pre" >Amount Payable:</label>
                 </div>
                 <div class="col-sm-6" >
-                    <label class="info form-text" id="amtpayable1" onchange ="modalInfo1()"></label> 
+                    <label class="info-pre form-text" id="amtpayable1" onchange ="modalInfo1()"></label> 
                 </div>
         </div>
        <!--  <div class="row">
@@ -997,14 +1007,14 @@ echo '<script>alert("Updated Successfully")</script>';
                     <label class="info form-text" id="pdate1" onload ="modalInfo1()"></label> 
                 </div>
         </div> -->
-       <!--  <div class="row">
+        <div class="row">
             <div class="col-sm-6">
-                    <label class="info" >Purpose of Payment:</label>
+                    <label class="info-pre" >Purpose of Payment:</label>
                 </div>
                 <div class="col-sm-6" >
-                    <label class="info form-text" id="paypurpose1" onload ="modalInfo1()"></label> 
+                    <label class="info-pre form-text" id="paypurpose1" onload ="modalInfo1()"></label> 
                 </div>
-        </div>  -->
+        </div> 
        <!--  <div class="row">
             <div class="col-sm-6">
                     <label class="info" >Payment Satatus:</label>
@@ -1121,22 +1131,25 @@ echo '<script>alert("Updated Successfully")</script>';
             var paypurpose = document.getElementById('paypurpose');
             var paypurposeVal = paypurpose.options[paypurpose.selectedIndex].text;
             var paypurpose1 = document.getElementById('paypurpose1');
-            // var paystatus = document.getElementById('paystatus').value;
-            // var paystatus1 = document.getElementById('paystatus1');
-
-
-                // pname1.innerHTML = pname;
-                // pclass1.innerHTML = pclassVal;
+            
                 padminno1.innerHTML = padminno;
                 amtpayable1.innerHTML = amtpayable;
-                // amtpaid1.innerHTML = amtpaid;
-                // pdate1.innerHTML = pdate;
-                // paystatus1.innerHTML = paystatus;
                 paypurpose1.innerHTML = paypurposeVal;
-
-
-                // console.log(pclassVal);
           }
+
+          function validateEmpty1(inputTxt){
+        input = inputTxt.options[inputTxt.selectedIndex].text;
+        if(input == 'Choose...' ){
+            $('#modalValidate').modal('show');
+            inputTxt.style.borderColor = 'red';
+            return false;
+        } else{
+            inputTxt.style.borderColor = '#e6e6e6';
+
+        }
+
+    }
+
 
 
          function validateEmpty(inputTxt){
@@ -1150,15 +1163,7 @@ echo '<script>alert("Updated Successfully")</script>';
         }
     }
 
-    function validateEmpty1(inputTxt){
-        if(inputTxt.value == 'Choose...' ){
-            $('#modalValidate').modal('show');
-            inputTxt.style.borderColor = 'red';
-        } else{
-            inputTxt.style.borderColor = '#e6e6e6';
-
-        }
-    }
+    
 
     function sub(){
         alert('Created Successfully');
@@ -1175,6 +1180,13 @@ echo '<script>alert("Updated Successfully")</script>';
   
         } 
     </script>
+    <script>
+            AOS.init();
+
+            $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+          </script>
 </body>
 
 </html>

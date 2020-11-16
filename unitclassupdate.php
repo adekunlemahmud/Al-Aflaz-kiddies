@@ -275,9 +275,15 @@ echo '<script>alert("Created Successfully")</script>';
             size: 30px;
         }
         .info{
+             font-family: cursive;
+            font-size: 18px;
+            color:#ca0bd4;
+        }
+        .info-md{
            font-family: cursive;
             font-size: 18px;
             color:#ca0bd4;
+            margin-left: 1em;
             /*text-shadow: 2px 1px #005c9e;*/
         }
 
@@ -483,6 +489,11 @@ echo '<script>alert("Created Successfully")</script>';
             font-family: sans-serif;
             color: #ca0bd4;
         }
+        .modal-sc{
+            height: 20em;
+            overflow: hidden;
+        }
+
 
         /* ---------------------------------------------------
             MEDIAQUERIES
@@ -810,7 +821,7 @@ echo '<script>alert("Created Successfully")</script>';
                       <div class="wel">
                         <table class="table table-borderless">
                         <thead>
-                        <th scope="col" id="thead" class="relp"> Update Class</th>
+                        <th scope="col" id="thead" class="relp" data-aos = "zoom-in" data-aos-duration = "3000"> Update Class</th>
                         
                         </thead>
                         </table>
@@ -818,7 +829,7 @@ echo '<script>alert("Created Successfully")</script>';
                     </div>                      
                 </div>
             </nav>
-            <div class="container">
+            <div class="container" data-aos = "zoom-in" data-aos-duration = "3000">
                 <div>
                         <!-- <h3>Update Class</h3> <br> -->
                     </div>
@@ -835,7 +846,7 @@ echo '<script>alert("Created Successfully")</script>';
                 <div class="col-sm-6">
 
     <select name="pupilclass" required="" class="custom-select" id="pclass"  onblur="validateEmpty1(this)" onchange ="modalInfo1()">
-    <option selected>Choose...</option>
+    <option value="">Choose...</option>
     <option value="Play Class">Play Class</option>
     <option value="Preparatory Class">Preparatory Class</option>
     <option value="Nursery 1">Nursery 1</option>
@@ -865,11 +876,11 @@ echo '<script>alert("Created Successfully")</script>';
 </button>
 
 <!-- Full Height Modal Right -->
-<div class="modal fade right" data-backdrop="false" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade right modal-sc" data-backdrop="false" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
 
   <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
-  <div class="modal-dialog modal-full-height modal-right" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
 
 
     <div class="modal-content">
@@ -882,7 +893,7 @@ echo '<script>alert("Created Successfully")</script>';
      
         <div class="row">
             <div class="col-sm-6">
-                    <label class="info" >Class:</label>
+                    <label class="info-md" >Class:</label>
                 </div> 
                 <div class="col-sm-6" >
                     <label class="info form-text" id="pclass1" onchange ="modalInfo1()"></label> 
@@ -890,7 +901,7 @@ echo '<script>alert("Created Successfully")</script>';
         </div>
         <div class="row">
             <div class="col-sm-6">
-                    <label class="info" >Admission Number:</label>
+                    <label class="info-md" >Admission Number:</label>
                 </div>
                 <div class="col-sm-6" >
                     <label class="info form-text" id="padminno1" onchange ="modalInfo1()"></label> 
@@ -997,13 +1008,16 @@ echo '<script>alert("Created Successfully")</script>';
     }
 
     function validateEmpty1(inputTxt){
-        if(inputTxt.value == 'Choose...' ){
+        input = inputTxt.options[inputTxt.selectedIndex].text;
+        if(input == 'Choose...' ){
             $('#modalValidate').modal('show');
             inputTxt.style.borderColor = 'red';
+            return false;
         } else{
             inputTxt.style.borderColor = '#e6e6e6';
 
         }
+
     }
 
     function sub(){
@@ -1021,6 +1035,13 @@ echo '<script>alert("Created Successfully")</script>';
   
         } 
     </script>
+    <script>
+            AOS.init();
+
+            $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+          </script>
 </body>
 
 </html>

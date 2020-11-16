@@ -17,8 +17,8 @@ $select = mysqli_query($link, "SELECT * from registration");
     while ($output = mysqli_fetch_assoc($select)){
          $admission = $output['s/n'];
          $admission = $admission + 1;
-         $admissionNo = "AF14410".$admission ;
-         //  addmission no concatenated
+         $admissionNo = "AF14420".$admission ;
+         //  addmission number concatenated
              
     }
 
@@ -87,6 +87,7 @@ $state_of_origin = mysqli_real_escape_string($link, $_REQUEST['ostate']);
 $lga = mysqli_real_escape_string($link, $_REQUEST['lga']);
 $language = mysqli_real_escape_string($link, $_REQUEST['language']);
 $admitted_class = mysqli_real_escape_string($link, $_REQUEST['class']);
+$present_class = mysqli_real_escape_string($link, $_REQUEST['class']);
 $address = mysqli_real_escape_string($link, $_REQUEST['address']);
 $last_school = mysqli_real_escape_string($link, $_REQUEST['last-school']);
 $last_class = mysqli_real_escape_string($link, $_REQUEST['last-class']);
@@ -135,7 +136,7 @@ $medications = mysqli_real_escape_string($link, $_REQUEST['medications']);
 
 
 // Attempt insert query execution
-$sql = "INSERT INTO registration ( `admission_no`, `username`, `surname`, `firstname`, `othername`, `passport`, `dob`, `gender`, `country`, `state`, `lga`, `language_spoken`, `admitted_class`, `contact_address`, `last_school`, `last_class`, `date_of_leaving`, `reasons_for_leaving`, F_surname, F_othernames, F_email, F_phone_number, F_home_address, F_occupation, F_employer, F_business_address, `M_surname`, `M_othernames`, `M_email`, `M_phone_number`, `M_home_address`, `M_occupation`, `M_employer`, `M_business_address`, `health_problems?`, `descriptions`, `allergies?`, `allergies_reaction`, `government_immunization?`, `peculiar_illness?`, `special_reactions?`, `birth_certificate`, `last_result`, `created_on`) VALUES ('$admissionNo', '$username','$surname', '$firstname', '$othername', '$permanent_file_name', '$dob', '$gender', '$country', '$state_of_origin', '$lga', '$language', '$admitted_class', '$address', '$last_school', '$last_class', '$date_of_leaving', '$reason_for_leaving', '$Fsurname', '$Fothernames', '$Femail', '$Fphone_no', '$Faddress', '$Foccupation', '$Femployer', '$Fbusinessaddress', '$Msurname', '$Mothernames', '$Memail', '$Mphone_no', '$Maddress', '$Moccupation', '$Memployer', '$Mbusinessaddress', '$health_issues', '$health_issues_description', '$allergies', '$allergies_description', '$immunization', '$peculiar_illness', '$medications', '$permanent_file_nameB', '$permanent_file_nameL', NOW())";
+$sql = "INSERT INTO registration ( `admission_no`, `username`, `surname`, `firstname`, `othername`, `passport`, `dob`, `gender`, `country`, `state`, `lga`, `language_spoken`, `admitted_class`,`present_class`, `contact_address`, `last_school`, `last_class`, `date_of_leaving`, `reasons_for_leaving`, F_surname, F_othernames, F_email, F_phone_number, F_home_address, F_occupation, F_employer, F_business_address, `M_surname`, `M_othernames`, `M_email`, `M_phone_number`, `M_home_address`, `M_occupation`, `M_employer`, `M_business_address`, `health_problems?`, `descriptions`, `allergies?`, `allergies_reaction`, `government_immunization?`, `peculiar_illness?`, `special_reactions?`, `birth_certificate`, `last_result`, `created_on`) VALUES ('$admissionNo', '$username','$surname', '$firstname', '$othername', '$permanent_file_name', '$dob', '$gender', '$country', '$state_of_origin', '$lga', '$language', '$admitted_class','$present_class', '$address', '$last_school', '$last_class', '$date_of_leaving', '$reason_for_leaving', '$Fsurname', '$Fothernames', '$Femail', '$Fphone_no', '$Faddress', '$Foccupation', '$Femployer', '$Fbusinessaddress', '$Msurname', '$Mothernames', '$Memail', '$Mphone_no', '$Maddress', '$Moccupation', '$Memployer', '$Mbusinessaddress', '$health_issues', '$health_issues_description', '$allergies', '$allergies_description', '$immunization', '$peculiar_illness', '$medications', '$permanent_file_nameB', '$permanent_file_nameL', NOW())";
 if(mysqli_query($link, $sql)){
     // echo "Records added successfully.";
     $select = mysqli_query($link, "SELECT * from registration WHERE username = '$username'");
@@ -159,6 +160,9 @@ if(mysqli_query($link, $sql)){
  
 // Close connection
 // mysqli_close($link);
+// $sql = mysqli_query($link, "INSERT INTO payment (`pupil_name`,`class`,`admission_no`,`amount_payable`,`amount_paid`,`payment_date`, `amount_paid2`, `payment_date2`, `amount_paid3`, `payment_date3`, `total_payment`, `Balance`, `purpose_of_payment`, `payment_status`, `created_on`) 
+// SELECT  concat(concat(firstname, ' '), surname), present_class, admission_no, '$amountpayable', 0, NOW(), 0, NOW(), 0, NOW(), 0, '$amountpayable', '$paypurpose', 'Not Paid', NOW() FROM registration");
+
 }
 
 
@@ -1535,7 +1539,6 @@ if(mysqli_query($link, $sql)){
 							<li><a class="text-dark" href="academics.html">Academics</a></li>
 							<li><a class="text-dark" href="about.html">About Us</a></li>
 							<li><a class="text-dark" href="events.html">Events</a></li>
-							<!-- <li><a class="text-dark" href="faq.html">FAQ</a></li> -->
 						</ul>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-4">
@@ -1700,7 +1703,7 @@ allergyDescribe.value = '';
     const form = document.getElementById('form');
     const passport = document.getElementById('inFile');
     const surname = document.getElementById('surname');
-    covalidateEmptynst firstname = document.getElementById('firstname');
+    const firstname = document.getElementById('firstname');
     const dob = document.getElementById('dob');
     const gender = document.getElementById('inputGroupSelect02');
     const country = document.getElementById('country');
