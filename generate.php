@@ -14,17 +14,17 @@ function random_strings($length_of_string)
   
     // String of all alphanumeric character 
     $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'; 
-  
+   
     // Shufle the $str_result and returns substring 
     // of specified length 
     return substr(str_shuffle($str_result),  
                        0, $length_of_string); 
 } 
-  
+  $accr = 'AKS'; 
 // This function will generate 
 // Random string of length 10 
 // echo random_strings(10); 
-$username = random_strings(10); 
+$username = $accr.random_strings(5); 
   
 echo "\n"; 
   
@@ -32,25 +32,36 @@ echo "\n";
 // Random string of length 8 
 $password = random_strings(8); 
 
-echo $password ; echo "\n"; echo $username ;
+// echo $password ; echo "\n"; echo $username ;
 if (isset($_POST["submit"])){
       
-    $username = mysqli_real_escape_string($link, $_REQUEST['username']);
-    $password = mysqli_real_escape_string($link, $_REQUEST['password']);
+   //  $username1 = mysqli_real_escape_string($link, $_REQUEST['username']);
+   //  $password1 = mysqli_real_escape_string($link, $_REQUEST['password']);
    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-    
-    
-            
- 
- $sql = mysqli_query($link, "INSERT INTO users (`username`,`unhashed_password`,`password`) VALUES ('$username', '$password', '$hashed_password'");
+             
+ // echo "Not saved";
+ $sql = mysqli_query($link, "INSERT INTO users (`username`,`unhashed_password`,`password`) VALUES ('$username', '$password', '$hashed_password')" );
+
+// $result = mysqli_query($link, $sql);
+//  header('Location: #modalPush'); 
 
 // if(mysqli_query($link, $sql)){
-    
-// echo '<script>alert("Created Successfully")</script>'; 
 
 //  }
- } 
-  
+ }
+
+ // $select = mysqli_query($link, "SELECT * from users");
+ //    while ($output = mysqli_fetch_assoc($select)){
+ 
+
+ $select = mysqli_query($link, "SELECT * FROM users");
+    while ($output = mysqli_fetch_assoc($select)){
+         $test = $output['username'];
+         $test1 = $output['unhashed_password'];
+
+     }
+     
+
 ?> 
 
 
@@ -757,7 +768,7 @@ if (isset($_POST["submit"])){
                         <!-- <img src="https://lancer-app.000webhostapp.com/images/svg/home.svg" height="20" width="auto" style="color: #000"> -->
                         <span> Dashboard</span></a>
                 </li>
-                <li class="active">
+                <li class="">
                     <a href="#">
                         <i class="fas fa-user"></i> <span> Pupils' Info</span>
                     </a>
@@ -801,13 +812,13 @@ if (isset($_POST["submit"])){
                         
                 </ul>
             </li>
-
-
-                <li>
+            <li class="active">
                     <a href="#">
-                       <i class="fas fa-calendar"></i><span> Calendar</span>
+                       <i class="fas fa-calendar"></i><span> Generate Cred.</span>
                     </a>
                 </li>
+
+               
                 <li>
                     <a href="#">
                         <i class="fas fa-chalkboard-teacher"></i> <span> Results</span>
@@ -863,6 +874,13 @@ if (isset($_POST["submit"])){
  
   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#generate" aria-expanded="false" aria-controls="collapseExample">
     Generate &nbsp
+  </button > 
+  
+</div>
+<div class="btn-group" role= "group" >
+ 
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#last" aria-expanded="false" aria-controls="collapseExample">
+    View Last Details &nbsp
   </button > 
   
 </div>
@@ -929,56 +947,103 @@ if (isset($_POST["submit"])){
      <div class="collapse" id="generate">
   <div class="card card-body">
     <div class="table-responsive text-nowrap">
-       
-                            <table class="table table-striped ">
-                                <h3 class="info-head">Login Details</h3>
+             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data" method="post">
+
+         <table class="table table-striped ">
+                                <h3 class="info-head">Generated Details</h3>
                                 <thead>
                                     <tr>
+                                        <!-- <th scope="col" class="border-top border-bottom titles">S/N</th> -->
                                         <th scope="col" class="border-top border-bottom titles">Username</th>
                                         <th scope="col" class="border-top border-bottom titles">Password</th>
-                                        <!-- <th scope="col" class="border-top border-bottom titles">Passwords</th> -->
                                         
-                                       <?php echo "$username" ?>  
+                                        
                                         
                                     </tr>
                                 </thead>
                                 <tbody>
-                                 <!--  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data" method="post">    -->      
-                                  <?php
-                                       
+                                           
+                                   <?php
+                                         
                                     echo"
                                     <tr class=\"py-2\">
-                                    <td  scope=\"row\" class=\"border border-right-0\">$username;
-                                      </td>
-                                     <td  scope=\"row\" class=\"border border-right-0\">
-                                     
-                                     $password</td>
-                                       
-                                    </tr>";
-                                    
-                                ?> 
-
-                               <!--  <tr class="py-2">
-                                    <td  scope="row" class="border border-right-0"> -->
-                                     <!-- <input name="username"  class="form-control form-text" value="<?php echo $username; ?>"> --><!-- <?php echo $username; ?> </td>
-                                     <td  scope="row" class="border border-right-0"> -->
-                                     <!-- <input name="password"  class="form-control form-text" value="<?php echo $password; ?>"> -->
-                                     <!-- <?php echo $username; ?> </td>
-                                       
-                                    </tr> -->
-                                <td scope="row" class="border border-right-0">
-                                    <button type="submit" name="submit" class="btn btn-primary" data-toggle="modal" data-target="#fullHeightModalRight"> Save </button>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fullHeightModalRight"> Print </button>
+                                        <td scope=\"row\" class=\"border border-right-0\">
+                                        <input name=\"username\" type=\"text\"  class=\"form-control form-text\" id=\"userName\" value=\"$username\">                                            
                                         </td>
-                                    </form>
+                                        <td scope=\"row\" class=\"border border-right-0\">
+                                        <input name=\"password\" type=\"text\"  class=\"form-control form-text\" id=\"password\" value=\"$password\">                                            
+                                        </td>
+                                       
+                                    </tr>";                                                     
+                                ?>
+
+                                <td>
+                                    
+                                    <input type="submit" name="submit" class="btn btn-primary" value="Save">
+                                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPush">Launch modal</button> -->
+
+                                    <!-- <input type="submit" name="submit" class="btn btn-primary" onclick="location.reload()" value="Create New"> -->
+
+
+                                </td>
+                                   
                                 </tbody>
                             </table>
+                           </form>
                         </div>
+
                     </div>
                 </div>
 
        
-        
+        <div class="collapse" id="last">
+  <div class="card card-body">
+    <div class="table-responsive text-nowrap">
+             
+
+         <table class="table table-striped ">
+                                <h3 class="info-head">Generated Details</h3>
+                                <thead>
+                                    <tr>
+                                        <!-- <th scope="col" class="border-top border-bottom titles">S/N</th> -->
+                                        <th scope="col" class="border-top border-bottom titles">Username</th>
+                                        <th scope="col" class="border-top border-bottom titles">Password</th>
+                                        
+                                        
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                           
+                                   <?php
+                                         
+                                    echo"
+                                    <tr class=\"py-2\">
+                                        <td scope=\"row\" class=\"border border-right-0\">
+                                        <input name=\"username\" type=\"text\"  class=\"form-control form-text\" id=\"userName\" value=\"$test\">                                            
+                                        </td>
+                                        <td scope=\"row\" class=\"border border-right-0\">
+                                        <input name=\"password\" type=\"text\"  class=\"form-control form-text\" id=\"password\" value=\"$test1\">                                            
+                                        </td>
+                                       
+                                    </tr>";                                                     
+                                ?>
+
+                                <td>
+                                    
+                                  
+
+
+                                </td>
+                                   
+                                </tbody>
+                            </table>
+                          
+                        </div>
+                    
+                    </div>
+                </div>
+
             </section>
         
 
@@ -1044,6 +1109,41 @@ if (isset($_POST["submit"])){
   $('[data-toggle="tooltip"]').tooltip()
 });
           </script>
+
+          <!-- Button trigger modal-->
+
+
+<!--Modal: modalPush-->
+<div class="modal fade" id="modalPush" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Be always up to date</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+
+        <i class="fas fa-bell fa-4x animated rotateIn mb-4"></i>
+
+        <p>Do you want to receive the push notification about the newest posts?</p>
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer flex-center">
+        <a href="https://mdbootstrap.com/pricing/jquery/pro/" class="btn btn-info">Yes</a>
+        <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">No</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: modalPush-->
+<script type="text/javascript">$('#modalPush').appendTo("body")</script>
 </body>
 
 </html>

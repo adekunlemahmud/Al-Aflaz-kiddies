@@ -1068,8 +1068,8 @@ session_start();
 
 
                 <li>
-                    <a href="#">
-                       <i class="fas fa-calendar"></i><span> Calendar</span>
+                    <a href="generate.php">
+                       <i class="fas fa-calendar"></i><span> Generate Cred.</span>
                     </a>
                 </li>
                 <li>
