@@ -41,7 +41,8 @@ if (isset($_POST["submit"])){
              
  // echo "Not saved";
  $sql = mysqli_query($link, "INSERT INTO users (`username`,`unhashed_password`,`password`) VALUES ('$username', '$password', '$hashed_password')" );
-
+ $sql = mysqli_query($link, "INSERT INTO registration (`username`,`unhashed_password`,`password`) VALUES ('$username', '$password', '$hashed_password')" );
+// $sql = mysqli_query($link, "INSERT INTO register (`username`,`password`,`hashedpassword`) VALUES ('$username', '$password', '$hashed_password')" );
 // $result = mysqli_query($link, $sql);
 //  header('Location: #modalPush'); 
 
@@ -758,7 +759,7 @@ if (isset($_POST["submit"])){
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-               <a href="index.html" data-toggle="tooltip" data-placement="bottom"  title="Homepage"><img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100"></a>
+               <a href="../index.html" data-toggle="tooltip" data-placement="bottom"  title="Homepage"><img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100"></a>
                 
             </div>
             <ul class="list-unstyled components">
@@ -769,7 +770,7 @@ if (isset($_POST["submit"])){
                         <span> Dashboard</span></a>
                 </li>
                 <li class="">
-                    <a href="#">
+                    <a href="pupilsinfo.php">
                         <i class="fas fa-user"></i> <span> Pupils' Info</span>
                     </a>
                 </li>
@@ -1002,7 +1003,7 @@ if (isset($_POST["submit"])){
              
 
          <table class="table table-striped ">
-                                <h3 class="info-head">Generated Details</h3>
+                                <h3 class="info-head">Last Generated Details</h3>
                                 <thead>
                                     <tr>
                                         <!-- <th scope="col" class="border-top border-bottom titles">S/N</th> -->

@@ -32,17 +32,50 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password = trim($_POST["password"]);
 
      }
-    if($username === 'admin' && $password === 'username'){
-    	 $_SESSION["loggedin"] = true;
-         $_SESSION["id"] = $id;
-         $_SESSION["username"] = $username; 
-    	header("location: admin.php");
-    }
+$sql = "SELECT id, username, hashedPassword FROM admin WHERE username = ?";
+        
+        if($stmt = mysqli_prepare($link, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            
+            // Set parameters
+            $param_username = $username;
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Store result
+                mysqli_stmt_store_result($stmt);
+                
+                // Check if username exists, if yes then verify password
+                if(mysqli_stmt_num_rows($stmt) == 1){                    
+                    // Bind result variables
+
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                    if(mysqli_stmt_fetch($stmt)){
+        			// $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                        if(password_verify($password, $hashed_password)){
+                            // Password is correct, so start a new session
+                            session_start();
+                            
+                            // Store data in session variables
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["username"] = $username; 
+                                                       
+                            
+                            // Redirect user to welcome page
+                            header("location: admin.php");
+                        } 
+                    }
+                } 
+            } 
+
+        }
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
         
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        $sql = "SELECT id, username, hashedpassword FROM register WHERE username = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -468,6 +501,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	font-size: 14px;
 	color: #10b541; 
 }
+#err{
+	color: red;
+}
 	    </style>
 		<title>Al Aflaz Kiddies</title>
 	</head>
@@ -484,7 +520,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		<header>
 			<nav class="navbar fixed-top navbar-expand-lg navbar-main bg-white">
 				<div class="container">
-					<a class="navbar-brand" href="index.html">
+					<a class="navbar-brand" href="../index.html">
 						<img src="../images/logo1.svg" alt="logo" class="img img-responsive" height="100" width="100">
 					</a>
 					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -496,7 +532,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 						<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 							<li class="nav-item active">
-								<a class="nav-link" href="index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
+								<a class="nav-link" href="../index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="about.html" data-toggle="tooltip" data-placement="bottom"  title="About Us">About Us</a>
@@ -544,13 +580,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     <label class="info" >UserName</label>
     <input name="username" type="text"  class="form-control form-text" value="<?php echo $username; ?>" id="userName" placeholder="Enter UserName">
-                <span class="help-block info"><?php echo $username_err; ?></span>
+                <span class="help-block info" id="err"><?php echo $username_err; ?></span>
   </div>
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
 
     <label  class="info">Password</label>
     <input name="password" type="password"  class="form-control form-text"  placeholder="Enter Password">
-    <span class="help-block info"><?php echo $password_err; ?></span>
+    <span class="help-block info" id="err"><?php echo $password_err; ?></span>
   </div>
    <input type="submit" name="submit" class="btn btn-card" value="Login"> <span class="info">Or</span>
   <a href="register.php" class="info">Register Here</a>

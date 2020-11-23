@@ -1,14 +1,15 @@
 
 <?php
-
 session_start();
+ob_start();
     // Include config file
-$localhost = "localhost";
-$dbusername = "root";
-$dbpassword = "";
-$dbname = "alaflaz";
+require_once "config.php";
 
-$link = mysqli_connect($localhost,$dbusername,$dbpassword,$dbname);
+header('Cache-Control: no-cache, must-revalidate, max-age=0');
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache');
+
+// $link = mysqli_connect($localhost,$dbusername,$dbpassword,$dbname);
 
 if(isset($_SESSION['username'])){
     // echo ($_SESSION['username']);
@@ -132,12 +133,13 @@ $medications = mysqli_real_escape_string($link, $_REQUEST['medications']);
 // } 
 
 
-// $sql = "UPDATE registration SET `username`='$username',`surname`='$surname', `firstname`= '$firstname', `othername`= '$othername', `passport`='$permanent_file_name', `dob`= '$dob', `gender`= '$gender', `country`= '$country', `state`= '$state_of_origin', `lga`= '$lga', `language_spoken`= '$language', `admitted_class`='$admitted_class', `contact_address`= '$address', `last_school`= '$last_school', `last_class`= '$last_class', `date_of_leaving`= '$date_of_leaving', `reasons_for_leaving`= '$reason_for_leaving', `F_surname`= '$Fsurname', `F_othernames`= '$Fothernames', `F_email`= '$Femail', `F_phone_number`= '$Fphone_no', `F_home_address`= '$Faddress', `F_occupation`= '$Foccupation', `F_employer`= '$Femployer', `F_business_address`= '$Fbusinessaddress',`M_surname`='$Msurname', `M_othernames`= '$Mothernames', `M_email`= '$Memail', `M_phone_number`= '$Mphone_no', `M_home_address`= '$Maddress', `M_occupation`= '$Moccupation', `M_employer`= '$Memployer', `M_business_address`= '$Mbusinessaddress', `health_problems?`= '$health_issues', `descriptions`= '$health_issues_description', `allergies?`= '$allergies',  `allergies_reaction`= '$allergies_description', `government_immunization?`= '$immunization', `peculiar_illness?`= '$peculiar_illness', `special_reactions?`= '$medications', `birth_certificate`= '$permanent_file_nameB', `last_result`= '$permanent_file_nameL',  `created_on`= NOW() WHERE username ='$username' ";
+$sql = "UPDATE registration SET `admission_no`='$admissionNo', `username`='$username',`surname`='$surname', `firstname`= '$firstname', `othername`= '$othername', `passport`='$permanent_file_name', `dob`= '$dob', `gender`= '$gender', `country`= '$country', `state`= '$state_of_origin', `lga`= '$lga', `language_spoken`= '$language', `admitted_class`='$admitted_class', `present_class`='$present_class', `contact_address`= '$address', `last_school`= '$last_school', `last_class`= '$last_class', `date_of_leaving`= '$date_of_leaving', `reasons_for_leaving`= '$reason_for_leaving', `F_surname`= '$Fsurname', `F_othernames`= '$Fothernames', `F_email`= '$Femail', `F_phone_number`= '$Fphone_no', `F_home_address`= '$Faddress', `F_occupation`= '$Foccupation', `F_employer`= '$Femployer', `F_business_address`= '$Fbusinessaddress',`M_surname`='$Msurname', `M_othernames`= '$Mothernames', `M_email`= '$Memail', `M_phone_number`= '$Mphone_no', `M_home_address`= '$Maddress', `M_occupation`= '$Moccupation', `M_employer`= '$Memployer', `M_business_address`= '$Mbusinessaddress', `health_problems?`= '$health_issues', `descriptions`= '$health_issues_description', `allergies?`= '$allergies',  `allergies_reaction`= '$allergies_description', `government_immunization?`= '$immunization', `peculiar_illness?`= '$peculiar_illness', `special_reactions?`= '$medications', `birth_certificate`= '$permanent_file_nameB', `last_result`= '$permanent_file_nameL',  `created_on`= NOW() WHERE username ='$username' ";
 
 
 // Attempt insert query execution
-$sql = "INSERT INTO registration ( `admission_no`, `username`, `surname`, `firstname`, `othername`, `passport`, `dob`, `gender`, `country`, `state`, `lga`, `language_spoken`, `admitted_class`,`present_class`, `contact_address`, `last_school`, `last_class`, `date_of_leaving`, `reasons_for_leaving`, F_surname, F_othernames, F_email, F_phone_number, F_home_address, F_occupation, F_employer, F_business_address, `M_surname`, `M_othernames`, `M_email`, `M_phone_number`, `M_home_address`, `M_occupation`, `M_employer`, `M_business_address`, `health_problems?`, `descriptions`, `allergies?`, `allergies_reaction`, `government_immunization?`, `peculiar_illness?`, `special_reactions?`, `birth_certificate`, `last_result`, `created_on`) VALUES ('$admissionNo', '$username','$surname', '$firstname', '$othername', '$permanent_file_name', '$dob', '$gender', '$country', '$state_of_origin', '$lga', '$language', '$admitted_class','$present_class', '$address', '$last_school', '$last_class', '$date_of_leaving', '$reason_for_leaving', '$Fsurname', '$Fothernames', '$Femail', '$Fphone_no', '$Faddress', '$Foccupation', '$Femployer', '$Fbusinessaddress', '$Msurname', '$Mothernames', '$Memail', '$Mphone_no', '$Maddress', '$Moccupation', '$Memployer', '$Mbusinessaddress', '$health_issues', '$health_issues_description', '$allergies', '$allergies_description', '$immunization', '$peculiar_illness', '$medications', '$permanent_file_nameB', '$permanent_file_nameL', NOW())";
+// $sql = "INSERT INTO registration ( `admission_no`, `username`, `surname`, `firstname`, `othername`, `passport`, `dob`, `gender`, `country`, `state`, `lga`, `language_spoken`, `admitted_class`,`present_class`, `contact_address`, `last_school`, `last_class`, `date_of_leaving`, `reasons_for_leaving`, F_surname, F_othernames, F_email, F_phone_number, F_home_address, F_occupation, F_employer, F_business_address, `M_surname`, `M_othernames`, `M_email`, `M_phone_number`, `M_home_address`, `M_occupation`, `M_employer`, `M_business_address`, `health_problems?`, `descriptions`, `allergies?`, `allergies_reaction`, `government_immunization?`, `peculiar_illness?`, `special_reactions?`, `birth_certificate`, `last_result`, `created_on`) VALUES ('$admissionNo', '$username','$surname', '$firstname', '$othername', '$permanent_file_name', '$dob', '$gender', '$country', '$state_of_origin', '$lga', '$language', '$admitted_class','$present_class', '$address', '$last_school', '$last_class', '$date_of_leaving', '$reason_for_leaving', '$Fsurname', '$Fothernames', '$Femail', '$Fphone_no', '$Faddress', '$Foccupation', '$Femployer', '$Fbusinessaddress', '$Msurname', '$Mothernames', '$Memail', '$Mphone_no', '$Maddress', '$Moccupation', '$Memployer', '$Mbusinessaddress', '$health_issues', '$health_issues_description', '$allergies', '$allergies_description', '$immunization', '$peculiar_illness', '$medications', '$permanent_file_nameB', '$permanent_file_nameL', NOW())";
 if(mysqli_query($link, $sql)){
+     
     // echo "Records added successfully.";
     $select = mysqli_query($link, "SELECT * from registration WHERE username = '$username'");
 
@@ -146,13 +148,17 @@ if(mysqli_query($link, $sql)){
      	while ($output = mysqli_fetch_assoc($select)) {
      		# code...
      		$name = $output['username'];
-     		echo $name;
+     		// echo $name;
     		$_SESSION['name'] = $name;
+    		// header("Location: dashboard.php");
+    		echo "<script>location='dashboard.php'</script>";
+
+    		
      	}
      // }
    
     	
-    header("location: dashboard.php");
+   
 } else{
     echo "ERROR: Could not able to execute $link->error ";
     // print($link->error);
@@ -165,7 +171,7 @@ if(mysqli_query($link, $sql)){
 
 }
 
-
+ob_end_flush();
 ?>
 
 <!DOCTYPE html>
@@ -627,7 +633,7 @@ if(mysqli_query($link, $sql)){
 		<header>
 			<nav class="navbar  navbar-expand-lg navbar-main bg-white">
 				<div class="container">
-					<a class="navbar-brand" href="index.html">
+					<a class="navbar-brand" href="../index.html">
 						<img src="../images/logo1.svg" alt="logo" class="img img-responsive" height="100" width="100">
 					</a>
 					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -639,7 +645,7 @@ if(mysqli_query($link, $sql)){
 					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 						<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 							<li class="nav-item active">
-								<a class="nav-link" href="index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
+								<a class="nav-link" href="../index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="about.html" data-toggle="tooltip" data-placement="bottom"  title="About Us">About Us</a>
@@ -1061,22 +1067,22 @@ if(mysqli_query($link, $sql)){
 	<h4 class="info1">PUPIL'S DETAILS</h4>
 	</div>
    	<div class="form-group">
-    <label class="info" >Surname</label>
+    <label style="color: red;" class="info">*</label><label class="info">Surname</label>
     <input name="surname" type="text" onblur="validateEmpty(this)" id="surname" class="form-control form-text"  placeholder=" Surname">
   </div>
  
   <div class="form-group">
-    <label class="info" >First Name</label>
+    <label style="color: red;" class="info">*</label><label class="info" >First Name</label>
     <input name="firstname" type="text" id="firstname" class="form-control form-text"  placeholder="First Name" onblur="validateEmpty(this)">
 </div>
   
   <div class="form-group">
     <label class="info" >Other Name</label>
-    <input name="othername" type="text" required="" class="form-control form-text" id="othername" placeholder=" Other Names">
+    <input name="othername" type="text" class="form-control form-text" id="othername" placeholder=" Other Names">
   </div>
   <div class="row">
   	 <div class="col-sm-6">
-    <label class="info" >Date of Birth</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Date of Birth</label>
     <div class="input-group">
   <input type="date" name="dob" onchange="getAge()" class="form-control dob" id="dob" placeholder="Pick Date of Birth" onblur="validateEmpty(this)"  >
   <div class="input-group-append">
@@ -1085,7 +1091,7 @@ if(mysqli_query($link, $sql)){
   </div>
   </div>
    <div class="col-sm-6">
-    <label class="info" >Gender</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Gender</label>
     <select name="gender" class="custom-select" id="inputGroupSelect02" onblur="validateEmpty(this)" >
     <option selected>Choose...</option>
     <option value="Male">Male</option>
@@ -1097,7 +1103,7 @@ if(mysqli_query($link, $sql)){
 
 <div class="row">
   	 <div class="col-sm-4">
-    <label class="info" >Nationality</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Nationality</label>
     <div class="input-group">
  <select class="custom-select" id="country" name="country" onchange="loadCountry()" onblur="validateEmpty(this)">
     <option selected>Select Country</option>
@@ -1109,7 +1115,7 @@ if(mysqli_query($link, $sql)){
   </div>
   </div>
    <div class="col-sm-4" id="state1" >
-    <label class="info" >State of Origin</label>
+    <label style="color: red;" class="info">*</label><label class="info" >State of Origin</label>
                   <select class="custom-select" name="ostate" id="ostate" onblur="validateEmpty(this)" >
                   <option selected="selected">Select State...</option>
                   <option value='Abia'>Abia</option>
@@ -1155,7 +1161,7 @@ if(mysqli_query($link, $sql)){
   </div>
 
   <div class="col-sm-4" id="lga1">
-    <label class="info" >LGA</label>
+    <label style="color: red;" class="info">*</label><label class="info" >LGA</label>
     <select  class="custom-select" name="lga" id="lga" onblur="validateEmpty(this)" >
                   <option selected="selected">Select LGA...</option>
                 </select>
@@ -1173,7 +1179,7 @@ if(mysqli_query($link, $sql)){
     <input name="language" type="text" id="languge" required="" class="form-control form-text"  placeholder="Enter Languages Spoken">
   </div>
   	 <div class="col-sm-4">
-  	 	<label class="info" >Class Admitted to</label>
+  	 	<label style="color: red;" class="info">*</label><label class="info" >Class Admitted to</label>
     <select name="class" class="custom-select" id="class" onblur="validateEmpty(this)" >
     <option selected>Choose...</option>
     <option value="Play Class">Play Class</option>
@@ -1191,7 +1197,7 @@ if(mysqli_query($link, $sql)){
   	 </div>
 </div>
   <div class="form-group">
-    <label class="info" >Contact Address</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Contact Address</label>
     <textarea name="address" onblur="validateEmpty(this)"  class="form-control form-text" id="address" rows="5" placeholder="Enter Contact Address"></textarea>
     
   </div>
@@ -1239,12 +1245,12 @@ if(mysqli_query($link, $sql)){
   <div class="row">
   	<div class="col-sm-6">
   	<div class="form-group">
-    <label class="info" >Surname</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Surname</label>
     <input name="Fsurname" type="text" onblur="validateEmpty(this)"  id="father's_surname" class="form-control form-text"  placeholder="Enter Surname">
   </div>  
 </div>
   	 <div class="col-sm-6">
-    <label class="info" >Other Names</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Other Names</label>
     <input name="Fothernames" type="text" onblur="validateEmpty(this)"  id="father's_othernames" class="form-control form-text"  placeholder="Enter Other Names">
   </div>
   </div>
@@ -1256,12 +1262,12 @@ if(mysqli_query($link, $sql)){
   </div>
 </div>
   	 <div class="col-sm-6">
-    <label class="info" >Phone Number</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Phone Number</label>
     <input name="Fphone-no" type="tel"  id="father's_phone_no" class="form-control form-text" onblur="validateEmpty(this)"   placeholder="Enter Phone No">
   </div>
   </div>
   <div class="form-group">
-    <label class="info" >Home Address</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Home Address</label>
     <textarea name="Faddress" onblur="validateEmpty(this)"  class="form-control form-text" id="home-addr" rows="5" placeholder=""></textarea>
   </div>
   <div class="row">
@@ -1273,12 +1279,12 @@ if(mysqli_query($link, $sql)){
 </div>
   	 <div class="col-sm-6">
     <label class="info" >Name of Employer</label>
-    <input name="Femployer" type="text"  id="father's_employer" class="form-control form-text"  placeholder="Enter Employer" onblur="validateEmpty(this)">
+    <input name="Femployer" type="text"  id="father's_employer" class="form-control form-text"  placeholder="Enter Employer">
   </div>
   </div>
   <div class="form-group">
-    <label class="info" >Business Address</label>
-    <textarea name="Fbusinessaddress"  class="form-control form-text" id="busi-addr" rows="5" placeholder="" onblur="validateEmpty(this)"></textarea>
+    <label class="info" > Office/Business Address</label>
+    <textarea name="Fbusinessaddress"  class="form-control form-text" id="busi-addr" rows="5" placeholder="" ></textarea>
   </div>
   </div> <!-- father's info ends -->
 
@@ -1287,12 +1293,12 @@ if(mysqli_query($link, $sql)){
   <div class="row">
   	<div class="col-sm-6">
   	<div class="form-group">
-    <label class="info" >Surname</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Surname</label>
     <input name="Msurname" type="text" onblur="validateEmpty(this)"  id="mother's_surname" class="form-control form-text"  placeholder="Enter Surname">
   </div>
 </div>
   	 <div class="col-sm-6">
-    <label class="info" >Other Names</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Other Names</label>
     <input name="Mothernames" type="text" onblur="validateEmpty(this)"  id="mother's_othernames" class="form-control form-text"  placeholder="Enter Other Names">
   </div>
   </div>
@@ -1304,29 +1310,29 @@ if(mysqli_query($link, $sql)){
   </div>
 </div>
   	 <div class="col-sm-6">
-    <label class="info" >Phone Number</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Phone Number</label>
     <input name="Mphone-no" type="tel"  id="mother's_phone_no" class="form-control form-text" onblur="validateEmpty(this)"   placeholder="Enter Phone No">
   </div>
   </div>
   <div class="form-group">
-    <label class="info" >Home Address</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Home Address</label>
     <textarea name="Maddress"  class="form-control form-text" id="mother's_home-addr" rows="5" placeholder="" onblur="validateEmpty(this)"></textarea>
   </div>
   <div class="row">
   	<div class="col-sm-6">
   	<div class="form-group">
-    <label class="info" >Occupation</label>
+    <label style="color: red;" class="info">*</label><label class="info" >Occupation</label>
     <input name="Moccupation" type="text"  id="mother's_occupation" class="form-control form-text"  placeholder="Enter Occupation" onblur="validateEmpty(this)">
   </div>
 </div>
   	 <div class="col-sm-6">
     <label class="info" >Name of Employer</label>
-    <input name="Memployer" type="text"  id="mother's_employer" class="form-control form-text"  placeholder="Enter Employer" onblur="validateEmpty(this)">
+    <input name="Memployer" type="text"  id="mother's_employer" class="form-control form-text"  placeholder="Enter Employer" >
   </div>
   </div>
   <div class="form-group">
     <label class="info" >Business Address</label>
-    <textarea name="Mbusinessaddress"  class="form-control form-text" id="mother-busi-addr" rows="5" placeholder="" onblur="validateEmpty(this)"></textarea>
+    <textarea name="Mbusinessaddress"  class="form-control form-text" id="mother-busi-addr" rows="5" placeholder=""></textarea>
   </div>
   </div> <!-- mother's info ends -->
 </div>
@@ -1424,7 +1430,7 @@ if(mysqli_query($link, $sql)){
 
   <div class="custom-control custom-checkbox mb-3">
     <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
-    <label class="custom-control-label info" for="customControlValidation1">I agree</label>
+    <label class="custom-control-label info" for="customControlValidation1" style="font-weight: bold; color: red;">I AGREE</label>
     
   </div>
   </div>
@@ -1438,7 +1444,7 @@ if(mysqli_query($link, $sql)){
     <label class="info col-form-label" >Birth Certificate </label>
 </div>
 <div class="custom-file">
-  <input type="file" class="custom-file-input info" name="birth_certificate" id="birth_certificate" onblur="validateEmpty(this)">
+  <input type="file" class="custom-file-input info" name="birth_certificate" id="birth_certificate">
   <label class="custom-file-label info" for="customFile">Choose file</label>
 </div>
 <div class="form-check form-check-inline">
@@ -1490,7 +1496,7 @@ if(mysqli_query($link, $sql)){
 </button> -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -1508,7 +1514,7 @@ if(mysqli_query($link, $sql)){
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
   
 </div>
@@ -1669,8 +1675,8 @@ if(mysqli_query($link, $sql)){
 		  	// const modal = previewContainer.querySelector('.modal');
 
 		function validateSize(file) {
-        var FileSize = file.files[0].size / 512 / 512; // in KB
-        if (FileSize > 0.2) {
+        var FileSize = file.files[0].size / 1512 / 1512; // in KB
+        if (FileSize > 1) {
 
         	$('#myModal').modal('show');
             // alert('Passport size exceeds 50 KB');
@@ -2268,7 +2274,9 @@ function print_city_state(oCountrySel, oCity_StateSel)
 		document.getElementById('txtplacename').innerHTML = city_state + ', ' + country;
 	else document.getElementById('txtplacename').innerHTML = country;
 }
-
+if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
 
 
 

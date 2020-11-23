@@ -18,11 +18,21 @@ $username_err = $password_err = "";
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 	$username = $_POST['username'];
-	$select = "SELECT * from registration WHERE username = '".$username."'";
-     $result = mysqli_query($con,$query);
+	$select = "SELECT * from register WHERE username = '".$username."'";
+     $result = mysqli_query($link,$select);
     if(mysqli_num_rows($result)>0)
        {
-        echo"name already exists";
+// Store data in session variables
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["username"] = $username; 
+                            
+                             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+ 							 $sql = mysqli_query($link, "INSERT INTO newusers (`username`,`unhashed_password`,`password`) VALUES ('$username', '$password', '$hashed_password')" );                           
+                            //this is to handle users that trys to register more than once
+                            // Redirect user to welcome page
+                            header("location: form.php");
+        die(0);
        }
  
     // Check if username is empty
@@ -75,10 +85,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username; 
-                                                       
                             
+                             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+ 							 $sql = mysqli_query($link, "INSERT INTO register (`username`,`password`,`hashedpassword`) VALUES ('$username', '$password', '$hashed_password')" );                           
+                            
+                              $sql = mysqli_query($link, "INSERT INTO registration (`username`,`unhashed_password`,`password`) VALUES ('$username', '$password', '$hashed_password')" );
                             // Redirect user to welcome page
-                            header("location: signup.php");
+                            header("location: form.php");
                         } else{
                             // Display an error message if password is not valid
                             $password_err = "The password you entered is not valid.";
@@ -277,7 +290,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 			}
 
-			
+			#err{
+				color: red;
+			}
 
 
 			   /****************************/
@@ -487,7 +502,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		<header>
 			<nav class="navbar fixed-top navbar-expand-lg navbar-main bg-white">
 				<div class="container">
-					<a class="navbar-brand" href="index.html">
+					<a class="navbar-brand" href="../index.html">
 						<img src="../images/logo1.svg" alt="logo" class="img img-responsive" height="100" width="100">
 					</a>
 					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -499,7 +514,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 						<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 							<li class="nav-item active">
-								<a class="nav-link" href="index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
+								<a class="nav-link" href="../index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="about.html" data-toggle="tooltip" data-placement="bottom"  title="About Us">About Us</a>
@@ -543,13 +558,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Login Details</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Access Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-    <p class="info">Enter the Login Details provided to you  by the school's admin</p>
+    <p class="info">Enter the Access Details provided to you  by the school's admin</p>
  
       </div>
       <div class="modal-footer">
@@ -563,28 +578,47 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 				<div class="card " style="width: 18rem;">
   <img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" class="card-img-top" height="100" width="100" alt="...">
   <div class="card-body">
-    <h5 class="card-title">Login Details</h5>
+    <h5 class="card-title">Access Details</h5>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
 
-    <label class="info" >UserName</label>
+    <label class="info" >Username</label>
     <input name="username" type="text"  class="form-control form-text" value="<?php echo $username; ?>" id="userName" placeholder="Enter UserName">
-                <span class="help-block info"><?php echo $username_err; ?></span>
+                <span class="help-block info" id="err"><?php echo $username_err; ?></span>
   </div>
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
 
     <label  class="info">Password</label>
     <input name="password" type="password"  class="form-control form-text"  placeholder="Enter Password">
-    <span class="help-block info"><?php echo $password_err; ?></span>
+    <span class="help-block info" id="err"><?php echo $password_err; ?></span>
   </div>
-   <input type="submit" name="submit" class="btn btn-card" value="Login">
+   <input type="submit" name="submit" class="btn btn-card" value="Register">
 
   
 
 </form>
 </div>
 </div>
-
+<div class="modal fade" id="errorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Access Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"
+>    <p class="info">Enter the Access Details provided to you  by the school's admin</p>
+ 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-card" data-dismiss="modal">OK</button>
+        <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+      </div>
+    </div>
+  </div>
+</div>
 </section>
 
 						
@@ -623,6 +657,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			  				</p>
 		  				</div>
 		  			</div> 
+		  		</div>
+		  		<div id="divText">
+		  			testing
 		  		</div>
 		  	</section>
 		</main>

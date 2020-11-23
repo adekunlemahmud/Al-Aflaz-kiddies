@@ -1,6 +1,7 @@
 <?php
 // Initialize the session
 session_start();
+error_reporting(0);
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 // if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
@@ -55,11 +56,13 @@ if (mysqli_num_rows($checkUsername) > 0) {
 
    // Insert records
    if($isValid){
-   	 $insertSQL1 = "INSERT INTO registration (username,password,unhashed_password ) values(?,?,?)";
-   	 $stmt = $link->prepare($insertSQL1);
-     $stmt->bind_param("sss",$username,$password,$unhashed_password);
-     $stmt->execute();
-     $stmt->close();
+   	 $sql = mysqli_query($link, "INSERT INTO registration (`id`,`username`,`password`, `unhashed_password`) VALUES ('$id', '$username', '$password', '$unhashed_password')" );
+   	
+   	 // $insertSQL1 = "INSERT INTO registration ( `username`, `password`, `unhashed_password` ) values(?,?,?)";
+   	 // $stmt = $link->prepare($insertSQL1);
+     // $stmt->bind_param("sss",$username,$password,$unhashed_password);
+     // $stmt->execute();
+     // $stmt->close();
 
       $sql = "UPDATE users SET username=?, password=?, unhashed_password=? WHERE id=?";
 
@@ -74,7 +77,9 @@ $stmt->execute();
 if ($stmt->error) {
   echo "FAILURE!!! " . $stmt->error;
 }
-else echo "Updated {$stmt->affected_rows} rows";
+else 
+// echo "Updated {$stmt->affected_rows} rows";
+	// echo $username;
 header("location: form.php");
 $stmt->close();
 
@@ -516,7 +521,7 @@ $stmt->close();
 		<header>
 			<nav class="navbar navbar-expand-lg navbar-main bg-white">
 				<div class="container">
-					<a class="navbar-brand" href="index.html">
+					<a class="navbar-brand" href="../index.html">
 						<img src="../images/logo1.svg" alt="logo" class="img img-responsive" height="100" width="100">
 					</a>
 					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -528,7 +533,7 @@ $stmt->close();
 					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 						<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 							<li class="nav-item active">
-								<a class="nav-link" href="index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
+								<a class="nav-link" href="../index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="about.html" data-toggle="tooltip" data-placement="bottom"  title="About Us">About Us</a>

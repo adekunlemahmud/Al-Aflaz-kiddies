@@ -1,3 +1,111 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+// if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+//     header("location: form.php");
+//     exit;
+// }
+ 
+// Include config file
+require_once "config.php";
+ 
+// Define variables and initialize with empty values
+$username = $password = "";
+$username_err = $password_err = "";
+ 
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+	$username = $_POST['username'];
+	$select = "SELECT * from registration WHERE username = '".$username."'";
+     $result = mysqli_query($link,$select);
+    if(mysqli_num_rows($result)>0)
+       {
+
+       
+       	header("location: reregister.php");
+        die(0);
+       }
+ 
+    // Check if username is empty
+    if(empty(trim($_POST["username"]))){
+        $username_err = "Please enter username.";
+    } else{
+        $username = trim($_POST["username"]);
+    }
+    
+    // Check if password is empty
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter your password.";
+    } else{
+        $password = trim($_POST["password"]);
+
+     }
+
+    
+    // Validate credentials
+    if(empty($username_err) && empty($password_err)){
+        // Prepare a select statement
+        
+        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        
+        if($stmt = mysqli_prepare($link, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            
+            // Set parameters
+            $param_username = $username;
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Store result
+                mysqli_stmt_store_result($stmt);
+                
+                // Check if username exists, if yes then verify password
+                if(mysqli_stmt_num_rows($stmt) == 1){                    
+                    // Bind result variables
+
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                    if(mysqli_stmt_fetch($stmt)){
+        			// $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                        if(password_verify($password, $hashed_password)){
+                            // Password is correct, so start a new session
+
+                            session_start();
+                            
+                            // Store data in session variables
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["username"] = $username; 
+                                                       
+                            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+ 							 $sql = mysqli_query($link, "INSERT INTO register (`username`,`password`,`hashedpassword`) VALUES ('$username', '$password', '$hashed_password')" );  
+                            // Redirect user to welcome page
+                            header("location: form.php");
+                        } else{
+                            // Display an error message if password is not valid
+                            $password_err = "The password you entered is not valid.";
+                        }
+                    }
+                } else{
+                    // Display an error message if username doesn't exist
+                    $username_err = "No account found with that username.";
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+    
+    // Close connection
+    mysqli_close($link);
+}
+?>
+ 
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -6,7 +114,7 @@
 	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	    <meta name="description" content="Al-Aflaz Kiddies School, islamic school, abuja islamic school, lugbe airport road">
 		<meta name="author" content="Al Aflaz Kiddies School">
-		<link rel="shortcut icon" href="https://res.cloudinary.com/dwszstiol/image/upload/v1587652905/al-aflaz/logo_mggujt.jpg">
+		<link rel="shortcut icon" href="../images/logo.jpg">
 		<!-- Fontawesome CSS -->
 	    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 	    <!-- Bootstrap CSS -->
@@ -66,11 +174,12 @@
 			  	font-size: calc(24px + 4 * (100vw - 767px) / 700) !important;
 			  	font-weight: 600 !important;
 				line-height: 150% !important;
+
 			}
-			/*h4,
+			h4,
 			.h4 {
 			  font-size: 1.6rem;
-			}*/
+			}
 			h5,
 			.h5 {
 			  	font-size: 1.2rem;
@@ -145,8 +254,13 @@
 				transition: 0s;
 				transform: scale(0, 0);
 			}
+			.btn-error{
+				background-color: red !important;
+				color: white;
+			}
 			.btn-primary{
 				background-color: var(--primary-color) !important;
+
 			}
 			.btn-secondary{
 				background-color: var(--secondary-color) !important;
@@ -158,8 +272,8 @@
 			}
 			.btn-secondary-outline{
 				background-color: transparent !important;
-				color: var(--secondary-color)  !important;
-				border: 2px solid var(--secondary-color)  !important;
+				color: white  !important;
+				border: 2px solid white  !important;
 			}
 			.btn-primary:hover, .btn-secondary:hover, .btn-primary-outline:hover, .btn-secondary-secondary:hover{
 				border-color: inherit !important;
@@ -168,22 +282,13 @@
 
 			.fas{
 				font-size: xx-large;
-    color: #10b541 !important;
+    			color: #10b541 !important;
 
 			}
 
-			/* .breath{
-				animation-name: breath;
-    animation-duration: 2s;
-    animation-direction: alternate;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
+			#err{
+				color: red;
 			}
-			@keyframes breath {
-	0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);}	
-	40% {-webkit-transform: translateY(-15px);}
-	
-} */
 
 
 			   /****************************/
@@ -254,7 +359,17 @@
 				color: gray !important;
 				text-decoration: none;
 			}
+			.text-head{
+        color: #7aff33;
+        text-shadow: 1px 1px 3px black;
+        font-weight: bold; 
+        margin-top: 10px;
+        font-size: 
+      }
 			/*-----------Other styles--------*/
+			.index-sec{
+        margin-top: 5.4em;
+      }
 			.carousalhead{
 				color: #fff;
         		text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
@@ -287,27 +402,8 @@
 			.arrow{
 				color: #10b541;
 			}
-      .breadcrumb{
-        align-content: center;
-        background-color:  #7ae835;
-        border-radius: 0px;
-      }
-      .breadcrumb-item{
-        color: white;
-        margin-left: 50px;
-        font-weight: bolder;
-        font: serif;
-        font-family: monospace;
-        text-shadow: 2px 2px 3px black; 
-      }
-      .text-head{
-        color: #7aff33;
-        text-shadow: 2px 2px 4px black;
-        font-weight: bold; 
-        margin-top: 10px;
-      }
-      /*dropdown features*/
-      
+			/*dropdown features*/
+			
 .dropdown {
   position: relative;
   display: inline-block;
@@ -337,41 +433,6 @@
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 /*dropdown features ends*/
-.bg{
-	background-image:  linear-gradient(to bottom, rgba(213, 240, 209, 0.52), rgba(117, 19, 93, 0.73)),
-url('https://res.cloudinary.com/dwszstiol/image/upload/v1587653378/al-aflaz/bg1_hxc4ag.jpg');
-	 
-	height: 200px;
-	
-}
-.center{
-	 text-align: center;
-	
-}
-.p-center{
-	font-weight: bold;
-	
-}
-.acad-sec{
-	margin-top: 5.4em;
-}
-.acad-head{
-	color: white;
-	padding-left: 60px;
-	padding-top: 2em  ; 
-}
-.st-anch{
-	color: white;
-	font-size: 14px;
-	margin-bottom: 1em;
-
-}
-.st-anch a:hover{
-				color: white !important;
-				text-decoration: none;
-				font-weight: bold;
-			}
-			/*<loader> */
 .loader-img{
 	height: 100px;
 	display: block;
@@ -407,9 +468,20 @@ url('https://res.cloudinary.com/dwszstiol/image/upload/v1587653378/al-aflaz/bg1_
 #loader{
 	margin-top: 12em;
 }
-/*</loader>*/
 
-      
+
+			
+.login-card{
+	margin-top: 6em;
+	display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+}
+.info{
+	font-size: 14px;
+	color: #10b541; 
+}
 	    </style>
 		<title>Al Aflaz Kiddies</title>
 	</head>
@@ -417,16 +489,17 @@ url('https://res.cloudinary.com/dwszstiol/image/upload/v1587653378/al-aflaz/bg1_
 		<!-- preloader starts -->
 		<div class="loader">
 
-  		<img class="loader-img" src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="Loading..." />
+  		<img class="loader-img" src="../images/logo1.svg" alt="Loading..." />
   		
-  		<img id="loader" class="loader-img" src="https://res.cloudinary.com/dwszstiol/image/upload/v1588514791/al-aflaz/loader1_qwivsd.gif" alt="Loading..." />
+  		<img id="loader" class="loader-img" src="../images/loader1.gif" alt="Loading..." />
+
 		</div>
 		<!-- preloader ends -->
 		<header>
 			<nav class="navbar fixed-top navbar-expand-lg navbar-main bg-white">
 				<div class="container">
 					<a class="navbar-brand" href="../index.html">
-						<img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100">
+						<img src="../images/logo1.svg" alt="logo" class="img img-responsive" height="100" width="100">
 					</a>
 					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar top-bar"></span>
@@ -435,102 +508,156 @@ url('https://res.cloudinary.com/dwszstiol/image/upload/v1587653378/al-aflaz/bg1_
 						<!-- <span class="navbar-toggler-icon"><i class="fa fa-bars fa-lg py-1 text-white"></i></span> -->
 					</button>
 					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-              <li class="nav-item ">
-                <a class="nav-link" href="../index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item ">
-                <a class="nav-link" href="about.html" data-toggle="tooltip" data-placement="bottom"  title="About Us">About Us</a>
-              </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link" href="academics.html">Academics</a> -->
-            <li class="nav-item dropdown active">
+						<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+							<li class="nav-item active">
+								<a class="nav-link" href="../index.html" data-toggle="tooltip" data-placement="bottom"  title="Home">Home <span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="about.html" data-toggle="tooltip" data-placement="bottom"  title="About Us">About Us</a>
+							</li>
+							
+						<li class="nav-item dropdown">
                 <!-- <a class="nav-link" href="academics.html" data-toggle="tooltip" data-placement="bottom"  title="Academics">Academics</a> -->
 
-              <a class="nav-link dropdown-toggle" href="academics.html" role="button" 
+    					<a class="nav-link dropdown-toggle" href="academics.html" role="button" 
    						 aria-haspopup="true" aria-expanded="true" data-toggle="tooltip" data-placement="right"  title="Academics">Academics</a>
     					<div class="dropdown-content">
      					<a class="" href="admission.html">Admission</a>
-      					<a class="" href="islamiyyah.html">Islamiyyah Section</a>
+     					<a class="" href="islamiyyah.html">Islamiyyah Section</a>
       					<a class="" href="#">Results</a>
-      					<!-- <div class="dropdown-divider"></div>
+      					<!-- <a class="" href="#">Something else here</a>
+      					<div class="dropdown-divider"></div>
       					<a class="" href="#">Separated link</a> -->
     					</div>
-              </li>
-              <!-- </li> -->
-              <li class="nav-item">
-                <a class="nav-link" href="events.html" data-toggle="tooltip" data-placement="bottom"  title="Events">Events</a>
-              </li> 
-              <li class="nav-item">
-                <a class="nav-link" href="contacts.html" data-toggle="tooltip" data-placement="bottom"  title="Contacts">Contacts</a>
-              </li>                              
-            </ul>
+  						</li>
+							<!-- </li> -->
+							<li class="nav-item">
+								<a class="nav-link" href="events.html" data-toggle="tooltip" data-placement="bottom"  title="Events">Events</a>
+							</li> 
+							<li class="nav-item">
+								<a class="nav-link" href="contacts.php" data-toggle="tooltip" data-placement="bottom"  title="Contacts">Contacts</a>
+							</li>                              
+						</ul>
 
-          </div>
-          
-        </div>
+					</div>
+					
+				</div>
 				
 			</nav>
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+  Launch static backdrop modal
+</button> -->
 
-						<!--<marquee>NURTURING FOR EXCELLENCE IN BOTH WORLDS</marquee>-->
-				<!--Carousel begins-->
-		
-		</header>
-		<section class="acad-sec">
-			<div class="bg">
-				<h3 class="acad-head">Admission</h3>
-				<span class="acad-head st-anch"><i class="fa fa-home" aria-hidden="true"></i>/<a class="st-anch" href="../index.html">Home</a>/<a class="st-anch" href="academics.html">Academics</a>/Islamiyyah</span>
-			</div>
-		</section>
-		<section id="section-id-1579638807800" class="sppb-section  double_border_bottom"  ><div class="sppb-row-container"><div class="sppb-row"><div class="sppb-col-md-6"><div id="column-id-1579638807801" class="sppb-addon-container" ><div id="sppb-addon-1579638807804" class="clearfix" ><div class="sppb-addon sppb-addon-alert ">
-		<main>
-			
-		  	<section class="mt-3 mb-3 pt-3">
-		  		<div class="container">
-		  				
-		  					<div class="text-left animated bounce">
-                  <h4 class="text-head">ISLAMIYYAH REQUIREMENTS</h4>
-			  					<p class="text-dark small">
-			  		Thank you for your kind interest in Al Aflaz Kiddies School Islamiyyah section,
-			  		this section holds between the hours of 4:30pm - 6:00pm (Monday-Wednesday) and 10:00am - 2:00pm (Saturday & Sunday).
-			  		All prospective pupils are required to meet the admission requirements, including age policy, placement test and payment of tuition and other related fees. Performance in the placement test will be used to allocate class.
-			  		<!-- <a href="ids.pdf">Download Here</a> -->
-                   
-                  </p>
-                  </div>
-                  <div>
-                  <p class="text-dark small">
-                      Purchase our admission form with a payment of the sum of =N=2, 000 (Two Thousand Naira) to the school admin or the bank account provided by the admin. Upon confirmation of payment you will be immediately provided a link to the admission form.  
-                      <p> <b style="color: red"> Admission form purchase is only applicable to non Al Aflaz pupils.</b></p>
+<!-- Modal -->
+<div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="color: red;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel" style="color: red;">Error Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    <p class="info" style="color: red;">The user name already exist.</p>
+ 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-error" data-dismiss="modal">OK</button>
+        <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+<section class="login-card">
+				<div class="card " style="width: 18rem;">
+  <img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" class="card-img-top" height="100" width="100" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Login Details</h5>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
 
-                    </p>
-                   
-                </div>
-              </div>
-              
-        
-       
-            
-            <div class="container">
-                  <div class="card">
-  					<div class="card-body center">
-    					<p class="p-center">For enquiries contact us on - 08063702081, 08154655990 </p>
-    					<p class="p-center">Email: alaflazkiddies@gmail.com</p>
-  					</div>
-				</div>
-			  					
-                </div>
-                
-                
-            
-              
-             
-		  			
-		  		
-		  	
+    <label class="info" >UserName</label>
+    <input name="username" type="text"  class="form-control form-text" value="<?php echo $username; ?>" id="userName" placeholder="Enter UserName">
+                <span id="err" class="help-block info"><?php echo $username_err; ?></span>
+  </div>
+            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+
+    <label  class="info">Password</label>
+    <input name="password" type="password"  class="form-control form-text"  placeholder="Enter Password">
+    <span class="help-block info" id="err"><?php echo $password_err; ?></span>
+  </div>
+   <input type="submit" name="submit" class="btn btn-card" value="Login">
+
+  
+
+</form>
+</div>
+</div>
+<div class="modal fade" id="errorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Login Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    <p class="info">Enter the Login Details provided to you  by the school's admin</p>
+ 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-card" data-dismiss="modal">OK</button>
+        <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+      </div>
+    </div>
+  </div>
 </div>
 </section>
-		  	
+
+						
+
+		  	<section class="bg-cardinal">
+		  		<div class="container mt-4 py-4">
+		  			<div class="row">
+		  				<div class="col-md-12">
+		  					<h3 class="text-white py-4 mb-4 text-center" data-aos="zoom-in">Our three cardinal <br> points</h3>
+		  				</div>
+		  			</div>
+		  			<div class="row">
+		  				<div class="col-md-4">
+		  					<div class="text-center text-white">
+		  						<img class="rounded" src="../images/nigerian.jpg" class="img img-responsive" height="auto" width="100%">
+		  						<p class="text-white text-bold mt-4">Nigerian</p>
+		  					</div>
+		  				</div>
+		  				<div class="col-md-4">
+		  					<div class="text-center text-white">
+		  						<img class="rounded" src="../images/british.jpg" class="img img-responsive" height="230.30px" width="100%">
+		  						<p class="text-white text-bold mt-4">British</p>
+		  					</div>
+		  				</div>
+		  				<div class="col-md-4">
+		  					<div class="text-center text-white">
+		  						<img class="rounded" src="../images/islamic.jpg" class="img img-responsive" height="auto" width="100%">
+		  						<p class="text-white text-bold mt-4">Islamic</p>
+		  					</div>
+		  				</div>
+		  			</div>
+		  			<div class="row">
+		  				<div class="col-md-12">
+		  					<p class="text-center">
+			  					<a href="academics.html" target="_blank" class="btn btn-secondary-outline btn-lg breath ">Learn More</a>
+			  				</p>
+		  				</div>
+		  			</div> 
+		  		</div>
+		  		<div id="divText">
+		  			testing
+		  		</div>
+		  	</section>
 		</main>
 
 		
@@ -538,7 +665,7 @@ url('https://res.cloudinary.com/dwszstiol/image/upload/v1587653378/al-aflaz/bg1_
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-2">
-						<img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="" class="img img-responsive mb-2" height="70" width="auto">
+						<img src="../images/logo1.svg" alt="" class="img img-responsive mb-2" height="70" width="auto">
 						<ul class="list-unstyled">
 							<li><a class="text-dark" href="academics.html">Academics</a></li>
 							<li><a class="text-dark" href="about.html">About Us</a></li>
@@ -599,14 +726,40 @@ url('https://res.cloudinary.com/dwszstiol/image/upload/v1587653378/al-aflaz/bg1_
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		<!-- <script type="text/javascript" src="js/main.js"></script> -->
-		<script>
-			AOS.init();
-		  </script>
-		  <script type="text/javascript">
+		<script type="text/javascript">
   window.addEventListener("load", function(){
   	const loader = document.querySelector(".loader");
   	loader.className += " hidden";
   });
 </script>
+		<script>
+			AOS.init();
+
+			$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+		  </script>
+		  <script type="text/javascript">
+		  	
+		  	function login(){
+		  		const userName = document.getElementById("userName").value;
+		  	const password = document.getElementById("password").value;
+		  		if (userName == "admin" && password == "admin"){
+		  			alert ("Login successfully");
+
+		  			window.location = "form.html";
+		  			return false;
+		  		} 
+		  		else{
+		  			alert("Incorrect Login details");
+		  		}
+		  	}
+		  	
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
+
+
+		  </script>
 	</body>
 </html>

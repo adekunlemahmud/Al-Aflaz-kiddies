@@ -6,6 +6,7 @@ error_reporting(0);
     // echo ($_SESSION['username']);
     $username = $_SESSION['username'];
     // echo $username; 
+    
     $select = mysqli_query($link, "SELECT * from registration WHERE username = '{$username}'");
     while ($output = mysqli_fetch_assoc($select)){
          $firstname = $output['firstname'];
@@ -489,6 +490,13 @@ error_reporting(0);
         .name{
             text-transform: capitalize;
         }
+        #table-info{
+            margin-left: 5em;
+            
+        }
+        .table-striped  #table-info{
+            font-weight: bold;
+        }
 
         /* ---------------------------------------------------
             MEDIAQUERIES
@@ -552,6 +560,8 @@ error_reporting(0);
             .container-fluid {
                 margin-left: 40px;
             }
+            
+         
         }
 
         @media (max-width: 533px) {
@@ -604,34 +614,37 @@ error_reporting(0);
             }
 
             .container-fluid .mydrop-down {
-                width: 100%;
+                width: 10%;
             }
 
             .container-fluid {
-                margin-left: -40px;
+                margin-left: -30px;
 
             }
             .nb{
                 /*margin-left: 30px;*/
-                border-style: solid;
+                /*border-style: solid;
                 width: 600px;
                 justify-content: center;
                 margin-right: 0em;
                 padding-left: 0em;
                 padding-right: 0em;
-                display: block;
+                display: block;*/
             }
             .nb-side{
-                /*margin-bottom: 30rem;*/
-                margin-right: 30rem;
-                border-style: solid;
+            margin-left: 2em;
 
             }
+
         }
 
         @media (max-width: 1024px) {
+
+            .nb-side{
+            margin-left: 1em;
+        }
             .nb{
-                display: block;
+                display: inline-block;
             }
             #sidebar {
                 margin-left: -220px;
@@ -745,13 +758,14 @@ error_reporting(0);
             bottom: 20px;
             left: 320px;
             z-index: 12;
+            display: none;
         }
         /*+++++++++++++flip image+++++++++++++++*/
         .card-container {
             perspective: 600;
             position: relative;
             width: 70em;
-            height: 40em;
+            height: 50em;
             margin-left: 1em;
             margin-top: 1em;
         }
@@ -826,6 +840,9 @@ error_reporting(0);
             margin-top: 2.5em;
 
         }
+        .nb-all{
+            /*pad-left: .5rem;*/
+        }
         .vl{
             border-left: 1px solid white;
             height: 35px;
@@ -896,7 +913,7 @@ error_reporting(0);
            text-transform: capitalize;
         }
         .nb-side{
-            margin-left: 15em;
+            /*margin-right: 3em;*/
             margin-top: 1em;
             background-color: white;
             width: 450px;
@@ -905,6 +922,7 @@ error_reporting(0);
         }
         .not-tab{
             max-width: 50px;
+            /*color: #47a0ed;*/
            
         }
          .hl{
@@ -928,6 +946,7 @@ error_reporting(0);
            text-transform: capitalize;
            padding-top: 1em;
            padding-left: 1em;
+           color: #19cf1c;
         }
        
          #print-content img{
@@ -968,7 +987,7 @@ error_reporting(0);
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-               <a href="index.html" data-toggle="tooltip" data-placement="bottom"  title="Homepage"><img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100"></a>
+               <a href="../index.html" data-toggle="tooltip" data-placement="bottom"  title="Homepage"><img src="https://res.cloudinary.com/dwszstiol/image/upload/v1587652605/al-aflaz/logo1_mt1hbx.svg" alt="logo" class="img img-responsive" height="100" width="100"></a>
                 
             </div>
             <ul class="list-unstyled components">
@@ -1082,11 +1101,11 @@ error_reporting(0);
                     </a>
                 </div>
                     <div class="col-sm-2 info-begin top-2">
-                         <a href="#" class="a-rel">
+                         <a href="payment.php" class="a-rel">
                         <div id="up-down"><i class="fas fa-money-bill-alt"></i> 
                         <span> Due Fees</span></div>
                         <div class="vl"></div>
-                        <div class="num">&#8358;<?php echo number_format($amountPayable);  ?></div>
+                        <div class="num">&#8358;<?php echo number_format($amountPayable); ?></div>
                     </a>
                     </div>
                     <div class="col-sm-2 info-begin top-3">
@@ -1108,9 +1127,9 @@ error_reporting(0);
                     
                 </div>
 
-                <div class="row">
+                <div class="row nb-all">
                     
-                <div class="col-sm-4 card-container">
+                <div class="col-sm-7 card-container">
                     
                     <div class="card">
                     	
@@ -1128,37 +1147,65 @@ error_reporting(0);
                     ?> 
                            
                         </div>
-                        <div class="col-new1">
-                            <p>Admission Number:</p>
-                            <p>Name:</p>
-                            <p>Gender:</p>
-                            <p>Father's Name:</p>
-                            <p>Mother's Name:</p>
-                            <p>Date of Birth:</p>
-                            <p>Father's Occupation:</p>
-                            <p>Email:</p>
-                            <p>Admission Date:</p>
-                            <p>Admitted Class:</p>
-                            <p>Present Class:</p>
-                            <p>Home Address:</p>
-                            <p>Phone:</p>
-                        </div>
-                        <div class="col-new2">
-                            
-                            <p><?php echo $admissionNum;?></p>
-                            <p><?php echo $firstname; echo" "; echo $surname;?></p>
-                            <p><?php echo $gender;?></p>
-                            <p><?php echo $lfather_name; echo" "; echo $sfather_name;?></p>
-                            <p><?php echo $lmother_name; echo" "; echo $smother_name;?></p>
-                            <p><?php echo $dob;?></p>
-                            <p><?php echo $father_occupation;?></p>
-                            <p><?php echo $father_email;?></p>
-                            <p><?php echo $regDate;?></p>
-                            <p><?php echo $class;?></p>
-                            <p><?php echo $presntClass;?></p>
-                            <p><?php echo $contact_address;?></p>
-                            <p><?php echo  $father_phone;?>, <?php echo  $mother_phone;?></p> 
-                        </div>
+
+                        <table class="table table-striped" id="table-info">
+                      <thead>
+                        <tr>
+                          <th scope="col">Admission Number:</th>
+                          <th><?php echo $admissionNum;?></th>
+                          </tr>
+                          <tr>
+                          <th scope="col">Name:</th>
+                          <th><?php echo $firstname; echo" "; echo $surname;?></th>
+                          </tr>
+                          <tr>
+                          <th scope="col">Gender:</th>
+                           <th><?php echo $gender;?></th>                          
+                          </tr>
+                          <tr>
+                          <th scope="col">Father's Name:</th>
+                          <th><?php echo $lfather_name; echo" "; echo $sfather_name;?></th>
+                          </tr>
+                          <tr>
+                          <th scope="col">Mother's Name:</th>
+                          <th><?php echo $lmother_name; echo" "; echo $smother_name;?></th>
+                          </tr>
+                          <tr>
+                          <th scope="col">Date of Birth:</th>
+                          <th><?php echo $dob;?></th>
+                          </tr>
+                          <tr>
+                          <th scope="col">Father's Occupation:</th>
+                           <th><?php echo $father_occupation;?></th>
+                          </tr>
+                          <tr>
+                          <th scope="col">Email:</th>
+                           <th><?php echo $father_email;?></th>
+                          </tr>
+                          <tr>
+                          <th scope="col">Admission Date:</th>
+                          <th><?php echo $regDate;?></th>
+                          </tr>
+                          <tr>
+                          <th scope="col">Admitted Class:</th>
+                          <th><?php echo $class;?></th>
+                          </tr>
+                          <tr>
+                          <th scope="col">Present Class:</th>
+                          <th><?php echo $presntClass;?></th>
+                          </tr>
+                          <tr>
+                          <th scope="col">Home Address:</th>
+                          <th><?php echo $contact_address;?></th>
+                          </tr>
+                          <tr>
+                          <th scope="col">Phone:</th>
+                          <th><?php echo  $father_phone;?>, <?php echo  $mother_phone;?></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                     
+                    </table>
                         
                         </div>
                         
